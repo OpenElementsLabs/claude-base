@@ -49,9 +49,20 @@ Create the spec folder under `specs/` following the naming convention from the s
 
 Enter plan mode to discuss the technical design with the user. The goal is to produce a `design.md` following the structure defined in the spec-driven development doc.
 
-Not every section is needed for every task — skip what is not relevant. A small bug fix might only need Summary and Technical approach. A new feature might need most sections.
+Not every section is needed for every task — adapt the content to the type of change:
 
-For key design decisions (e.g., choice of technology, data model structure, API style), include a brief rationale explaining **why** this approach was chosen over alternatives.
+**For features**, the full design structure applies: Summary, Goals, Non-goals, Technical approach, API design, Data model, Key flows, etc.
+
+**For bug fixes**, the design focuses on different priorities:
+- **Summary** — What is broken and what is the user-visible impact
+- **Reproduction** — Steps to reproduce the bug, including preconditions and environment details
+- **Root cause analysis** — Why the bug occurs, which component is responsible, and what the underlying issue is (not just the symptom)
+- **Fix approach** — How the bug will be fixed, which files/components are affected, and why this approach is correct
+- **Regression risk** — What could break as a side effect of the fix
+
+Keep bug fix designs lean — the goal is to understand the problem deeply before writing code, not to produce extensive documentation.
+
+For key design decisions (e.g., choice of technology, data model structure, API style, fix strategy), include a brief rationale explaining **why** this approach was chosen over alternatives.
 
 Where it helps clarity, use **Mermaid diagrams** — e.g., sequence diagrams for key flows, ER diagrams for data models, or component diagrams for architecture. Only add diagrams when they communicate better than text alone.
 

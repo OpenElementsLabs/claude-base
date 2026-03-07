@@ -51,6 +51,13 @@ Describes the technical approach for the change. Sections (include only what is 
 
 Key design decisions include a brief **rationale** explaining why the approach was chosen over alternatives.
 
+**For bug fixes**, the design focuses on different sections:
+- **Summary** — What is broken and what is the user-visible impact
+- **Reproduction** — Steps to reproduce the bug, preconditions, environment details
+- **Root cause analysis** — Why the bug occurs, which component is responsible
+- **Fix approach** — How the bug will be fixed, which files/components change
+- **Regression risk** — What could break as a side effect
+
 Use **Mermaid diagrams** where they help clarify the design — for example sequence diagrams for key flows, entity-relationship diagrams for data models, or component diagrams for architecture. Embed them directly in the Markdown using fenced code blocks:
 
 ````markdown
