@@ -31,7 +31,10 @@
 - Name test methods descriptively: `shouldReturnEmptyListWhenNoItemsExist()` or use `@DisplayName`.
 - Use `@Nested` classes to group related tests within a test class.
 - Use `@ParameterizedTest` for testing multiple inputs with the same logic.
-- Use "//GIVEN //WHEN //THEN" syntax for all tests
+- Use `//GIVEN //WHEN //THEN` comments to structure test methods.
+- Test one behavior per test method. Provide meaningful assertion messages.
+- Test edge cases: null values, empty collections, boundary values, and expected exceptions.
+- Keep tests independent and fast — each test should run in milliseconds without depending on other tests.
 
 ## Logging
 
@@ -74,14 +77,24 @@
   instead of `MoneyFactory.create()`).
 - Name factory methods descriptively: `of`, `from`, `create`, `valueOf`.
 
+## Builder Pattern
+
+- Use the builder pattern for classes with more than 4–5 constructor parameters, multiple optional parameters, or confusing parameter ordering.
+- Provide a static `builder()` factory method. All builder setter methods return `this` for a fluent interface.
+- Make the builder a `static final` nested class within the product class.
+- Set default values in builder field declarations, not in the `build()` method.
+- Perform validation in the main class constructor, not in builder setter methods. Perform null checks on required parameters in builder setters.
+- Always provide a public all-args constructor alongside the builder for direct instantiation.
+- Builders are not thread-safe — each thread needs its own builder instance.
+
 ## Java Module System
 
-- Use the Java Platform Module System (JPMS) for standalone libraries whenever possible. Define a `module-info.java`
-  that exports only the public API packages and keeps implementation packages hidden.
+- Use the Java Platform Module System (JPMS) for standalone libraries whenever possible. Define a `module-info.java` that exports only the public API packages and keeps implementation packages hidden.
 - Only export packages that contain the public API. Internal and implementation packages should not be exported.
 - Use `requires` to declare module dependencies explicitly rather than relying on the classpath.
-- Some frameworks (e.g., Spring Boot) have limited JPMS support. In those projects, skip module-info if it causes
-  friction — but still structure packages as if modules were in use (separate API and implementation packages).
+- Use `requires static` for compile-time only dependencies (annotation libraries, code generators).
+- Structure packages to separate API from implementation (e.g., `com.example.mylib/` for public API, `com.example.mylib.impl/` for internals), even in projects that do not use JPMS.
+- Some frameworks (e.g., Spring Boot) have limited JPMS support. In those projects, skip module-info if it causes friction — but still follow the package structure convention above.
 
 ## Asynchronous Code
 
