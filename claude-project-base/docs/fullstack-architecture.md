@@ -84,6 +84,23 @@ services:
 - In local development, the frontend connects to the backend via `localhost` and the backend's dev port.
 - API contracts should be clearly defined. Changes to the API should be coordinated between frontend and backend.
 
+## Pinned Tool Versions
+
+Pin exact versions of runtimes and build tools in the repository so that every developer and CI environment uses the same versions.
+
+- **Java**: Use a `.sdkmanrc` file in the backend directory to pin the Java version (e.g., `java=25`). Developers activate it with `sdk env install`.
+- **Node.js**: Use a `.nvmrc` file in the frontend directory to pin the Node.js version (e.g., `v22.19.0`). Developers activate it with `nvm install`.
+- **Build tool wrappers**: Use the Maven Wrapper (`mvnw`) or Gradle Wrapper (`gradlew`) so the build tool version is committed to the repository and does not need to be installed separately.
+- Do not rely on globally installed tool versions. The repository must define everything needed to build and run.
+
+## Configuration
+
+- Both frontend and backend must be configurable via environment variables. All environment-specific values (database URLs, API keys, feature flags, external service URLs) must be read from environment variables — never hardcoded.
+- For local development, use a `.env` file at the repository root (or per application directory) to define environment variables. Docker Compose loads `.env` files automatically.
+- Add `.env` to `.gitignore`. Provide a `.env.example` file with all required variables and sensible defaults or placeholder values as documentation.
+- In hosted environments (Coolify, cloud platforms, CI/CD), set environment variables directly in the platform configuration instead of using `.env` files.
+- Design configuration so that the same container image can run in any environment (local, test, production) — only the environment variables change.
+
 ## What to Avoid
 
 - Do not share code between frontend and backend (no shared `lib/` or common modules).
