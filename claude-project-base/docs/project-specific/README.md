@@ -1,11 +1,21 @@
 # Project-Specific Documentation
 
-This directory is reserved for project-specific documentation. Projects that use `claude-project-base` as a base template can add their own docs here without conflicting with the shared base documentation.
+This directory contains project-specific documentation that gives Claude Code persistent context about the project. The files here are maintained per project and are not overwritten by `update-claude-base`.
 
-Add project-specific conventions, architecture decisions, or configuration details as Markdown files in this directory and link them below so that Claude Code can find them.
+## Standard Project Files
 
-## Project Docs
+These files describe the project so that Claude Code understands the context when working on any change. Use `/project-analyze` to generate or update them automatically.
 
-<!-- Add links to your project-specific docs here, for example: -->
-<!-- - [Authentication](authentication.md) — OAuth2 setup and token handling -->
-<!-- - [Deployment](deployment.md) — Production deployment process -->
+- [Project Features](project-features.md) — What the product does, its core features and user-facing capabilities
+- [Project Tech Stack](project-tech.md) — Languages, frameworks, libraries, databases, and external services used
+- [Project Structure](project-structure.md) — Repository layout, directory structure, and where to find what
+- [Project Architecture](project-architecture.md) — Technical architecture, component interactions, and data flow
+
+## Additional Project Docs
+
+Add further project-specific documentation here as needed, for example:
+
+- Authentication and authorization setup
+- Deployment process and environments
+- Third-party integrations
+- Domain-specific conventions
