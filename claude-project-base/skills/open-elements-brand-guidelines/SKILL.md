@@ -1,6 +1,7 @@
 ---
 name: open-elements-brand-guidelines
 description: Applies the official brand colors and typography of Open Elements to any sort of artifact that may benefit from having the look-and-feel of Open Elements. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.
+user-invocable: false
 ---
 
 # Open Elements Brand Styling
