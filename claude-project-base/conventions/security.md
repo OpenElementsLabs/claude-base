@@ -147,18 +147,6 @@ Log every tool call Claude Code makes to `claude.log` in the project root. This 
 
 This logs all tool calls (Bash, Read, Edit, Write, Glob, Grep, etc.) with timestamp and input. The log is temporary and must be added to `.gitignore`.
 
-## Rules for Claude Code Behavior
-
-These rules belong in `CLAUDE.md` or the project's convention documents:
-
-- Never read or write files outside the project directory unless the user explicitly asks for it.
-- Never modify system-level configuration files (shell profiles, system packages, etc.).
-- Never store, log, or echo secrets, API keys, passwords, or tokens.
-- Always use environment variables or secret management tools for sensitive values.
-- Always include `.env` in `.gitignore`.
-- Use parameterized queries for database access — never build SQL from string concatenation.
-- Keep dependencies up to date to avoid known vulnerabilities.
-
 ## Setup Checklist
 
 When adding `claude-project-base` to a new project:

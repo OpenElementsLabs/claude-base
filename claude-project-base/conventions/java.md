@@ -14,6 +14,8 @@ These are the typical commands for Maven-based Java projects. Always use the Mav
 
 ## Code Style
 
+Formatting rules (indentation, charset, line endings) are defined in `.editorconfig` — see [editorconfig.md](editorconfig.md).
+
 - **IMPORTANT**: Do not use wildcard imports (`import java.util.*`). Always use explicit imports.
 - **IMPORTANT**:Prefer `final` fields and local variables where possible.
 - Use `final` on method parameters when the method body does not reassign them.
