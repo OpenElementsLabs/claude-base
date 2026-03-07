@@ -2,7 +2,20 @@
 
 ## Overview
 
-Our backends are written in Java, typically using Spring Boot. This document covers conventions specific to backend applications. For general Java conventions, see [java.md](java.md).
+Our backends are written in Java. This document covers conventions specific to backend applications. For general Java conventions, see [java.md](java.md).
+
+## Frameworks
+
+We use two frameworks for building backend applications:
+
+- **[Spring Boot](https://spring.io/projects/spring-boot)** — The full-featured option. Use Spring Boot when the application needs a broad ecosystem (security, data access, messaging, etc.) and development speed matters more than minimal footprint.
+- **[Helidon SE](https://helidon.io/)** — The lightweight option. Use Helidon SE for performant, lean backends where a small footprint and low startup time are important.
+
+Both are valid choices depending on the project requirements. We aim to provide Open Elements base libraries (as dependencies) for both frameworks in the future.
+
+### Libraries for Backend Frameworks
+
+When building libraries that target backend applications, provide support for Spring Boot and Helidon SE as primary targets. Additionally, offer support for [Eclipse MicroProfile](https://microprofile.io/) and [Eclipse Jakarta EE](https://jakarta.ee/) where feasible, to broaden compatibility. For concrete backend applications, we typically do not use MicroProfile or Jakarta EE directly.
 
 ## REST APIs and OpenAPI
 
