@@ -2,15 +2,15 @@
 
 ## API Design
 
-- Define clean, minimal public APIs. Expose only what consumers need and hide all implementation details behind private or package-private access.
+- **IMPORTANT**: Define clean, minimal public APIs. Expose only what consumers need and hide all implementation details behind private or package-private access.
 - Use language features to enforce encapsulation (Java modules, package-private classes, internal packages). The goal is that implementation details are not just undocumented but truly inaccessible.
 - API design, modularization, meaningful abstractions, and configurability have the highest priority. Software from Open Elements stands out through quality in these areas.
 - Follow the principle of convention over configuration — provide sensible defaults, but allow overriding where needed.
-- Never expose API solely for testing purposes. Tests should exercise the public API as a consumer would. Prefer more complex tests over polluting the API with test-only entry points.
+- **IMPORTANT**: Never expose API solely for testing purposes. Tests should exercise the public API as a consumer would. Prefer more complex tests over polluting the API with test-only entry points.
 
 ## Technical Integrity
 
-- Do not implement features that cannot be done correctly. Open Elements does not ship solutions that only work in 60% of cases or that are known to cause problems in the future.
+- **IMPORTANT**: Do not implement features that cannot be done correctly. Open Elements does not ship solutions that only work in 60% of cases or that are known to cause problems in the future.
 - If a requirement cannot be met with a clean technical solution, raise the concern rather than building a workaround.
 
 ## Namespace

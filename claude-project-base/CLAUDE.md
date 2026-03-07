@@ -15,10 +15,10 @@ Projects that use this as a base can override or extend these rules in their own
 
 ## Security
 
-- Never commit secrets, API keys, passwords, or tokens. Use environment variables or secret management tools.
-- Always include `.env` in `.gitignore` to prevent accidental commits of local configuration with secrets.
+- **IMPORTANT**: Never commit secrets, API keys, passwords, or tokens. Use environment variables or secret management tools.
+- **IMPORTANT**: Always include `.env` in `.gitignore` to prevent accidental commits of local configuration with secrets.
 - Validate and sanitize all external input (user input, API responses, file contents).
-- Use parameterized queries for database access — never build SQL from string concatenation.
+- **IMPORTANT**: Use parameterized queries for database access — never build SQL from string concatenation.
 - Keep dependencies up to date to avoid known vulnerabilities.
 
 ## Testing

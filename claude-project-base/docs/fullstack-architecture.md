@@ -27,7 +27,7 @@ project-root/
 
 ## Core Principles
 
-- **Full independence**: Backend and frontend are separate applications. Each has its own source code, dependencies, build process, and configuration. There are no shared modules, monorepo tooling, or cross-references between them.
+- **IMPORTANT — Full independence**: Backend and frontend are separate applications. Each has its own source code, dependencies, build process, and configuration. There are no shared modules, monorepo tooling, or cross-references between them.
 - **Separate containers**: Each application has its own `Dockerfile` in its directory. Each container can be built and run independently.
 - **Docker Compose for orchestration**: A `docker-compose.yml` at the repository root wires the containers together. It handles port mapping, environment variables (like `BACKEND_URL` for the frontend), and startup ordering.
 - **Independent local development**: Each application can be started on its own for development without Docker. The backend and frontend each have their own dev server and can be run in separate terminals.
@@ -95,7 +95,7 @@ Pin exact versions of runtimes and build tools in the repository so that every d
 
 ## Configuration
 
-- Both frontend and backend must be configurable via environment variables. All environment-specific values (database URLs, API keys, feature flags, external service URLs) must be read from environment variables — never hardcoded.
+- **IMPORTANT**: Both frontend and backend must be configurable via environment variables. All environment-specific values (database URLs, API keys, feature flags, external service URLs) must be read from environment variables — never hardcoded.
 - For local development, use a `.env` file at the repository root (or per application directory) to define environment variables. Docker Compose loads `.env` files automatically.
 - Add `.env` to `.gitignore`. Provide a `.env.example` file with all required variables and sensible defaults or placeholder values as documentation.
 - In hosted environments (Coolify, cloud platforms, CI/CD), set environment variables directly in the platform configuration instead of using `.env` files.
@@ -103,7 +103,7 @@ Pin exact versions of runtimes and build tools in the repository so that every d
 
 ## What to Avoid
 
-- Do not share code between frontend and backend (no shared `lib/` or common modules).
+- **IMPORTANT**: Do not share code between frontend and backend (no shared `lib/` or common modules).
 - Do not create a single Dockerfile that builds both applications.
 - Do not use monorepo tools (Nx, Turborepo) to couple the build processes.
-- Do not hardcode ports or URLs — use environment variables with sensible defaults.
+- **IMPORTANT**: Do not hardcode ports or URLs — use environment variables with sensible defaults.

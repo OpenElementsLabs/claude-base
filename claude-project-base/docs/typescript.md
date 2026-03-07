@@ -3,7 +3,7 @@
 ## Technology Stack
 
 - **Language**: TypeScript is the default for all frontends. Only use plain JavaScript where enabling TypeScript would be disproportionate overhead.
-- **Framework**: [React](https://react.dev) is the base UI framework. Do not use alternatives like Vue or Angular.
+- **Framework**: [React](https://react.dev) is the base UI framework. **IMPORTANT**: Do not use alternatives like Vue or Angular.
 - **Application Framework**: [Next.js](https://nextjs.org) on top of React for concrete frontend applications.
 - **Styling**: [Tailwind CSS](https://tailwindcss.com) for all styling. Do not introduce other CSS frameworks.
 - **Component Library**: [shadcn/ui](https://ui.shadcn.com) as the component library.
@@ -23,10 +23,10 @@ These are the typical commands for TypeScript/Next.js projects. Adjust the packa
 
 ## Code Style
 
-- Enable `strict` mode in `tsconfig.json`. Do not weaken strict checks without explicit justification.
+- **IMPORTANT**: Enable `strict` mode in `tsconfig.json`. Do not weaken strict checks without explicit justification.
 - Use explicit type annotations for function parameters and return types. Rely on inference for local variables.
 - Prefer `interface` over `type` for object shapes unless you need union types or mapped types.
-- Use `const` by default. Use `let` only when reassignment is needed. Never use `var`.
+- Use `const` by default. Use `let` only when reassignment is needed. **IMPORTANT**: Never use `var`.
 - Prefer `readonly` for properties that should not be reassigned after initialization.
 - Follow standard naming: `PascalCase` for types/interfaces/classes, `camelCase` for variables/functions, `UPPER_SNAKE_CASE` for constants.
 

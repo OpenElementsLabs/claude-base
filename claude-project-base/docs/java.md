@@ -14,20 +14,19 @@ These are the typical commands for Maven-based Java projects. Always use the Mav
 
 ## Code Style
 
-- Do not use wildcard imports (`import java.util.*`). Always use explicit imports.
-- Prefer `final` fields and local variables where possible.
+- **IMPORTANT**: Do not use wildcard imports (`import java.util.*`). Always use explicit imports.
+- **IMPORTANT**:Prefer `final` fields and local variables where possible.
 - Use `final` on method parameters when the method body does not reassign them.
 - Prefer records for immutable data carriers. Use classes with `final` fields and getters for types that mix mutable and
   immutable state.
 - Do not use `var`
 - Follow standard Java naming: `PascalCase` for classes, `camelCase` for methods/fields, `UPPER_SNAKE_CASE` for
   constants.
-- Do not use Lombok. Use modern Java features (records, pattern matching) instead.
+- **IMPORTANT**: Do not use Lombok. Use modern Java features (records, pattern matching) instead.
 - Always override `equals`, `hashCode`, and `toString` together for non-record classes. Use `Objects.equals()` and
   `Objects.hash()` as helpers.
-- Format `toString` as `ClassName[field1=value1, field2=value2]`. Never expose sensitive data (passwords, tokens) in
-  `toString`.
-- All public API (public classes, interfaces, methods, constructors, and fields) must have Javadoc comments.
+- Format `toString` as `ClassName[field1=value1, field2=value2]`. **IMPORTANT**: Never expose sensitive data (passwords, tokens) in `toString`.
+- **IMPORTANT**: All public API (public classes, interfaces, methods, constructors, and fields) must have Javadoc comments.
 
 ## Build Tools
 
@@ -65,7 +64,7 @@ These are the typical commands for Maven-based Java projects. Always use the Mav
 - Prefer `Optional.ofNullable(value)` when nullability is uncertain. Use `Optional.of(value)` only when the value is guaranteed non-null.
 - Annotate parameters and fields with `@Nullable` or `@NonNull` (using `org.jspecify` when available) to make intent explicit.
 - Use `Objects.requireNonNull(param, "paramName must not be null")` for early validation of non-null parameters — always include the parameter name in the message.
-- Never return `null` from a method that returns a collection — return an empty collection instead.
+- **IMPORTANT**: Never return `null` from a method that returns a collection — return an empty collection instead.
 
 ## Collections
 
@@ -77,7 +76,7 @@ These are the typical commands for Maven-based Java projects. Always use the Mav
 
 ## Immutability and Validation
 
-- Prefer immutable objects. Use records for fully immutable types.
+- **IMPORTANT**: Prefer immutable objects. Use records for fully immutable types.
 - Validate constructor and setter arguments early. Throw `IllegalArgumentException` for constraint violations (min/max
   values, string length, patterns).
 - Use `java.time` types (`Instant`, `LocalDate`, `Duration`, etc.) for all date and time handling — never
@@ -103,7 +102,7 @@ These are the typical commands for Maven-based Java projects. Always use the Mav
 ## Java Module System
 
 - Use the Java Platform Module System (JPMS) for standalone libraries whenever possible. Define a `module-info.java` that exports only the public API packages and keeps implementation packages hidden.
-- Only export packages that contain the public API. Internal and implementation packages should not be exported.
+- **IMPORTANT**: Only export packages that contain the public API. Internal and implementation packages should not be exported.
 - Use `requires` to declare module dependencies explicitly rather than relying on the classpath.
 - Use `requires static` for compile-time only dependencies (annotation libraries, code generators).
 - Structure packages to separate API from implementation (e.g., `com.example.mylib/` for public API, `com.example.mylib.impl/` for internals), even in projects that do not use JPMS.
