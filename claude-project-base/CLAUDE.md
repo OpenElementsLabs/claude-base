@@ -67,6 +67,10 @@ Available documents:
 
 - [Spec-Driven Development](docs/spec-driven-development.md) — specs folder structure, design docs, behavioral scenarios, implementation steps
 
+### CI/CD
+
+- [GitHub Actions](docs/github-actions.md) — build workflows, docs deployment, release drafter for Java, TypeScript, and fullstack projects
+
 ### Documentation and Repository Setup
 
 - [Repository Setup](docs/repo-setup.md) — required root files (README, LICENSE, CoC, CONTRIBUTING, .editorconfig)
