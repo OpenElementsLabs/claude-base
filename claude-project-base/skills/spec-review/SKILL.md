@@ -52,14 +52,14 @@ Present a structured report:
 ## Design Coverage
 
 | Design Element | Status | Notes |
-|---------------|--------|-------|
-| ...           | ...    | ...   |
+|----------------|--------|-------|
+| ...            | ...    | ...   |
 
 ## Behavior Coverage
 
 | Scenario | Status | Test Location |
-|----------|--------|--------------|
-| ...      | ...    | ...          |
+|----------|--------|---------------|
+| ...      | ...    | ...           |
 
 ## Summary
 
