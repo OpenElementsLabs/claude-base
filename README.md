@@ -1,58 +1,52 @@
 # claude-base
 
-A central collection of Claude Code configurations, skills, and documentation for Open Elements projects. Designed for Java and TypeScript projects, but the base rules apply to any language.
+A central collection of Claude Code configurations, conventions, and skills for Open Elements projects. The `claude-project-base/` directory is designed to be copied or linked into any project to provide a solid foundation for working with Claude Code.
 
 ## What is this?
 
-This repository provides reusable building blocks for Claude Code:
+When using [Claude Code](https://docs.anthropic.com/en/docs/claude-code), project-level `CLAUDE.md` files define conventions, rules, and context that Claude follows. Writing and maintaining these from scratch for every project is tedious and leads to inconsistencies.
 
-- **`CLAUDE.md`** — Base template with general code quality, security, testing, and PR conventions
-- **`docs/`** — Language-specific conventions for Java and TypeScript
-- **`skills/`** — Custom Claude Code skills that can be used across projects
+This repository solves that by providing a shared base configuration in `claude-project-base/`:
+
+- **`CLAUDE.md`** — Base conventions for code quality, security, testing, and PRs
+- **`docs/`** — Detailed convention documents for languages, architecture, and tooling (selectively included per project)
+- **`skills/`** — Reusable Claude Code skills for common tasks
+
+The base `CLAUDE.md` explains which docs to include for different project types (Java library, TypeScript frontend, fullstack app, etc.) so that only relevant context is loaded.
 
 ## How to use in your project
 
-### Option 1: Copy the base configuration
+### Option 1: Copy the directory
 
-Copy `CLAUDE.md` into your project root and adapt it to your needs. Include the relevant language docs by adding references:
+Copy `claude-project-base/` into your project and rename it as needed. Reference it from your project's root `CLAUDE.md`:
 
 ```markdown
-# In your project's CLAUDE.md, add at the end:
-
-See also: docs/java.md (from claude-base)
+# In your project's CLAUDE.md
+Also follow the rules in claude-project-base/CLAUDE.md
 ```
 
-### Option 2: Reference as a submodule
+### Option 2: Git submodule
 
-Add this repository as a git submodule:
+Add this repository as a git submodule so you can pull updates:
 
 ```bash
-git submodule add https://github.com/open-elements/claude-base.git .claude-base
+git submodule add https://github.com/open-elements/claude-base.git claude-project-base
 ```
 
-Then reference the files from your project's `CLAUDE.md`:
+Then reference the base configuration from your project's `CLAUDE.md`:
 
 ```markdown
-Also follow the rules in .claude-base/CLAUDE.md and .claude-base/docs/java.md
+# In your project's CLAUDE.md
+Also follow the rules in claude-project-base/CLAUDE.md
 ```
 
-### Using Skills
+### Selecting relevant docs
 
-Copy skills from `skills/` into your project's `.claude/skills/` directory or reference them from this repository.
+Not every project needs every document. The base `CLAUDE.md` contains guidance on which docs to include based on your project type. Only reference what is relevant — excessive context causes rules to be ignored.
 
-## Available Documentation
+### Using skills
 
-| File | Description |
-|------|-------------|
-| [CLAUDE.md](claude-project-base/CLAUDE.md) | Base conventions (code quality, security, testing, PRs) |
-| [docs/java.md](claude-project-base/docs/java.md) | Java conventions (code style, JUnit 5, SLF4J, null handling) |
-| [docs/typescript.md](claude-project-base/docs/typescript.md) | TypeScript conventions (strict mode, linting, testing) |
-
-## Available Skills
-
-| Skill | Description |
-|-------|-------------|
-| [simplify](claude-project-base/skills/simplify.md) | Review changed code for reuse, quality, and efficiency |
+Copy the skills you need from `claude-project-base/skills/` into your project's `.claude/skills/` directory, or reference them directly if using the submodule approach.
 
 ## License
 
