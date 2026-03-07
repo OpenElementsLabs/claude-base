@@ -1,7 +1,6 @@
 ---
 name: web-accessibility
 description: Audit and improve web accessibility following WCAG 2.1 guidelines. Use in front-end development to always create accessible web experiences.
-user-invocable: false
 ---
 
 This skill is based on https://github.com/addyosmani/web-quality-skills
