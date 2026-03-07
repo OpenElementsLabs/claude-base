@@ -7,7 +7,7 @@ description: Plan a feature or bug fix by creating a structured specification. S
 
 Plan a feature or bug fix collaboratively. Produces a `design.md` (technical design) and a `behaviors.md` (behavioral scenarios in given-when-then format) in a dedicated spec folder.
 
-Before starting, read `../../docs/spec-driven-development.md` for the full spec folder structure, file formats, and conventions.
+Before starting, read `../../conventions/spec-driven-development.md` for the full spec folder structure, file formats, and conventions.
 
 ## Instructions
 

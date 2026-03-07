@@ -17,17 +17,17 @@ Depending on the project type, the skill will provide specific guidance on how t
 
 ## Instructions
 
-Before performing any review or setup task, **read all convention documents first** to have full knowledge of Open Elements standards. The docs are located relative to this skill at `../../docs/`:
+Before performing any review or setup task, **read all convention documents first** to have full knowledge of Open Elements standards. The docs are located relative to this skill at `../../conventions/`:
 
 1. Read all of the following files:
-   - `../../docs/software-quality.md` — API design, technical integrity, namespace, SBOM, CI
-   - `../../docs/repo-setup.md` — required root files (README, LICENSE, CoC, .gitignore)
-   - `../../docs/documentation.md` — Markdown, MkDocs, GitHub Pages, ADRs
-   - `../../docs/java.md` — Java conventions
-   - `../../docs/typescript.md` — TypeScript conventions
-   - `../../docs/backend.md` — Backend frameworks, REST/OpenAPI, database, observability
-   - `../../docs/fullstack-architecture.md` — Frontend/backend separation, Docker, configuration, pinned tool versions
-   - `../../docs/project-specific/README.md` — Project-specific docs (if any exist)
+   - `../../conventions/software-quality.md` — API design, technical integrity, namespace, SBOM, CI
+   - `../../conventions/repo-setup.md` — required root files (README, LICENSE, CoC, .gitignore)
+   - `../../conventions/documentation.md` — Markdown, MkDocs, GitHub Pages, ADRs
+   - `../../conventions/java.md` — Java conventions
+   - `../../conventions/typescript.md` — TypeScript conventions
+   - `../../conventions/backend.md` — Backend frameworks, REST/OpenAPI, database, observability
+   - `../../conventions/fullstack-architecture.md` — Frontend/backend separation, Docker, configuration, pinned tool versions
+   - `../../conventions/project-specific/README.md` — Project-specific docs (if any exist)
 
 2. Determine the project type (Java library, TypeScript library, Java backend, web frontend, or fullstack application).
 

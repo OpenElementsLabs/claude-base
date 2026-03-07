@@ -9,7 +9,7 @@ Scan the current project and generate or update the four project-specific docume
 
 ## Target Files
 
-All files live in `docs/project-specific/` relative to this skill (at `../../docs/project-specific/`):
+All files live in `conventions/project-specific/` relative to this skill (at `../../conventions/project-specific/`):
 
 - `project-features.md` — Core features and user-facing capabilities
 - `project-tech.md` — Languages, frameworks, libraries, databases, external services

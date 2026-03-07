@@ -7,7 +7,7 @@ description: Review an implementation for completeness against its specification
 
 Verify that an implementation fully satisfies its specification by checking the code against the design document and behavioral scenarios.
 
-Before starting, read `../../docs/spec-driven-development.md` for the full spec folder structure and file formats.
+Before starting, read `../../conventions/spec-driven-development.md` for the full spec folder structure and file formats.
 
 ## Instructions
 

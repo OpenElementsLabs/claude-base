@@ -22,7 +22,7 @@ Projects that use this as a base can override or extend these rules in their own
 - Validate and sanitize all external input (user input, API responses, file contents).
 - **IMPORTANT**: Use parameterized queries for database access — never build SQL from string concatenation.
 - Keep dependencies up to date to avoid known vulnerabilities.
-- See [Security Configuration](docs/security.md) for concrete `.claude/settings.json` deny rules, sandbox setup, and hook examples.
+- See [Security Configuration](conventions/security.md) for concrete `.claude/settings.json` deny rules, sandbox setup, and hook examples.
 
 ## Testing
 
@@ -57,33 +57,33 @@ Available documents:
 
 ### Language-Specific
 
-- [Java Conventions](docs/java.md) — code style, build tools, testing, logging, null handling, collections, JPMS, SPI
-- [TypeScript Conventions](docs/typescript.md) — technology stack, code style, package manager, testing, linting
+- [Java Conventions](conventions/java.md) — code style, build tools, testing, logging, null handling, collections, JPMS, SPI
+- [TypeScript Conventions](conventions/typescript.md) — technology stack, code style, package manager, testing, linting
 
 ### Security
 
-- [Security Configuration](docs/security.md) — permission deny rules, sandbox mode, hooks for safety, audit logging
+- [Security Configuration](conventions/security.md) — permission deny rules, sandbox mode, hooks for safety, audit logging
 
 ### Architecture and Infrastructure
 
-- [Software Quality and Architecture](docs/software-quality.md) — API design, technical integrity, namespace, SBOM, CI
-- [Fullstack Architecture](docs/fullstack-architecture.md) — frontend/backend separation, Docker, configuration, pinned tool versions
-- [Backend Conventions](docs/backend.md) — REST APIs, OpenAPI, Swagger UI
+- [Software Quality and Architecture](conventions/software-quality.md) — API design, technical integrity, namespace, SBOM, CI
+- [Fullstack Architecture](conventions/fullstack-architecture.md) — frontend/backend separation, Docker, configuration, pinned tool versions
+- [Backend Conventions](conventions/backend.md) — REST APIs, OpenAPI, Swagger UI
 
 ### Development Workflow
 
-- [Spec-Driven Development](docs/spec-driven-development.md) — specs folder structure, design docs, behavioral scenarios, implementation steps
+- [Spec-Driven Development](conventions/spec-driven-development.md) — specs folder structure, design docs, behavioral scenarios, implementation steps
 
 ### CI/CD
 
-- [GitHub Actions](docs/github-actions.md) — build workflows, docs deployment, release drafter for Java, TypeScript, and fullstack projects
+- [GitHub Actions](conventions/github-actions.md) — build workflows, docs deployment, release drafter for Java, TypeScript, and fullstack projects
 
 ### Documentation and Repository Setup
 
-- [Repository Setup](docs/repo-setup.md) — required root files (README, LICENSE, CoC, CONTRIBUTING, .editorconfig)
-- [EditorConfig](docs/editorconfig.md) — standard .editorconfig for Java and TypeScript projects
-- [Project Documentation](docs/documentation.md) — Markdown, MkDocs setup, GitHub Pages deployment, ADRs
+- [Repository Setup](conventions/repo-setup.md) — required root files (README, LICENSE, CoC, CONTRIBUTING, .editorconfig)
+- [EditorConfig](conventions/editorconfig.md) — standard .editorconfig for Java and TypeScript projects
+- [Project Documentation](conventions/documentation.md) — Markdown, MkDocs setup, GitHub Pages deployment, ADRs
 
 ### Project-Specific
 
-- [Project-Specific Docs](docs/project-specific/README.md) — project-specific conventions and documentation (add your own here)
+- [Project-Specific Docs](conventions/project-specific/README.md) — project-specific conventions and documentation (add your own here)

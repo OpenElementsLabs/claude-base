@@ -21,12 +21,12 @@ Updates the `claude-project-base/` directory in the current project with the lat
    - List files that will be added (new upstream files)
    - List files that will be updated (changed upstream files)
    - List files that will be removed (deleted upstream files)
-   - Explicitly note that `docs/project-specific/` will NOT be touched
+   - Explicitly note that `conventions/project-specific/` will NOT be touched
 
 4. Ask the user for confirmation before proceeding.
 
 5. Update all shared files by syncing from the temporary clone's `claude-project-base/` to the project's `claude-project-base/`, with these exclusions:
-   - **Do NOT overwrite or delete** anything inside `docs/project-specific/` — this directory contains project-specific content
+   - **Do NOT overwrite or delete** anything inside `conventions/project-specific/` — this directory contains project-specific content
    - **Do NOT overwrite or delete** any skills that do not exist in the upstream repository — these are project-specific skills
 
 6. Clean up the temporary directory:

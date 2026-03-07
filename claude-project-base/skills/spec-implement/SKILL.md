@@ -7,7 +7,7 @@ description: Generate a concrete step-by-step implementation plan from a specifi
 
 Turn a completed specification into an ordered, actionable list of implementation steps.
 
-Before starting, read `../../docs/spec-driven-development.md` for the full spec folder structure and file formats.
+Before starting, read `../../conventions/spec-driven-development.md` for the full spec folder structure and file formats.
 
 ## Instructions
 

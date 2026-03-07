@@ -9,20 +9,20 @@ The goal is to provide high-quality base configurations that other projects can 
 ## Repository Structure
 
 - `claude-project-base/CLAUDE.md` — Base template for project conventions
-- `claude-project-base/docs/` — Language-specific convention documents (Java, TypeScript)
+- `claude-project-base/conventions/` — Convention documents (languages, architecture, security, workflows)
 - `claude-project-base/skills/` — Reusable Claude Code skills
 - `README.md` — Public-facing documentation for users of this repository
 
 ## Writing Guidelines
 
-### For convention documents (`CLAUDE.md`, `docs/*.md`)
+### For convention documents (`CLAUDE.md`, `conventions/*.md`)
 
 - Write rules that are universally applicable. Do not include project-specific paths, tool versions, or team-specific workflows.
 - Each rule should be actionable and verifiable — avoid vague advice like "write clean code."
 - Keep rules concise. One sentence per rule where possible.
 - Group related rules under clear headings.
 - Do not contradict rules from other documents in this repository.
-- When a rule applies only to a specific language, it belongs in the language-specific doc (`docs/java.md` or `docs/typescript.md`), not in the base `CLAUDE.md`.
+- When a rule applies only to a specific language, it belongs in the language-specific convention (`conventions/java.md` or `conventions/typescript.md`), not in the base `CLAUDE.md`.
 
 ### For skills (`skills/*.md`)
 
