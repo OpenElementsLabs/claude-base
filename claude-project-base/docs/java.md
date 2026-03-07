@@ -1,5 +1,17 @@
 # Java Conventions for Claude Code
 
+## Common Commands
+
+These are the typical commands for Maven-based Java projects. Always use the Maven Wrapper (`./mvnw`) when available.
+
+- **Build**: `./mvnw clean verify`
+- **Run tests**: `./mvnw test`
+- **Run a single test class**: `./mvnw test -Dtest=com.example.MyTestClass`
+- **Run a single test method**: `./mvnw test -Dtest=com.example.MyTestClass#myTestMethod`
+- **Skip tests during build**: `./mvnw clean package -DskipTests`
+- **Check for dependency updates**: `./mvnw versions:display-dependency-updates`
+- **Generate Javadoc**: `./mvnw javadoc:javadoc`
+
 ## Code Style
 
 - Do not use wildcard imports (`import java.util.*`). Always use explicit imports.

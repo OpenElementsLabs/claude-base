@@ -8,6 +8,19 @@
 - **Styling**: [Tailwind CSS](https://tailwindcss.com) for all styling. Do not introduce other CSS frameworks.
 - **Component Library**: [shadcn/ui](https://ui.shadcn.com) as the component library.
 
+## Common Commands
+
+These are the typical commands for TypeScript/Next.js projects. Adjust the package manager prefix (`pnpm`, `npm run`, `yarn`) to match the project.
+
+- **Install dependencies**: `pnpm install`
+- **Dev server**: `pnpm dev`
+- **Build**: `pnpm build`
+- **Run tests**: `pnpm test`
+- **Run a single test file**: `pnpm test -- path/to/test.ts`
+- **Lint**: `pnpm lint`
+- **Format**: `pnpm format`
+- **Type check**: `pnpm tsc --noEmit`
+
 ## Code Style
 
 - Enable `strict` mode in `tsconfig.json`. Do not weaken strict checks without explicit justification.
