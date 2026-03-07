@@ -41,7 +41,16 @@ Projects that use this as a base can override or extend these rules in their own
 
 ## Additional Conventions
 
-Include the relevant documents in your project's `CLAUDE.md` based on what applies:
+**IMPORTANT**: Only include the documents that are relevant to your project. Do not reference all docs — each referenced file is loaded into Claude's context and excessive context causes rules to be ignored. A Java library does not need `typescript.md` or `fullstack-architecture.md`. A frontend does not need `java.md` or `backend.md`.
+
+Typical combinations:
+
+- **Java library**: `software-quality.md`, `java.md`, `repo-setup.md`
+- **Java backend**: `software-quality.md`, `java.md`, `backend.md`, `repo-setup.md`
+- **TypeScript frontend**: `software-quality.md`, `typescript.md`, `repo-setup.md`
+- **Fullstack application**: `software-quality.md`, `java.md`, `typescript.md`, `backend.md`, `fullstack-architecture.md`, `repo-setup.md`
+
+Available documents:
 
 ### Language-Specific
 
