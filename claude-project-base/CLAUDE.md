@@ -58,3 +58,7 @@ Include the relevant documents in your project's `CLAUDE.md` based on what appli
 
 - [Repository Setup](docs/repo-setup.md) — required root files (README, LICENSE, CoC, CONTRIBUTING)
 - [Project Documentation](docs/documentation.md) — Markdown, MkDocs setup, GitHub Pages deployment, ADRs
+
+### Project-Specific
+
+- [Project-Specific Docs](docs/project-specific/README.md) — project-specific conventions and documentation (add your own here)
