@@ -25,3 +25,9 @@ When building libraries that target backend applications, provide support for Sp
 - Use meaningful operation IDs and group endpoints with tags.
 - Configure authentication information in the OpenAPI specification so that users can authorize directly in the Swagger UI to test protected endpoints. Include the supported security schemes (e.g., Bearer token, OAuth2) and their configuration.
 - Ensure the OpenAPI spec stays in sync with the actual implementation — generate it from code rather than maintaining a separate spec file.
+
+## Observability
+
+- Every backend should expose **metrics** in Prometheus format for monitoring and alerting.
+- Every backend should stream **logs** to Loki for centralized log aggregation and querying.
+- Concrete implementation details for Spring Boot and Helidon SE are still being defined.
