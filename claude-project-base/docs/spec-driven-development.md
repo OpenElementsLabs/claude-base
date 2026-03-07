@@ -51,6 +51,20 @@ Describes the technical approach for the change. Sections (include only what is 
 
 Key design decisions include a brief **rationale** explaining why the approach was chosen over alternatives.
 
+Use **Mermaid diagrams** where they help clarify the design — for example sequence diagrams for key flows, entity-relationship diagrams for data models, or component diagrams for architecture. Embed them directly in the Markdown using fenced code blocks:
+
+````markdown
+```mermaid
+sequenceDiagram
+    Client->>API: POST /users
+    API->>DB: INSERT user
+    DB-->>API: user record
+    API-->>Client: 201 Created
+```
+````
+
+Diagrams are optional — only add them when they communicate structure or flow more clearly than text alone.
+
 ### `behaviors.md` — Behavioral Scenarios
 
 Defines the expected behavior using given-when-then scenarios (Behavior-Driven Design). These scenarios serve as the basis for unit and integration tests.

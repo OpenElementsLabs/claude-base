@@ -53,6 +53,8 @@ Not every section is needed for every task — skip what is not relevant. A smal
 
 For key design decisions (e.g., choice of technology, data model structure, API style), include a brief rationale explaining **why** this approach was chosen over alternatives.
 
+Where it helps clarity, use **Mermaid diagrams** — e.g., sequence diagrams for key flows, ER diagrams for data models, or component diagrams for architecture. Only add diagrams when they communicate better than text alone.
+
 Iterate with the user until both sides are confident the design is solid. Then write the file.
 
 ### 5. Write `behaviors.md` — Behavioral scenarios
