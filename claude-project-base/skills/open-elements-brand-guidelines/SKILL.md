@@ -1,6 +1,6 @@
 ---
 name: open-elements-brand-guidelines
-description: Applies the official brand colors and typography of Open Elements to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.
+description: Applies the official brand colors and typography of Open Elements to any sort of artifact that may benefit from having the look-and-feel of Open Elements. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.
 ---
 
 # Open Elements Brand Styling
@@ -9,15 +9,13 @@ description: Applies the official brand colors and typography of Open Elements t
 
 To access the official brand identity and style resources of Open Elements, use this skill.
 
-**Keywords**: branding, corporate identity, visual identity, post-processing, styling, brand colors, typography, Anthropic brand, visual formatting, visual design
-
 ## Brand Guidelines
 
 ### Colors
 
 **Main Colors:**
 
-- Dark: `#020144` - Can be used as backgrounds in header foooter or for example as headline text color.
+- Dark: `#020144` - Can be used as backgrounds in header footer or for example as headline text color.
   In diagrams / technical illustrations often used for note texts or arrows.
 - Black: `#000000` - Normal text color on bright backgrounds
 - White: `#ffffff` - Normal background color
@@ -32,13 +30,13 @@ To access the official brand identity and style resources of Open Elements, use 
 - Yellow: `#F1E34B` - Secondary accent
 
 **Light variants:**
-#BEE3D8, #F5ADC9, #BEE3FB, #F9F4B7
+(green) #BEE3D8, (red) #F5ADC9, (blue) #BEE3FB, (yellow) #F9F4B7
 
 **Lighter variants:**
-#020144, #000000, #141413, #000000, #000000
+(green) #DEF1EC, (red) #FAD6E4, (blue) #DFF1FD, (yellow) #FCF9DB
 
 **Dark variants:**
-#3E9279, #BB1756, #2496EF, #DCCB12
+(green) #3E9279, (red) #BB1756, (blue) #2496EF, (yellow) #DCCB12
 
 ### Typography
 
@@ -62,6 +60,9 @@ All PNG files are available in the same folder and have the same name as the SVG
 - **open-elements-logo/logo-landscape-light-background.svg**: Landscape logo with light background
 - **open-elements-logo/logo-portrait-dark-background.svg**: Portrait logo with dark background. This is preferred for square logo placements.
 - **open-elements-logo/logo-portrait-light-background.svg**: Portrait logo with light background. This is preferred for square logo placements.
+
+On a dark backround only the *-dark-background.* logos must be used.
+On a light background only the *-light-background.* logos must be used.
 
 Next to that the graphic part of the logo without the "Open Elements" text is available (for example for use as fav-icon)
 - **open-elements-logo/logo-icon.png**: 1024x1024 PNG file
