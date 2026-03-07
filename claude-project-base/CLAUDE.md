@@ -56,7 +56,8 @@ Include the relevant documents in your project's `CLAUDE.md` based on what appli
 
 ### Documentation and Repository Setup
 
-- [Repository Setup](docs/repo-setup.md) — required root files (README, LICENSE, CoC, CONTRIBUTING)
+- [Repository Setup](docs/repo-setup.md) — required root files (README, LICENSE, CoC, CONTRIBUTING, .editorconfig)
+- [EditorConfig](docs/editorconfig.md) — standard .editorconfig for Java and TypeScript projects
 - [Project Documentation](docs/documentation.md) — Markdown, MkDocs setup, GitHub Pages deployment, ADRs
 
 ### Project-Specific

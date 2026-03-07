@@ -56,6 +56,10 @@ Every repository must have a `.gitignore` that excludes at minimum:
 
 Add further entries as needed for the project's tooling. Do not commit IDE settings, build artifacts, or downloaded dependencies.
 
+### `.editorconfig`
+
+Every repository must include an `.editorconfig` file at the root to enforce consistent formatting (indentation, charset, line endings) across all editors. See [editorconfig.md](editorconfig.md) for the standard configuration.
+
 ## Organization-Level Defaults via `.github` Repository
 
 GitHub supports a special `.github` repository within an organization. Community health files placed there (e.g., `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`) automatically apply to all repositories in the organization that do not have their own version of that file. Open Elements uses this mechanism at [OpenElements/.github](https://github.com/OpenElements/.github).
@@ -66,6 +70,7 @@ If a file is already provided by the `.github` repository, it does not need to b
 
 ```
 project-root/
+├── .editorconfig          # Formatting rules (indentation, charset, line endings)
 ├── .gitignore             # Excludes .env, .idea/, target/, node_modules/, etc.
 ├── CODE_OF_CONDUCT.md    # Open Elements CoC (Contributor Covenant 2.0, CC BY 4.0)
 ├── CONTRIBUTING.md        # Contributing guide (planned)
