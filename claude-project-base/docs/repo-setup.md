@@ -1,0 +1,60 @@
+# Repository Setup Conventions for Claude Code
+
+## Overview
+
+Every Open Elements repository must contain a set of standard files that provide project information, legal clarity, and community guidelines. Most of our work is open source, and these files ensure a consistent and professional appearance across all repositories.
+
+## Required Root Files
+
+### `README.md`
+
+Every repository must have a `README.md` at the root. Its content depends on the type of project:
+
+**All projects must include:**
+
+- What the repository contains and what the project does.
+- The current status of the project (e.g., stable, beta, experimental).
+- How to build the project from source.
+
+**Libraries must additionally include:**
+
+- How to add the library as a dependency (Maven coordinates, npm package name, etc.) for the latest version.
+- A basic usage example or link to API documentation.
+
+**Applications (backend, frontend, or fullstack) must additionally include:**
+
+- How to install, deploy, and start the application.
+- Prerequisites (runtime versions, required services like databases).
+- How to run with Docker / Docker Compose if applicable.
+
+### `LICENSE`
+
+Every repository must contain a `LICENSE` file. The preferred license for Open Elements projects is **Apache License 2.0**.
+
+A reference file is available at [hiero-enterprise-java/LICENSE](https://github.com/OpenElements/hiero-enterprise-java/blob/main/LICENSE).
+
+### `CODE_OF_CONDUCT.md`
+
+Every repository must include the Open Elements Code of Conduct, based on the [Contributor Covenant 2.0](https://www.contributor-covenant.org/). The file is available at [OpenElements/.github/CODE_OF_CONDUCT.md](https://github.com/OpenElements/.github/blob/main/CODE_OF_CONDUCT.md).
+
+The Code of Conduct is released under the **CC BY 4.0** license.
+
+### `CONTRIBUTING.md` (planned)
+
+A contributing guide will be added as a standard file in every repository. This is not yet finalized.
+
+## Organization-Level Defaults via `.github` Repository
+
+GitHub supports a special `.github` repository within an organization. Community health files placed there (e.g., `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`) automatically apply to all repositories in the organization that do not have their own version of that file. Open Elements uses this mechanism at [OpenElements/.github](https://github.com/OpenElements/.github).
+
+If a file is already provided by the `.github` repository, it does not need to be duplicated in individual repositories. Only add a repo-level override if the project needs to deviate from the organization default.
+
+## Summary
+
+```
+project-root/
+├── CODE_OF_CONDUCT.md    # Open Elements CoC (Contributor Covenant 2.0, CC BY 4.0)
+├── CONTRIBUTING.md        # Contributing guide (planned)
+├── LICENSE                # Apache License 2.0
+└── README.md              # Project description, status, build & usage instructions
+```
