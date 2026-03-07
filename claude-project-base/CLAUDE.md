@@ -63,6 +63,10 @@ Available documents:
 - [Fullstack Architecture](docs/fullstack-architecture.md) — frontend/backend separation, Docker, configuration, pinned tool versions
 - [Backend Conventions](docs/backend.md) — REST APIs, OpenAPI, Swagger UI
 
+### Development Workflow
+
+- [Spec-Driven Development](docs/spec-driven-development.md) — specs folder structure, design docs, behavioral scenarios, implementation steps
+
 ### Documentation and Repository Setup
 
 - [Repository Setup](docs/repo-setup.md) — required root files (README, LICENSE, CoC, CONTRIBUTING, .editorconfig)
