@@ -28,6 +28,10 @@ Projects that use this as a base can override or extend these rules in their own
 - Each test should test one behavior and have a clear name that describes what it verifies.
 - Prefer assertion libraries that produce clear failure messages.
 
+## Documentation
+
+- Use GitHub Flavored Markdown (GFM) as the default syntax for all documentation (`README.md`, docs, ADRs, etc.).
+
 ## Pull Requests and Reviews
 
 - Keep PRs focused on a single change. Avoid mixing unrelated changes in one PR.
@@ -50,6 +54,7 @@ Include the relevant documents in your project's `CLAUDE.md` based on what appli
 - [Fullstack Architecture](docs/fullstack-architecture.md) — frontend/backend separation, Docker, configuration, pinned tool versions
 - [Backend Conventions](docs/backend.md) — REST APIs, OpenAPI, Swagger UI
 
-### Documentation
+### Documentation and Repository Setup
 
-- [Project Documentation](docs/documentation.md) — MkDocs setup, GitHub Pages deployment, ADRs
+- [Repository Setup](docs/repo-setup.md) — required root files (README, LICENSE, CoC, CONTRIBUTING)
+- [Project Documentation](docs/documentation.md) — Markdown, MkDocs setup, GitHub Pages deployment, ADRs

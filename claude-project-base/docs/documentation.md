@@ -14,8 +14,6 @@ project-root/
 │   ├── index.md              # Landing page
 │   ├── architecture.md       # Architecture overview
 │   ├── contributing.md       # How to contribute to the docs
-│   ├── adr/                  # Architecture Decision Records
-│   │   └── 0001-some-decision.md
 │   └── stylesheets/          # Custom CSS (optional)
 └── mkdocs.yml                # MkDocs configuration at repository root
 ```
@@ -29,11 +27,14 @@ The `mkdocs.yml` lives at the repository root and configures:
 - **Extensions**: Markdown extensions for features like Mermaid diagrams (`pymdownx.superfences`).
 - **Plugins**: At minimum the `search` plugin.
 
+## Markdown
+
+- Use GitHub Flavored Markdown (GFM) as the default syntax for all documentation — `README.md`, docs, ADRs, and any other prose in the repository.
+
 ## Content Guidelines
 
 - Write documentation in plain Markdown inside the `docs/` folder.
 - The `index.md` serves as the landing page with links to the main sections.
-- Use [Architecture Decision Records (ADRs)](https://adr.github.io/) in `docs/adr/` to document significant technical decisions.
 - Keep documentation close to the code — update docs when the related code changes.
 - Use Mermaid diagrams for architecture and flow visualizations instead of external image files where possible.
 
