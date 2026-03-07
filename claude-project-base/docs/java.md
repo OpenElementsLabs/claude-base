@@ -15,6 +15,7 @@
   `Objects.hash()` as helpers.
 - Format `toString` as `ClassName[field1=value1, field2=value2]`. Never expose sensitive data (passwords, tokens) in
   `toString`.
+- All public API (public classes, interfaces, methods, constructors, and fields) must have Javadoc comments.
 
 ## Build Tools
 
