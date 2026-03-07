@@ -23,6 +23,8 @@
 - When adding dependencies, use the dependency management section (Maven `<dependencyManagement>` or Gradle version
   catalog) if one exists.
 - Do not add dependencies that duplicate functionality already available in the project.
+- Always use meaningful dependency scopes.
+  Use `compile`, `provided`, `runtime` or `test` whenever it makes sense.
 
 ## Testing
 
@@ -39,19 +41,17 @@
 ## Logging
 
 - Use SLF4J as the logging API (`org.slf4j.Logger`).
-- For low level code System.Logger is preferred.
-- Use parameterized logging (`log.info("Processing item {}", itemId)`) — never string concatenation.
-- Log at appropriate levels: `ERROR` for failures that need attention, `WARN` for recoverable issues, `INFO` for
-  significant events, `DEBUG` for development details.
+- For libraries and low-level code, prefer `java.lang.System.Logger` to avoid external logging dependencies and let consumers choose their own logging backend.
+- Use parameterized logging — never string concatenation. For SLF4J: `log.info("Processing item {}", itemId)`. For System.Logger: `logger.log(Level.INFO, "Processing item {0}", itemId)`.
+- For expensive log message construction, use `Supplier<String>` or guard with `logger.isLoggable(level)` to avoid unnecessary computation.
+- Log at appropriate levels: `ERROR` for failures that need attention, `WARN` for recoverable issues, `INFO` for significant events, `DEBUG` for development details.
 
 ## Null Handling
 
-- Prefer `Optional<T>` for return types that may have no value. Do not use `Optional` as a field type or method
-  parameter.
-- Annotate parameters and fields with `@Nullable` or `@NonNull` (using `org.jspecify` when available) to make intent
-  explicit.
-- Use `Objects.requireNonNull(param, "paramName must not be null")` for early validation of non-null parameters — always
-  include the parameter name in the message.
+- Prefer `Optional<T>` for return types that may have no value. Do not use `Optional` as a method parameter, constructor parameter, or field type — use `@Nullable` annotations instead.
+- Prefer `Optional.ofNullable(value)` when nullability is uncertain. Use `Optional.of(value)` only when the value is guaranteed non-null.
+- Annotate parameters and fields with `@Nullable` or `@NonNull` (using `org.jspecify` when available) to make intent explicit.
+- Use `Objects.requireNonNull(param, "paramName must not be null")` for early validation of non-null parameters — always include the parameter name in the message.
 - Never return `null` from a method that returns a collection — return an empty collection instead.
 
 ## Collections
@@ -95,6 +95,15 @@
 - Use `requires static` for compile-time only dependencies (annotation libraries, code generators).
 - Structure packages to separate API from implementation (e.g., `com.example.mylib/` for public API, `com.example.mylib.impl/` for internals), even in projects that do not use JPMS.
 - Some frameworks (e.g., Spring Boot) have limited JPMS support. In those projects, skip module-info if it causes friction — but still follow the package structure convention above.
+
+## Service Provider Interface (SPI)
+
+- Use the Java SPI (`java.util.ServiceLoader`) for extensibility points where implementations should be discovered at runtime.
+- In modular projects, declare providers in `module-info.java` with `provides ... with ...`.
+- In classpath-based projects, use `@com.google.auto.service.AutoService` to generate `META-INF/services` files automatically via annotation processor.
+  Dependency for the annotation is `com.google.auto.service:auto-service`.
+  Annotation processor to support it must be configured in the build tool.
+- When a library must support both modular and classpath consumers, provide both the `module-info.java` declaration and the AutoService annotation.
 
 ## Asynchronous Code
 
