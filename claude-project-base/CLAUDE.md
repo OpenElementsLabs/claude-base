@@ -15,11 +15,14 @@ Projects that use this as a base can override or extend these rules in their own
 
 ## Security
 
+- **IMPORTANT**: Never read or write files outside the project directory unless the user explicitly asks for it.
+- **IMPORTANT**: Never modify system-level configuration files (shell profiles, system packages, etc.).
 - **IMPORTANT**: Never commit secrets, API keys, passwords, or tokens. Use environment variables or secret management tools.
 - **IMPORTANT**: Always include `.env` in `.gitignore` to prevent accidental commits of local configuration with secrets.
 - Validate and sanitize all external input (user input, API responses, file contents).
 - **IMPORTANT**: Use parameterized queries for database access — never build SQL from string concatenation.
 - Keep dependencies up to date to avoid known vulnerabilities.
+- See [Security Configuration](docs/security.md) for concrete `.claude/settings.json` deny rules, sandbox setup, and hook examples.
 
 ## Testing
 
@@ -56,6 +59,10 @@ Available documents:
 
 - [Java Conventions](docs/java.md) — code style, build tools, testing, logging, null handling, collections, JPMS, SPI
 - [TypeScript Conventions](docs/typescript.md) — technology stack, code style, package manager, testing, linting
+
+### Security
+
+- [Security Configuration](docs/security.md) — permission deny rules, sandbox mode, hooks for safety, audit logging
 
 ### Architecture and Infrastructure
 
