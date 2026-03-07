@@ -124,20 +124,19 @@ Prevent accidental force-pushes to main:
 }
 ```
 
-### Audit logging for Bash commands
+### Activity logging
 
-Log every Bash command Claude executes:
+Log every tool call Claude Code makes to `claude.log` in the project root. This provides a full audit trail of all actions during a session:
 
 ```json
 {
   "hooks": {
     "PostToolUse": [
       {
-        "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "echo \"$(date -u '+%Y-%m-%dT%H:%M:%SZ') [Bash] $TOOL_INPUT\" >> .claude/audit.log"
+            "command": "echo \"$(date -u '+%Y-%m-%dT%H:%M:%SZ') [$TOOL_NAME] $TOOL_INPUT\" >> claude.log"
           }
         ]
       }
@@ -146,7 +145,7 @@ Log every Bash command Claude executes:
 }
 ```
 
-Add `.claude/audit.log` to `.gitignore` so the log stays local.
+This logs all tool calls (Bash, Read, Edit, Write, Glob, Grep, etc.) with timestamp and input. The log is temporary and must be added to `.gitignore`.
 
 ## Rules for Claude Code Behavior
 
@@ -165,6 +164,6 @@ These rules belong in `CLAUDE.md` or the project's convention documents:
 When adding `claude-project-base` to a new project:
 
 - [ ] Copy the deny rules into `.claude/settings.json`
-- [ ] Add `.claude/settings.local.json` and `.claude/audit.log` to `.gitignore`
+- [ ] Add `.claude/settings.local.json` and `claude.log` to `.gitignore`
 - [ ] Consider enabling sandbox mode for stricter isolation
 - [ ] Review whether additional project-specific paths need to be denied (e.g., `./secrets/`, `./certs/`)
