@@ -43,6 +43,19 @@ The Code of Conduct is released under the **CC BY 4.0** license.
 
 A contributing guide will be added as a standard file in every repository. This is not yet finalized.
 
+### `.gitignore`
+
+Every repository must have a `.gitignore` that excludes at minimum:
+
+- `.env` — local environment configuration with secrets
+- `.idea/` — IntelliJ IDEA project files
+- `target/` — Maven build output
+- `node_modules/` — npm/pnpm/yarn downloaded dependencies
+- `.next/` — Next.js build output
+- `*.log` — log files
+
+Add further entries as needed for the project's tooling. Do not commit IDE settings, build artifacts, or downloaded dependencies.
+
 ## Organization-Level Defaults via `.github` Repository
 
 GitHub supports a special `.github` repository within an organization. Community health files placed there (e.g., `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`) automatically apply to all repositories in the organization that do not have their own version of that file. Open Elements uses this mechanism at [OpenElements/.github](https://github.com/OpenElements/.github).
@@ -53,6 +66,7 @@ If a file is already provided by the `.github` repository, it does not need to b
 
 ```
 project-root/
+├── .gitignore             # Excludes .env, .idea/, target/, node_modules/, etc.
 ├── CODE_OF_CONDUCT.md    # Open Elements CoC (Contributor Covenant 2.0, CC BY 4.0)
 ├── CONTRIBUTING.md        # Contributing guide (planned)
 ├── LICENSE                # Apache License 2.0
