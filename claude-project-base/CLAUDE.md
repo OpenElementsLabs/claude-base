@@ -9,7 +9,8 @@ Projects that use this as a base can override or extend these rules in their own
 - Follow the KISS principle — prefer simple, readable solutions over clever or complex ones.
 - Remove dead code. Do not leave commented-out code, unused imports, or unreachable branches.
 - Keep functions and methods focused — each should do one thing well.
-- Prefer meaningful names for variables, functions, and classes. Avoid abbreviations unless they are widely understood (e.g., `id`, `url`).
+- Prefer meaningful names for variables, functions, and classes. Avoid abbreviations unless they are widely understood (
+  e.g., `id`, `url`).
 - Do not add code "for future use." Only implement what is currently needed.
 
 ## Security
@@ -34,11 +35,21 @@ Projects that use this as a base can override or extend these rules in their own
 - Ensure all tests pass before requesting review.
 - Address review comments before merging.
 
-## Language-Specific Conventions
+## Additional Conventions
 
-For language-specific rules, see the following documents:
+Include the relevant documents in your project's `CLAUDE.md` based on what applies:
 
-- [Java Conventions](docs/java.md) — for Java projects
-- [TypeScript Conventions](docs/typescript.md) — for TypeScript projects
+### Language-Specific
 
-Include the relevant document in your project's `CLAUDE.md` if your project uses that language.
+- [Java Conventions](docs/java.md) — code style, build tools, testing, logging, null handling, collections, JPMS, SPI
+- [TypeScript Conventions](docs/typescript.md) — technology stack, code style, package manager, testing, linting
+
+### Architecture and Infrastructure
+
+- [Software Quality and Architecture](docs/software-quality.md) — API design, technical integrity, namespace, SBOM, CI
+- [Fullstack Architecture](docs/fullstack-architecture.md) — frontend/backend separation, Docker, configuration, pinned tool versions
+- [Backend Conventions](docs/backend.md) — REST APIs, OpenAPI, Swagger UI
+
+### Documentation
+
+- [Project Documentation](docs/documentation.md) — MkDocs setup, GitHub Pages deployment, ADRs
