@@ -38,6 +38,36 @@ To access the official brand identity and style resources of Open Elements, use 
 **Dark variants:**
 (green) #3E9279, (red) #BB1756, (blue) #2496EF, (yellow) #DCCB12
 
+### CSS Custom Properties
+
+When using the brand colors in web projects, define them as CSS custom properties:
+
+```css
+:root {
+  --oe-dark: #020144;
+  --oe-black: #000000;
+  --oe-white: #ffffff;
+  --oe-gray-mid: #b0aea5;
+  --oe-gray-light: #e8e6dc;
+  --oe-green: #5CBA9E;
+  --oe-green-light: #BEE3D8;
+  --oe-green-lighter: #DEF1EC;
+  --oe-green-dark: #3E9279;
+  --oe-red: #E63277;
+  --oe-red-light: #F5ADC9;
+  --oe-red-lighter: #FAD6E4;
+  --oe-red-dark: #BB1756;
+  --oe-blue: #5DB9F5;
+  --oe-blue-light: #BEE3FB;
+  --oe-blue-lighter: #DFF1FD;
+  --oe-blue-dark: #2496EF;
+  --oe-yellow: #F1E34B;
+  --oe-yellow-light: #F9F4B7;
+  --oe-yellow-lighter: #FCF9DB;
+  --oe-yellow-dark: #DCCB12;
+}
+```
+
 ### Typography
 
 - **Headings**: Montserrat (or Lato)
