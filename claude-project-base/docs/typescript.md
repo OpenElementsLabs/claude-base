@@ -1,5 +1,13 @@
 # TypeScript Conventions for Claude Code
 
+## Technology Stack
+
+- **Language**: TypeScript is the default for all frontends. Only use plain JavaScript where enabling TypeScript would be disproportionate overhead.
+- **Framework**: [React](https://react.dev) is the base UI framework. Do not use alternatives like Vue or Angular.
+- **Application Framework**: [Next.js](https://nextjs.org) on top of React for concrete frontend applications.
+- **Styling**: [Tailwind CSS](https://tailwindcss.com) for all styling. Do not introduce other CSS frameworks.
+- **Component Library**: [shadcn/ui](https://ui.shadcn.com) as the component library.
+
 ## Code Style
 
 - Enable `strict` mode in `tsconfig.json`. Do not weaken strict checks without explicit justification.
@@ -12,6 +20,7 @@
 ## Package Manager
 
 - Respect the existing package manager in the project (`npm`, `yarn`, or `pnpm`) — do not switch without explicit instruction.
+- We prefer `pnpm`.
 - Use the lockfile that matches the package manager (`package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`).
 - Do not add dependencies that duplicate functionality already available in the project.
 
