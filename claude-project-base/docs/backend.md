@@ -26,6 +26,14 @@ When building libraries that target backend applications, provide support for Sp
 - Configure authentication information in the OpenAPI specification so that users can authorize directly in the Swagger UI to test protected endpoints. Include the supported security schemes (e.g., Bearer token, OAuth2) and their configuration.
 - Ensure the OpenAPI spec stays in sync with the actual implementation — generate it from code rather than maintaining a separate spec file.
 
+## Data Access and Database
+
+- Use **JPA** (Jakarta Persistence API) for data access. Do not use implementation-specific APIs (e.g., Hibernate session or criteria API directly) — always program against the JPA interfaces.
+- Use **[Flyway](https://flywaydb.org/)** for database schema management and migrations in all projects with a database.
+- **PostgreSQL** is the preferred database for test environments and production.
+- **H2** (in-memory) is the preferred database for fast, automated unit/integration tests. In the future, we plan to replace H2 with [Testcontainers](https://www.testcontainers.org/)-based PostgreSQL to test against the same database in all environments.
+- Database connection URLs, credentials, and other settings must be configurable via environment variables (see [fullstack-architecture.md](fullstack-architecture.md#configuration)).
+
 ## Observability
 
 - Every backend should expose **metrics** in Prometheus format for monitoring and alerting.
