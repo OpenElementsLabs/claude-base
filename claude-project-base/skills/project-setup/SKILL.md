@@ -1,5 +1,5 @@
 ---
-name: open-elements-project-setup-and-review
+name: project-setup
 description: This skill has a full understand of the structure we use at Open Elements for projects. This includes libraries, backends, frontends or full applications. The skill can review if a project fits to the specification and can give feedback on how to improve the project structure. The skill can also help to set up a new project based on the specifications and best practices of Open Elements, update a project based on them or even create a new project.
 ---
 
