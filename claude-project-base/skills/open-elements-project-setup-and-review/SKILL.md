@@ -29,9 +29,11 @@ Before performing any review or setup task, **read all convention documents firs
    - `../../conventions/fullstack-architecture.md` — Frontend/backend separation, Docker, configuration, pinned tool versions
    - `../../conventions/project-specific/README.md` — Project-specific docs (if any exist)
 
-2. Determine the project type (Java library, TypeScript library, Java backend, web frontend, or fullstack application).
+2. Determine the project type (Java library, TypeScript library, Java backend, web frontend, or fullstack application). If the project type is not obvious from the existing codebase, **ask the user** which type they want.
 
-3. Based on the project type, apply only the relevant conventions:
+3. If the project includes a backend (Java backend or fullstack application), **ask the user** which backend framework to use: **Spring Boot** or **Helidon SE**. Do not assume a default — the user must make this choice explicitly.
+
+4. Based on the project type, apply only the relevant conventions:
    - **All projects**: `software-quality.md`, `repo-setup.md`, `documentation.md`
    - **Java projects**: additionally `java.md`
    - **TypeScript projects**: additionally `typescript.md`
@@ -39,9 +41,9 @@ Before performing any review or setup task, **read all convention documents firs
    - **Frontend projects**: additionally `typescript.md`
    - **Fullstack projects**: additionally `fullstack-architecture.md`, `backend.md`, `java.md`, `typescript.md`
 
-4. When **reviewing** an existing project: compare the project structure, files, and conventions against the applicable docs. List what matches, what is missing, and what should be changed.
+5. When **reviewing** an existing project: compare the project structure, files, and conventions against the applicable docs. List what matches, what is missing, and what should be changed.
 
-5. When **setting up or updating** a project: apply all applicable conventions and create/modify files accordingly.
+6. When **setting up or updating** a project: apply all applicable conventions and create/modify files accordingly.
 
 ## Project Types
 

@@ -34,6 +34,18 @@ When building libraries that target backend applications, provide support for Sp
 - **H2** (in-memory) is the preferred database for fast, automated unit/integration tests. In the future, we plan to replace H2 with [Testcontainers](https://www.testcontainers.org/)-based PostgreSQL to test against the same database in all environments.
 - **IMPORTANT**: Database connection URLs, credentials, and other settings must be configurable via environment variables (see [fullstack-architecture.md](fullstack-architecture.md#configuration)).
 
+## Data Privacy and GDPR
+
+- **IMPORTANT**: All backend applications must be designed with GDPR (DSGVO) compliance in mind.
+- Collect only personal data that is strictly necessary for the application's purpose (data minimization).
+- Every piece of personal data must have a clear, documented legal basis for processing (e.g., consent, contract fulfillment, legitimate interest).
+- Provide API endpoints for data subject rights: access (Art. 15), rectification (Art. 16), erasure (Art. 17), and data portability (Art. 20) where applicable.
+- Personal data must be deletable — design database schemas so that user data can be fully removed without breaking referential integrity.
+- Log access to personal data for audit purposes, but do not log the personal data itself.
+- Do not store personal data in log files, error messages, or stack traces.
+- Use encryption at rest and in transit for personal data.
+- When integrating third-party services, verify that they are GDPR-compliant and document data processing agreements.
+
 ## Observability
 
 - Every backend should expose **metrics** in Prometheus format for monitoring and alerting.
