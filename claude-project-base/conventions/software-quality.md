@@ -24,7 +24,8 @@
 
 ## Software Bill of Materials (SBOM)
 
-- All products must produce an SBOM (e.g., CycloneDX format) as part of the build process.
+- All products must produce an SBOM in CycloneDX format as part of the build process.
+- For Maven projects, use the [CycloneDX Maven Plugin](https://github.com/CycloneDX/cyclonedx-maven-plugin) (`org.cyclonedx:cyclonedx-maven-plugin`). Include it in the `<build><plugins>` section of the POM so that the SBOM is generated automatically during every build.
 - SBOMs should be uploaded to the Open Elements Dependency-Track instance for vulnerability tracking and compliance.
 
 ## Continuous Integration

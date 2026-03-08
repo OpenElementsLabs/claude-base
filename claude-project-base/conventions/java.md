@@ -37,6 +37,7 @@ Formatting rules (indentation, charset, line endings) are defined in `.editorcon
 - When adding dependencies, use the dependency management section (Maven `<dependencyManagement>` or Gradle version
   catalog) if one exists.
 - Do not add dependencies that duplicate functionality already available in the project.
+- **IMPORTANT**: Every new Maven project or module must include the [CycloneDX Maven Plugin](https://github.com/CycloneDX/cyclonedx-maven-plugin) (`org.cyclonedx:cyclonedx-maven-plugin`) in its `<build><plugins>` section for SBOM generation.
 - Always use meaningful dependency scopes.
   Use `compile`, `provided`, `runtime` or `test` whenever it makes sense.
 
