@@ -43,7 +43,14 @@ Before performing any review or setup task, **read all convention documents firs
 
 5. When **reviewing** an existing project: compare the project structure, files, and conventions against the applicable docs. List what matches, what is missing, and what should be changed.
 
-6. When **setting up or updating** a project: apply all applicable conventions and create/modify files accordingly.
+6. When **setting up or updating** a project: apply all applicable conventions and create/modify files accordingly. **IMPORTANT**: Do not create all files in a single response — this will exceed the output token limit and abort mid-execution, leaving the project in a broken state. Split the file creation into sequential batches, for example:
+   - **Batch 1**: Root files (`.editorconfig`, `.gitignore`, `LICENSE`, `docker-compose.yml`, `README.md`, `.env.example`)
+   - **Batch 2**: Backend setup (`pom.xml`, Maven Wrapper, `Dockerfile`, `.sdkmanrc`, application config)
+   - **Batch 3**: Backend source code (main class, entities, controllers, services, DTOs)
+   - **Batch 4**: Frontend setup (`package.json`, `next.config.ts`, `tailwind.config.ts`, `tsconfig.json`, `.nvmrc`, `Dockerfile`)
+   - **Batch 5**: Frontend source code (layout, pages, components, styles with brand identity)
+   - **Batch 6**: Tests and remaining files
+   After each batch, verify the files were created successfully before proceeding to the next batch.
 
 7. For projects that include a **frontend**: Before creating or modifying any UI code, read and apply the **Open Elements Brand Guidelines** skill (`../open-elements-brand-guidelines/SKILL.md`) to use the correct brand colors, typography, and logo assets. Additionally, follow the **Frontend Design** skill (`../frontend-design/SKILL.md`) for design quality standards. All Open Elements frontends must use the brand identity — do not use generic colors, fonts, or placeholder styling.
 
