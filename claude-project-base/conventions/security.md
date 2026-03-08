@@ -37,7 +37,7 @@ Block access to credentials and sensitive configuration. These rules apply to al
       "Read(~/.bash_profile)",
       "Read(~/.zprofile)",
       "Read(./.env)",
-      "Read(./.env.*)",
+      "Read(./.env.local)",
       "Edit(~/.ssh/**)",
       "Edit(~/.gnupg/**)",
       "Edit(~/.aws/**)",
@@ -50,7 +50,7 @@ Block access to credentials and sensitive configuration. These rules apply to al
       "Edit(~/.bash_profile)",
       "Edit(~/.zprofile)",
       "Edit(./.env)",
-      "Edit(./.env.*)",
+      "Edit(./.env.local)",
       "Bash(rm -rf *)"
     ]
   }
@@ -63,7 +63,7 @@ What this blocks:
 - **Package registry tokens** — `~/.npmrc`, `~/.pypirc`, `~/.gem/credentials`
 - **Git credentials** — `~/.git-credentials`, `~/.config/gh`
 - **Shell configuration** — Prevents backdoor injection into `.bashrc`, `.zshrc`, etc.
-- **Environment files** — `.env` and `.env.*` which may contain secrets
+- **Environment files** — `.env` and `.env.local` which may contain secrets. Note: `.env.example` is intentionally not blocked because it contains only placeholder values and is committed to the repository.
 - **Destructive commands** — `rm -rf` requires manual alternatives
 
 ### What is NOT blocked
