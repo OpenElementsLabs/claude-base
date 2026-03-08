@@ -77,6 +77,14 @@ services:
       - backend
 ```
 
+### Common Docker Compose Commands
+
+Document the following commands in the project README:
+
+- **Start with rebuild**: `docker-compose up --build` — Always use `--build` to ensure code changes are reflected in the containers. Without this flag, Docker Compose reuses cached images and changes are not visible.
+- **Stop**: `docker-compose down` — Stops and removes containers.
+- **Stop and remove volumes**: `docker-compose down -v` — Also removes persistent data (databases, etc.).
+
 ## Communication Between Frontend and Backend
 
 - The frontend communicates with the backend exclusively through HTTP APIs.

@@ -26,7 +26,7 @@ Every repository must have a `README.md` at the root. Its content depends on the
 
 - How to install, deploy, and start the application.
 - Required services (e.g., PostgreSQL, Redis) and how to set them up locally.
-- How to run with Docker / Docker Compose if applicable.
+- How to run with Docker / Docker Compose if applicable, including the `--build` flag for rebuilding after code changes.
 
 ### `LICENSE`
 
