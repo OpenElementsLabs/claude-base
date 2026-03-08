@@ -47,8 +47,8 @@ Before performing any review or setup task, **read all convention documents firs
 
    The skeleton includes:
    - **Root**: `.editorconfig`, `.gitignore`, `LICENSE`, `.env.example`, `docker-compose.yml`, `README.md`
-   - **Backend**: `pom.xml` (with all required plugins and dependencies), Maven Wrapper, `Dockerfile`, `.sdkmanrc`, application config, and a single main application class with one health/ping endpoint to verify the backend starts correctly
-   - **Frontend**: `package.json`, `next.config.ts`, `tailwind.config.ts`, `tsconfig.json`, `.nvmrc`, `Dockerfile`, `public/favicon.ico`, and a single landing page that shows the project name and confirms the frontend is running. Apply the Open Elements Brand Guidelines (`../open-elements-brand-guidelines/SKILL.md`) and Frontend Design skill (`../frontend-design/SKILL.md`) for the landing page styling.
+   - **Backend**: `pom.xml` (with all required plugins and dependencies), Maven Wrapper, `Dockerfile`, `.dockerignore`, `.sdkmanrc`, application config, and a single main application class with one health/ping endpoint to verify the backend starts correctly
+   - **Frontend**: `package.json`, `next.config.ts`, `tailwind.config.ts`, `tsconfig.json`, `.nvmrc`, `Dockerfile`, `.dockerignore`, `public/favicon.ico`, and a single landing page that shows the project name and confirms the frontend is running. Apply the Open Elements Brand Guidelines (`../open-elements-brand-guidelines/SKILL.md`) and Frontend Design skill (`../frontend-design/SKILL.md`) for the landing page styling.
 
    **Do not create**: entities, DTOs, repositories, services, controllers (beyond the health endpoint), database migrations, multiple pages, or any business-logic code.
 

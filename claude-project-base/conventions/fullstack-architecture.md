@@ -48,6 +48,23 @@ Both Dockerfiles should:
 - Run the application as a non-root user in the final stage.
 - Expose only the application port.
 - **IMPORTANT**: Every `COPY` instruction in a Dockerfile must reference files or directories that are guaranteed to exist. Do not use shell-style workarounds like `2>/dev/null || true` — these do not work in Dockerfile `COPY` instructions and will cause build failures. For the Next.js frontend, ensure a `public/` directory exists in the project (at minimum with a `favicon.ico` or an empty `.gitkeep` file).
+- **IMPORTANT**: Every application directory that has a `Dockerfile` must also have a `.dockerignore` file to exclude build artifacts and dependencies from the Docker context. Without it, the Docker context can be hundreds of MB and builds will be slow.
+
+  **Backend `.dockerignore`:**
+  ```
+  target/
+  .idea/
+  *.iml
+  .git
+  ```
+
+  **Frontend `.dockerignore`:**
+  ```
+  node_modules/
+  .next/
+  .idea/
+  .git
+  ```
 
 ### Docker Compose
 

@@ -143,6 +143,11 @@ When setting up a project, copy the `hooks/` directory to `.claude/hooks/` and a
 
 The log file `claude.log` is temporary and must be added to `.gitignore`. Requires `jq` to be installed.
 
+**Important considerations for hook scripts:**
+- Hook scripts must **never write to stdout** — stdout output is sent back to the API and can trigger content filters. Write only to files, and redirect errors to `/dev/null`.
+- Truncate `tool_input` before logging — it can contain full file contents which are large and may contain patterns that trigger content filters.
+- Always `exit 0` — a failing hook blocks Claude Code.
+
 ## Setup Checklist
 
 When adding `claude-project-base` to a new project:
