@@ -39,7 +39,7 @@ project-root/
 Each application has a multi-stage `Dockerfile` in its own directory:
 
 - **Backend (Java/Spring Boot)**: Build stage compiles with Maven/Gradle, runtime stage uses a minimal JRE image.
-- **Frontend (TypeScript/Next.js)**: Build stage installs dependencies and compiles, runtime stage serves the built application with a minimal Node.js image.
+- **Frontend (TypeScript/Next.js)**: Build stage installs dependencies and compiles, runtime stage serves the built application with a minimal Node.js image. **IMPORTANT**: The backend is not available during `next build` in the Docker build stage. Pages that fetch data from the backend must not be statically pre-rendered at build time, or they will cache an error state. Use `dynamic = 'force-dynamic'` or equivalent mechanisms to ensure these pages are rendered at request time.
 
 Both Dockerfiles should:
 

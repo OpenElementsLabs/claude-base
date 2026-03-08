@@ -6,6 +6,7 @@
 - **Framework**: [React](https://react.dev) is the base UI framework. **IMPORTANT**: Do not use alternatives like Vue or Angular.
 - **Application Framework**: [Next.js](https://nextjs.org) on top of React for concrete frontend applications.
 - **IMPORTANT**: Configure `output: 'standalone'` in `next.config.js` / `next.config.ts` for all Next.js applications. This is required for Docker deployments and produces a self-contained build output.
+- **IMPORTANT**: Pages that fetch data from a backend API must not be statically pre-rendered at build time. Use `export const dynamic = 'force-dynamic'` or other appropriate mechanisms to ensure they are rendered at request time. Static pre-rendering will cache stale or error states because the backend is not available during `next build`.
 - **Styling**: [Tailwind CSS](https://tailwindcss.com) for all styling. Do not introduce other CSS frameworks.
 - **Component Library**: [shadcn/ui](https://ui.shadcn.com) as the component library.
 
