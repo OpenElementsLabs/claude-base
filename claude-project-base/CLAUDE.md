@@ -3,6 +3,11 @@
 This file provides base rules and conventions for Claude Code in Open Elements projects.
 Projects that use this as a base can override or extend these rules in their own `CLAUDE.md`.
 
+## Core Philosophy
+
+- **Quality over speed.** Getting it right matters more than getting it done fast. Take the time needed for clean APIs, proper tests, correct architecture, and polished design.
+- **Iterative improvement is expected.** Code and design will evolve through iterations. It is normal and encouraged that things change and improve as new features are added or understanding deepens. Do not over-optimize for a "final" state on the first pass.
+
 ## Code Quality
 
 - Follow the DRY principle — avoid duplicating logic. Extract shared code into reusable functions or modules.
