@@ -20,6 +20,7 @@
 ## Build Metadata
 
 - Build tool configurations (Maven `pom.xml`, `package.json`, etc.) must include meaningful project metadata: name, description, URL, license, and developer information.
+- **IMPORTANT**: For the project URL (e.g., `<url>` in Maven `pom.xml`), try to read it from the Git remote (`git remote get-url origin`) and convert it to the corresponding GitHub web URL. If no Git remote is configured, **ask the user** for the correct URL. Never guess or assume a repository URL.
 - This metadata is used for generated artifacts, SBOM generation, and repository listings.
 
 ## Software Bill of Materials (SBOM)
