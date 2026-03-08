@@ -46,7 +46,7 @@ Formatting rules (indentation, charset, line endings) are defined in `.editorcon
 - Name test cases descriptively: `it('should return empty array when no items exist')`.
 - Group related tests with `describe` blocks.
 - Prefer `toEqual` for deep equality and `toBe` for reference/primitive equality.
-- Mock external dependencies, not internal implementation details.
+- **IMPORTANT**: Avoid excessive mocking. Prefer simple stub/dummy implementations for test dependencies if possible and not too complexe. Excessive mocking often indicates poorly designed APIs with too many dependencies. Only mock when the dependency cannot be substituted otherwise (e.g., browser APIs, third-party services) or complexity will become too big.
 
 ## Linting and Formatting
 

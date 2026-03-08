@@ -65,6 +65,7 @@ Formatting rules (indentation, charset, line endings) are defined in `.editorcon
 - Test one behavior per test method. Provide meaningful assertion messages.
 - Test edge cases: null values, empty collections, boundary values, and expected exceptions.
 - Keep tests independent and fast — each test should run in milliseconds without depending on other tests.
+- **IMPORTANT**: Avoid excessive mocking. Excessive mocking is often a sign that APIs have too many dependencies or are poorly designed. Prefer simple dummy/stub implementations of interfaces for test dependencies instead if possible. Use mocking when the dependency is a concrete or final class that cannot be substituted otherwise or the complexity becomes too big.
 
 ## Logging
 

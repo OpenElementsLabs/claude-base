@@ -44,7 +44,7 @@ Write `steps.md` in the spec folder following the format from the spec-driven de
 For each step, include:
 - **Step number and title**
 - **Changes** — Concrete list of what to create or modify
-- **Acceptance criteria** — How to verify the step is done
+- **Acceptance criteria** — How to verify the step is done. Every step must include acceptance criteria that the project builds successfully and that unit tests for any new code exist and pass.
 - **Related behaviors** — Which scenarios from `behaviors.md` this step contributes to
 
 ### 4. Review with the user

@@ -113,6 +113,8 @@ An ordered, actionable checklist for implementing the spec. Uses GitHub-flavored
 **Acceptance criteria:**
 - [ ] Migration runs successfully
 - [ ] Entity can be instantiated in a test
+- [ ] Unit tests for new code exist and pass
+- [ ] Project builds successfully
 
 **Related behaviors:** User creation happy path
 
