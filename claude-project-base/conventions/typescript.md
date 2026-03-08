@@ -10,6 +10,16 @@
 - **Styling**: [Tailwind CSS](https://tailwindcss.com) for all styling. Do not introduce other CSS frameworks.
 - **Component Library**: [shadcn/ui](https://ui.shadcn.com) as the component library.
 
+## UI Layout and Design Quality
+
+- **IMPORTANT**: Every page and component must have a polished, professional appearance — even for early-stage or PoC projects. Unstyled or minimally styled UIs are not acceptable.
+- Use a consistent page layout with a clear structure: header/navigation, main content area, and footer where appropriate.
+- Apply generous and consistent spacing (padding and margin) throughout. Use Tailwind's spacing scale consistently (e.g., `p-4`, `p-6`, `p-8` for content areas, `gap-4`, `gap-6` for flex/grid layouts). Never leave elements without spacing.
+- Constrain content width for readability (e.g., `max-w-screen-xl mx-auto`) — do not let content stretch edge-to-edge on wide screens.
+- Use shadcn/ui components (Card, Table, Button, Input, Dialog, etc.) instead of bare HTML elements. Bare `<table>`, `<button>`, or `<input>` elements without component library styling are not acceptable.
+- Ensure responsive design: layouts must work on mobile, tablet, and desktop. Use Tailwind's responsive prefixes (`sm:`, `md:`, `lg:`).
+- Apply the Open Elements brand colors and typography as defined in the Brand Guidelines skill. Configure them in `tailwind.config` so they are available as utility classes.
+
 ## Common Commands
 
 These are the typical commands for TypeScript/Next.js projects. Adjust the package manager prefix (`pnpm`, `npm run`, `yarn`) to match the project.
