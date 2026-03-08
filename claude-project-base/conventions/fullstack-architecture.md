@@ -88,8 +88,11 @@ Document the following commands in the project README:
 ## Communication Between Frontend and Backend
 
 - The frontend communicates with the backend exclusively through HTTP APIs.
-- In Docker Compose, the frontend uses the Docker service name to reach the backend (e.g., `http://backend:8080`).
-- In local development, the frontend connects to the backend via `localhost` and the backend's dev port.
+- **IMPORTANT**: The frontend application must never call the backend directly from the browser. Instead, route all API calls through the frontend's server-side layer. This avoids CORS issues and prevents exposing internal backend URLs to the client. Note: the backend's Swagger UI is accessed directly by developers for API exploration — this rule applies to the frontend application's API communication only.
+- **For Next.js**: Use [Next.js Rewrites](https://nextjs.org/docs/app/api-reference/config/next-config-js/rewrites) or [API Routes (Route Handlers)](https://nextjs.org/docs/app/building-your-application/routing/route-handlers) to proxy requests to the backend. The frontend's server process knows the backend URL (via `BACKEND_URL` environment variable), but the browser only talks to the frontend's own origin.
+- In Docker Compose, the frontend server-side proxy reaches the backend via the Docker service name (e.g., `http://backend:8080`). The browser only communicates with the frontend container.
+- In local development, the frontend proxy connects to the backend via `localhost` and the backend's dev port.
+- Do not configure CORS on the backend to allow frontend origins as a workaround — use the proxy approach instead.
 - API contracts should be clearly defined. Changes to the API should be coordinated between frontend and backend.
 
 ## Pinned Tool Versions
