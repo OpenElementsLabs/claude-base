@@ -25,6 +25,7 @@ When building libraries that target backend applications, provide support for Sp
 - Use meaningful operation IDs and group endpoints with tags.
 - Configure authentication information in the OpenAPI specification so that users can authorize directly in the Swagger UI to test protected endpoints. Include the supported security schemes (e.g., Bearer token, OAuth2) and their configuration.
 - Ensure the OpenAPI spec stays in sync with the actual implementation — generate it from code rather than maintaining a separate spec file.
+- **IMPORTANT**: Never expose JPA entities directly in REST endpoints (neither as request nor as response objects). Always use dedicated **DTOs** (Data Transfer Objects) for the API layer. Map between entities and DTOs explicitly in the service or controller layer. This avoids leaking internal data model details, prevents lazy-loading and serialization issues, and decouples the API contract from the database schema.
 
 ## Data Access and Database
 

@@ -53,8 +53,21 @@ Formatting rules (indentation, charset, line endings) are defined in `.editorcon
 - Fix linting errors in code you write or modify. Do not add `eslint-disable` comments unless there is a clear justification.
 - Run formatting before committing to keep diffs clean.
 
+## Logging
+
+- Use `console.error` for errors, `console.warn` for warnings, and `console.info` for informational messages. Do not use `console.log` in production code.
+- Log meaningful context: what operation failed, which endpoint was called, and the HTTP status code or error message received.
+- **IMPORTANT**: Never log sensitive data (tokens, passwords, personal data) to the browser console.
+
 ## Error Handling
 
 - Use typed errors or custom error classes where appropriate.
 - Avoid catching errors without handling them. At minimum, log the error.
 - Prefer `unknown` over `any` in catch blocks: `catch (error: unknown)`.
+
+### Backend Communication Errors
+
+- Log detailed error information to the browser console (HTTP status, endpoint URL, error body) for debugging purposes.
+- **IMPORTANT**: Never show raw backend error messages, stack traces, or technical details to the user. Display a simplified, user-friendly error message instead (e.g., "The data could not be loaded. Please try again later.").
+- Distinguish between error types for the user where helpful: network errors ("No connection to the server"), authorization errors ("Please log in again"), and general server errors ("An unexpected error occurred").
+- Centralize backend error handling in a shared utility or API client layer to ensure consistent logging and user-facing messages across the application.
