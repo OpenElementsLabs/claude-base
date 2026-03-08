@@ -53,6 +53,15 @@ Formatting rules (indentation, charset, line endings) are defined in `.editorcon
 - Fix linting errors in code you write or modify. Do not add `eslint-disable` comments unless there is a clear justification.
 - Run formatting before committing to keep diffs clean.
 
+## Internationalization (I18n)
+
+- **IMPORTANT**: All user-facing text must be i18n-ready from the start. Never hardcode display strings directly in components.
+- Extract all user-facing strings (labels, messages, errors, placeholders, tooltips) into a central location (e.g., a constants file or translation file) so that adding translations later requires no component changes.
+- Use a consistent key-naming convention for text keys (e.g., `page.section.element` like `dashboard.header.title`).
+- Full multi-language support does not need to be implemented immediately, but the architecture must make it straightforward to add later (e.g., by swapping in a library like [next-intl](https://next-intl-docs.vercel.app/) or [react-i18next](https://react.i18next.com/)).
+- Do not concatenate translated strings to build sentences — use parameterized messages with placeholders instead (e.g., `"Welcome, {name}"` not `"Welcome, " + name`).
+- Keep date, number, and currency formatting locale-aware from the start (use `Intl.DateTimeFormat`, `Intl.NumberFormat`).
+
 ## Logging
 
 - Use `console.error` for errors, `console.warn` for warnings, and `console.info` for informational messages. Do not use `console.log` in production code.
