@@ -34,6 +34,7 @@ Formatting rules (indentation, charset, line endings) are defined in `.editorcon
 
 - Respect the existing build tool (Maven or Gradle) — do not switch without explicit instruction.
 - We always prefer Maven over Gradle.
+- **IMPORTANT**: Before choosing a Java version for a new project, verify that the framework (Spring Boot, Helidon, etc.) and all major dependencies support that version. Use the latest Java LTS version that is fully supported by the framework. The Java version must be consistent across `pom.xml` (`<java.version>` / `<maven.compiler.release>`), `.sdkmanrc`, and Docker base images.
 - When adding dependencies, use the dependency management section (Maven `<dependencyManagement>` or Gradle version
   catalog) if one exists.
 - Do not add dependencies that duplicate functionality already available in the project.

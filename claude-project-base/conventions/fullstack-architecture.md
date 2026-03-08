@@ -44,7 +44,7 @@ Each application has a multi-stage `Dockerfile` in its own directory:
 Both Dockerfiles should:
 
 - Use multi-stage builds to keep the final image small.
-- Pin base image versions (e.g., `eclipse-temurin:25-alpine`, `node:24-alpine`).
+- Pin base image versions (e.g., `eclipse-temurin:21-alpine`, `node:22-alpine`). **IMPORTANT**: The Java version in the Docker base image must match the Java version in the project's `pom.xml` (`<java.version>` / `<maven.compiler.release>`) and must be supported by the framework in use (e.g., Spring Boot). Check the framework's documentation for supported Java versions before choosing a version. Use the same Java version consistently across `.sdkmanrc`, `pom.xml`, and Dockerfile.
 - Run the application as a non-root user in the final stage.
 - Expose only the application port.
 - **IMPORTANT**: Every `COPY` instruction in a Dockerfile must reference files or directories that are guaranteed to exist. Do not use shell-style workarounds like `2>/dev/null || true` — these do not work in Dockerfile `COPY` instructions and will cause build failures. For the Next.js frontend, ensure a `public/` directory exists in the project (at minimum with a `favicon.ico` or an empty `.gitkeep` file).
@@ -100,7 +100,7 @@ Document the following commands in the project README:
 
 Pin exact versions of runtimes and build tools in the repository so that every developer and CI environment uses the same versions.
 
-- **Java**: Use a `.sdkmanrc` file in the backend directory to pin the Java version (e.g., `java=25`). Developers activate it with `sdk env install`.
+- **Java**: Use a `.sdkmanrc` file in the backend directory to pin the Java version (e.g., `java=21`). Developers activate it with `sdk env install`. The pinned version must be compatible with the framework in use — check the framework's supported Java versions.
 - **Node.js**: Use a `.nvmrc` file in the frontend directory to pin the Node.js version (e.g., `v22.19.0`). Developers activate it with `nvm install`.
 - **Build tool wrappers**: Use the Maven Wrapper (`mvnw`) or Gradle Wrapper (`gradlew`) so the build tool version is committed to the repository and does not need to be installed separately.
 - Do not rely on globally installed tool versions. The repository must define everything needed to build and run.
