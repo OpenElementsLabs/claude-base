@@ -17,6 +17,8 @@ Ask the user which spec to use, or detect it from context. Read both `design.md`
 
 Also read any relevant existing code that the implementation will modify or extend. Understand the current state of the codebase before planning changes.
 
+If the spec involves **frontend or UI work**, also read the **Open Elements Brand Guidelines** skill (`../open-elements-brand-guidelines/SKILL.md`) and the **Frontend Design** skill (`../frontend-design/SKILL.md`). All frontend implementation steps must reference and apply the brand colors, typography, and design quality standards.
+
 ### 2. Break down into steps
 
 Create an ordered list of implementation steps. Each step should be:
@@ -30,10 +32,11 @@ A typical ordering is:
 2. Core business logic / service layer
 3. API endpoints / controllers
 4. Integration with external services
-5. Unit tests for core logic
-6. Integration tests for API and flows
-7. Edge case and error handling tests
-8. Documentation updates (if applicable)
+5. Frontend / UI components (apply Open Elements Brand Guidelines and Frontend Design skill)
+6. Unit tests for core logic
+7. Integration tests for API and flows
+8. Edge case and error handling tests
+9. Documentation updates (if applicable)
 
 Adapt the ordering to the project and technology stack.
 
