@@ -102,9 +102,16 @@ Sandbox uses Seatbelt on macOS and bubblewrap on Linux for enforcement at the OS
 
 Hooks can block dangerous operations before they execute and log actions for audit trails.
 
-### Block destructive git operations
+**Important**: Hook commands receive JSON input via **stdin**, not via environment variables. Use `jq` to extract fields like `tool_name` and `tool_input` from the JSON payload. For complex hooks, use separate script files in `.claude/hooks/` instead of inline commands to avoid shell escaping issues.
 
-Prevent accidental force-pushes to main:
+### Hook Scripts
+
+The hook scripts are provided as ready-to-use files in the `hooks/` directory of this template:
+
+- **`hooks/block-destructive-git.sh`** — Blocks force-pushes and `git reset --hard` (PreToolUse)
+- **`hooks/log-activity.sh`** — Logs all tool calls with timestamp, tool name, and input to `claude.log` (PostToolUse)
+
+When setting up a project, copy the `hooks/` directory to `.claude/hooks/` and add the following to `.claude/settings.json`:
 
 ```json
 {
@@ -115,28 +122,17 @@ Prevent accidental force-pushes to main:
         "hooks": [
           {
             "type": "command",
-            "command": "if echo \"$TOOL_INPUT\" | grep -qE 'git\\s+push.*--force|git\\s+push.*-f|git\\s+reset\\s+--hard'; then echo 'Blocked: destructive git operation. Use the Git CLI directly if intended.' >&2; exit 2; fi"
+            "command": "bash .claude/hooks/block-destructive-git.sh"
           }
         ]
       }
-    ]
-  }
-}
-```
-
-### Activity logging
-
-Log every tool call Claude Code makes to `claude.log` in the project root. This provides a full audit trail of all actions during a session:
-
-```json
-{
-  "hooks": {
+    ],
     "PostToolUse": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "echo \"$(date -u '+%Y-%m-%dT%H:%M:%SZ') [$TOOL_NAME] $TOOL_INPUT\" >> claude.log"
+            "command": "bash .claude/hooks/log-activity.sh"
           }
         ]
       }
@@ -145,13 +141,15 @@ Log every tool call Claude Code makes to `claude.log` in the project root. This 
 }
 ```
 
-This logs all tool calls (Bash, Read, Edit, Write, Glob, Grep, etc.) with timestamp and input. The log is temporary and must be added to `.gitignore`.
+The log file `claude.log` is temporary and must be added to `.gitignore`. Requires `jq` to be installed.
 
 ## Setup Checklist
 
 When adding `claude-project-base` to a new project:
 
 - [ ] Copy the deny rules into `.claude/settings.json`
+- [ ] Copy `hooks/` directory from the template to `.claude/hooks/` (scripts are already executable)
 - [ ] Add `.claude/settings.local.json` and `claude.log` to `.gitignore`
+- [ ] Ensure `jq` is installed (required by hook scripts)
 - [ ] Consider enabling sandbox mode for stricter isolation
 - [ ] Review whether additional project-specific paths need to be denied (e.g., `./secrets/`, `./certs/`)
