@@ -14,6 +14,7 @@ Every repository must have a `README.md` at the root. Its content depends on the
 
 - What the repository contains and what the project does.
 - The current status of the project (e.g., stable, beta, experimental).
+- **Prerequisites** — List all required tools with minimum versions (e.g., Java 21, Node.js 20, pnpm 9). Also list recommended tools for managing versions (e.g., [SDKMAN!](https://sdkman.io/) for Java, [nvm](https://github.com/nvm-sh/nvm) for Node.js). Reference `.sdkmanrc` or `.nvmrc` files if the project provides them.
 - How to build the project from source.
 
 **Libraries must additionally include:**
@@ -24,7 +25,7 @@ Every repository must have a `README.md` at the root. Its content depends on the
 **Applications (backend, frontend, or fullstack) must additionally include:**
 
 - How to install, deploy, and start the application.
-- Prerequisites (runtime versions, required services like databases).
+- Required services (e.g., PostgreSQL, Redis) and how to set them up locally.
 - How to run with Docker / Docker Compose if applicable.
 
 ### `LICENSE`
