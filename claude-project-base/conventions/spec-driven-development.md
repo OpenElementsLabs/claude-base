@@ -85,9 +85,9 @@ Format:
 
 ### <Scenario Name>
 
-**Given** <precondition>
-**When** <action>
-**Then** <expected outcome>
+- **Given** <precondition>
+- **When** <action>
+- **Then** <expected outcome>
 ```
 
 Coverage should include:
