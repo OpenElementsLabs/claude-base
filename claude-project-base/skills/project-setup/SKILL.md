@@ -43,13 +43,23 @@ Before performing any review or setup task, **read all convention documents firs
 
 5. When **reviewing** an existing project: compare the project structure, files, and conventions against the applicable docs. List what matches, what is missing, and what should be changed.
 
-6. When **setting up or updating** a project: apply all applicable conventions and create/modify files accordingly. **IMPORTANT**: Do not create all files in a single response — this will exceed the output token limit and abort mid-execution, leaving the project in a broken state. Split the file creation into sequential batches, for example:
-   - **Batch 1**: Root files (`.editorconfig`, `.gitignore`, `LICENSE`, `docker-compose.yml`, `README.md`, `.env.example`)
-   - **Batch 2**: Backend setup (`pom.xml`, Maven Wrapper, `Dockerfile`, `.sdkmanrc`, application config)
-   - **Batch 3**: Backend source code (main class, entities, controllers, services, DTOs)
-   - **Batch 4**: Frontend setup (`package.json`, `next.config.ts`, `tailwind.config.ts`, `tsconfig.json`, `.nvmrc`, `Dockerfile`)
-   - **Batch 5**: Frontend source code (layout, pages, components, styles with brand identity)
-   - **Batch 6**: Tests and remaining files
+6. When **setting up or updating** a project: apply all applicable conventions and create/modify files accordingly.
+
+   **IMPORTANT — Avoid output limits and content filter issues**: Do not create all files in a single response. Split the file creation into sequential batches with **at most 2–3 files per batch**. Create each file individually if it is large (e.g., `pom.xml`, source files). Additionally, **never combine credential-related files** (`.env.example`, `docker-compose.yml`, database config) with other files in the same batch — create them one at a time in separate responses to avoid triggering API content filters.
+
+   Recommended batch order:
+   - **Batch 1**: `.editorconfig`, `.gitignore`
+   - **Batch 2**: `LICENSE`
+   - **Batch 3**: `.env.example` (alone — contains credential placeholders)
+   - **Batch 4**: `docker-compose.yml` (alone — references credential variables)
+   - **Batch 5**: Backend `pom.xml`
+   - **Batch 6**: Backend `Dockerfile`, `.sdkmanrc`
+   - **Batch 7**: Backend application config (`application.yml` / `application.properties`)
+   - **Batch 8**: Backend main class and source files (1–2 files per batch)
+   - **Batch 9**: Frontend `package.json`, `next.config.ts`, `tsconfig.json`
+   - **Batch 10**: Frontend `tailwind.config.ts`, `.nvmrc`, `Dockerfile`
+   - **Batch 11**: Frontend source code (layout, pages, components — 1–2 files per batch)
+   - **Batch 12**: Tests and `README.md`
    After each batch, verify the files were created successfully before proceeding to the next batch.
 
 7. After creating all project files: If a `.env.example` exists and no `.env` file is present, **copy `.env.example` to `.env`** so the project is immediately runnable without manual configuration. This way the developer can start with `docker-compose up --build` right away.
