@@ -64,4 +64,4 @@ After the plan is finalized, explain the options to the user:
 - **Guided implementation** — The developer works through the steps and asks Claude Code for help on individual steps as needed.
 - **Automated implementation** — Ask Claude Code to execute the steps one by one. The user reviews after each step before proceeding to the next.
 
-For automated execution: work through the steps sequentially. After each step, briefly report what was done and confirm with the user before moving to the next step. Do not batch multiple steps without review.
+For automated execution: work through the steps sequentially. After completing each step, **update `steps.md`** by checking off the completed items (`- [ ]` → `- [x]`). Then briefly report what was done and confirm with the user before moving to the next step. Do not batch multiple steps without review.
