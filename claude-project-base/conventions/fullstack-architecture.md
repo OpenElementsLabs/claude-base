@@ -115,9 +115,23 @@ Document the following commands in the project README:
 
 - The frontend communicates with the backend exclusively through HTTP APIs.
 - **IMPORTANT**: The frontend application must never call the backend directly from the browser. Instead, route all API calls through the frontend's server-side layer. This avoids CORS issues and prevents exposing internal backend URLs to the client. Note: the backend's Swagger UI is accessed directly by developers for API exploration — this rule applies to the frontend application's API communication only.
-- **For Next.js**: Use [Next.js Rewrites](https://nextjs.org/docs/app/api-reference/config/next-config-js/rewrites) or [API Routes (Route Handlers)](https://nextjs.org/docs/app/building-your-application/routing/route-handlers) to proxy requests to the backend. The frontend's server process knows the backend URL (via `BACKEND_URL` environment variable), but the browser only talks to the frontend's own origin.
+- **For Next.js**: Use [Next.js Rewrites](https://nextjs.org/docs/app/api-reference/config/next-config-js/rewrites) in `next.config.ts` to proxy API requests to the backend. **IMPORTANT**: The rewrite destination must use the `BACKEND_URL` environment variable — never hardcode `localhost`. In Docker Compose, `BACKEND_URL` is `http://backend:8080` (the Docker service name). In local development, it is `http://localhost:8080` (or whatever port the backend runs on).
+
+  Example `next.config.ts` rewrite:
+  ```typescript
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: `${process.env.BACKEND_URL}/api/:path*`,
+      },
+    ];
+  }
+  ```
+
+  With this setup, frontend code fetches from its own origin (e.g., `fetch('/api/status')`) and Next.js proxies the request server-side to the backend.
 - In Docker Compose, the frontend server-side proxy reaches the backend via the Docker service name (e.g., `http://backend:8080`). The browser only communicates with the frontend container.
-- In local development, the frontend proxy connects to the backend via `localhost` and the backend's dev port.
+- In local development, the frontend proxy connects to the backend via `localhost` and the backend's dev port. Set `BACKEND_URL=http://localhost:8080` in the frontend's `.env` or start script.
 - Do not configure CORS on the backend to allow frontend origins as a workaround — use the proxy approach instead.
 - API contracts should be clearly defined. Changes to the API should be coordinated between frontend and backend.
 
