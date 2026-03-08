@@ -41,6 +41,19 @@ Formatting rules (indentation, charset, line endings) are defined in `.editorcon
 - Always use meaningful dependency scopes.
   Use `compile`, `provided`, `runtime` or `test` whenever it makes sense.
 
+### Pinning Default Maven Plugin Versions
+
+- **IMPORTANT**: Every new Maven project must explicitly define versions for all default lifecycle plugins in `<build><pluginManagement>` to ensure reproducible builds across all systems.
+- Pin at least the following plugins (always use the latest stable version of each):
+  - `maven-clean-plugin`
+  - `maven-compiler-plugin`
+  - `maven-resources-plugin`
+  - `maven-surefire-plugin`
+  - `maven-jar-plugin`
+  - `maven-install-plugin`
+  - `maven-deploy-plugin`
+- When reviewing or setting up an existing project, check that these plugins have explicit versions and update them to the latest stable release if they are outdated.
+
 ## Testing
 
 - Use JUnit 5 (`org.junit.jupiter`) for tests.
