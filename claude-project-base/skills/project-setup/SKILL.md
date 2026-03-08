@@ -43,28 +43,20 @@ Before performing any review or setup task, **read all convention documents firs
 
 5. When **reviewing** an existing project: compare the project structure, files, and conventions against the applicable docs. List what matches, what is missing, and what should be changed.
 
-6. When **setting up or updating** a project: apply all applicable conventions and create/modify files accordingly.
+6. When **setting up a new project**, create only a **minimal runnable skeleton** — no business logic, no entities, no feature code. The goal is a project that builds, starts, and can be verified with `docker-compose up --build`. Business logic and features are added later via `/spec-create` and `/spec-implement`.
 
-   **IMPORTANT — Avoid output limits and content filter issues**: Do not create all files in a single response. Split the file creation into sequential batches with **at most 2–3 files per batch**. Create each file individually if it is large (e.g., `pom.xml`, source files). Additionally, **never combine credential-related files** (`.env.example`, `docker-compose.yml`, database config) with other files in the same batch — create them one at a time in separate responses to avoid triggering API content filters.
+   The skeleton includes:
+   - **Root**: `.editorconfig`, `.gitignore`, `LICENSE`, `.env.example`, `docker-compose.yml`, `README.md`
+   - **Backend**: `pom.xml` (with all required plugins and dependencies), Maven Wrapper, `Dockerfile`, `.sdkmanrc`, application config, and a single main application class with one health/ping endpoint to verify the backend starts correctly
+   - **Frontend**: `package.json`, `next.config.ts`, `tailwind.config.ts`, `tsconfig.json`, `.nvmrc`, `Dockerfile`, `public/favicon.ico`, and a single landing page that shows the project name and confirms the frontend is running. Apply the Open Elements Brand Guidelines (`../open-elements-brand-guidelines/SKILL.md`) and Frontend Design skill (`../frontend-design/SKILL.md`) for the landing page styling.
 
-   Recommended batch order:
-   - **Batch 1**: `.editorconfig`, `.gitignore`
-   - **Batch 2**: `LICENSE`
-   - **Batch 3**: `.env.example` (alone — contains credential placeholders)
-   - **Batch 4**: `docker-compose.yml` (alone — references credential variables)
-   - **Batch 5**: Backend `pom.xml`
-   - **Batch 6**: Backend `Dockerfile`, `.sdkmanrc`
-   - **Batch 7**: Backend application config (`application.yml` / `application.properties`)
-   - **Batch 8**: Backend main class and source files (1–2 files per batch)
-   - **Batch 9**: Frontend `package.json`, `next.config.ts`, `tsconfig.json`
-   - **Batch 10**: Frontend `tailwind.config.ts`, `.nvmrc`, `Dockerfile`
-   - **Batch 11**: Frontend source code (layout, pages, components — 1–2 files per batch)
-   - **Batch 12**: Tests and `README.md`
-   After each batch, verify the files were created successfully before proceeding to the next batch.
+   **Do not create**: entities, DTOs, repositories, services, controllers (beyond the health endpoint), database migrations, multiple pages, or any business-logic code.
 
-7. After creating all project files: If a `.env.example` exists and no `.env` file is present, **copy `.env.example` to `.env`** so the project is immediately runnable without manual configuration. This way the developer can start with `docker-compose up --build` right away.
+   **IMPORTANT — Avoid output limits and content filter issues**: Do not create all files in a single response. Split the file creation into sequential batches with **at most 2–3 files per batch**. Create each file individually if it is large (e.g., `pom.xml`). Additionally, **never combine credential-related files** (`.env.example`, `docker-compose.yml`, database config) with other files in the same batch — create them one at a time in separate responses to avoid triggering API content filters. After each batch, verify the files were created successfully before proceeding to the next batch.
 
-8. For projects that include a **frontend**: Before creating or modifying any UI code, read and apply the **Open Elements Brand Guidelines** skill (`../open-elements-brand-guidelines/SKILL.md`) to use the correct brand colors, typography, and logo assets. Additionally, follow the **Frontend Design** skill (`../frontend-design/SKILL.md`) for design quality standards. All Open Elements frontends must use the brand identity — do not use generic colors, fonts, or placeholder styling.
+7. After creating all project files: If a `.env.example` exists and no `.env` file is present, **copy `.env.example` to `.env`** so the project is immediately runnable without manual configuration.
+
+8. After the skeleton is complete, verify it works by running `docker-compose up --build`. If errors occur, fix them before considering the setup done.
 
 ## Project Types
 
