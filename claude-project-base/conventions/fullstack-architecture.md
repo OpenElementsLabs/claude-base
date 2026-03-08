@@ -63,10 +63,25 @@ Example structure:
 
 ```yaml
 services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+
   backend:
     build: ./backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
     ports:
       - "${BACKEND_PORT:-9081}:8080"
+    depends_on:
+      - db
 
   frontend:
     build: ./frontend
@@ -76,6 +91,16 @@ services:
       - "${FRONTEND_PORT:-4001}:3000"
     depends_on:
       - backend
+```
+
+The corresponding `.env.example` should contain:
+
+```env
+DB_NAME=appdb
+DB_USER=appuser
+DB_PASSWORD=changeme
+BACKEND_PORT=9081
+FRONTEND_PORT=4001
 ```
 
 ### Common Docker Compose Commands
@@ -110,6 +135,7 @@ Pin exact versions of runtimes and build tools in the repository so that every d
 - **IMPORTANT**: Both frontend and backend must be configurable via environment variables. All environment-specific values (database URLs, API keys, feature flags, external service URLs) must be read from environment variables — never hardcoded.
 - For local development, use a `.env` file at the repository root (or per application directory) to define environment variables. Docker Compose loads `.env` files automatically.
 - Add `.env` to `.gitignore`. Provide a `.env.example` file with all required variables and sensible defaults or placeholder values as documentation.
+- When setting up a project, copy `.env.example` to `.env` if no `.env` file exists yet. This ensures the project is immediately runnable. Document this step in the README.
 - In hosted environments (Coolify, cloud platforms, CI/CD), set environment variables directly in the platform configuration instead of using `.env` files.
 - Design configuration so that the same container image can run in any environment (local, test, production) — only the environment variables change.
 
@@ -119,3 +145,4 @@ Pin exact versions of runtimes and build tools in the repository so that every d
 - Do not create a single Dockerfile that builds both applications.
 - Do not use monorepo tools (Nx, Turborepo) to couple the build processes.
 - **IMPORTANT**: Do not hardcode ports or URLs — use environment variables with sensible defaults.
+- **IMPORTANT**: Never hardcode credentials (passwords, usernames, API keys) directly in `docker-compose.yml` or any other checked-in file. Use environment variable references (`${DB_PASSWORD}`) and define the values in `.env` (which is gitignored). The `.env.example` file should contain only placeholder values (e.g., `DB_PASSWORD=changeme`).

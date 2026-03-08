@@ -52,7 +52,9 @@ Before performing any review or setup task, **read all convention documents firs
    - **Batch 6**: Tests and remaining files
    After each batch, verify the files were created successfully before proceeding to the next batch.
 
-7. For projects that include a **frontend**: Before creating or modifying any UI code, read and apply the **Open Elements Brand Guidelines** skill (`../open-elements-brand-guidelines/SKILL.md`) to use the correct brand colors, typography, and logo assets. Additionally, follow the **Frontend Design** skill (`../frontend-design/SKILL.md`) for design quality standards. All Open Elements frontends must use the brand identity — do not use generic colors, fonts, or placeholder styling.
+7. After creating all project files: If a `.env.example` exists and no `.env` file is present, **copy `.env.example` to `.env`** so the project is immediately runnable without manual configuration. This way the developer can start with `docker-compose up --build` right away.
+
+8. For projects that include a **frontend**: Before creating or modifying any UI code, read and apply the **Open Elements Brand Guidelines** skill (`../open-elements-brand-guidelines/SKILL.md`) to use the correct brand colors, typography, and logo assets. Additionally, follow the **Frontend Design** skill (`../frontend-design/SKILL.md`) for design quality standards. All Open Elements frontends must use the brand identity — do not use generic colors, fonts, or placeholder styling.
 
 ## Project Types
 
