@@ -9,6 +9,17 @@
 - **IMPORTANT**: Pages that fetch data from a backend API must not be statically pre-rendered at build time. Use `export const dynamic = 'force-dynamic'` or other appropriate mechanisms to ensure they are rendered at request time. Static pre-rendering will cache stale or error states because the backend is not available during `next build`.
 - **Styling**: [Tailwind CSS](https://tailwindcss.com) for all styling. Do not introduce other CSS frameworks.
 - **Component Library**: [shadcn/ui](https://ui.shadcn.com) as the component library.
+- **shadcn/ui MCP Server**: Projects using shadcn/ui should configure the [shadcn MCP server](https://ui.shadcn.com/docs/mcp) so that Claude Code can browse, search, and install components directly. Add the following to the project's `.mcp.json`:
+  ```json
+  {
+    "mcpServers": {
+      "shadcn": {
+        "command": "npx",
+        "args": ["shadcn@latest", "mcp"]
+      }
+    }
+  }
+  ```
 
 ## Project Structure
 
@@ -17,7 +28,7 @@
 ## UI Layout and Design Quality
 
 - **IMPORTANT**: Every page and component must have a polished, professional appearance — even for early-stage or PoC projects. Unstyled or minimally styled UIs are not acceptable.
-- Use a consistent page layout with a clear structure: header/navigation, main content area, and footer where appropriate.
+- Use a consistent page layout with a clear structure: header/navigation, main content area, and footer where appropriate. Prefer [shadcn/ui Blocks](https://ui.shadcn.com/blocks) as a starting point for app layouts (e.g., sidebar or dashboard shells) instead of building layout structures from scratch.
 - Apply generous and consistent spacing (padding and margin) throughout. Use Tailwind's spacing scale consistently (e.g., `p-4`, `p-6`, `p-8` for content areas, `gap-4`, `gap-6` for flex/grid layouts). Never leave elements without spacing.
 - Constrain content width for readability (e.g., `max-w-screen-xl mx-auto`) — do not let content stretch edge-to-edge on wide screens.
 - Use shadcn/ui components (Card, Table, Button, Input, Dialog, etc.) instead of bare HTML elements. Bare `<table>`, `<button>`, or `<input>` elements without component library styling are not acceptable.
