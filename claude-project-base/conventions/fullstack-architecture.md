@@ -47,6 +47,7 @@ Both Dockerfiles should:
 - Pin base image versions (e.g., `eclipse-temurin:25-alpine`, `node:24-alpine`).
 - Run the application as a non-root user in the final stage.
 - Expose only the application port.
+- **IMPORTANT**: Every `COPY` instruction in a Dockerfile must reference files or directories that are guaranteed to exist. Do not use shell-style workarounds like `2>/dev/null || true` — these do not work in Dockerfile `COPY` instructions and will cause build failures. For the Next.js frontend, ensure a `public/` directory exists in the project (at minimum with a `favicon.ico` or an empty `.gitkeep` file).
 
 ### Docker Compose
 

@@ -10,6 +10,10 @@
 - **Styling**: [Tailwind CSS](https://tailwindcss.com) for all styling. Do not introduce other CSS frameworks.
 - **Component Library**: [shadcn/ui](https://ui.shadcn.com) as the component library.
 
+## Project Structure
+
+- Every Next.js project must have a `public/` directory with at minimum a `favicon.ico`. This directory is required for the Docker build to succeed and for serving static assets.
+
 ## UI Layout and Design Quality
 
 - **IMPORTANT**: Every page and component must have a polished, professional appearance — even for early-stage or PoC projects. Unstyled or minimally styled UIs are not acceptable.
