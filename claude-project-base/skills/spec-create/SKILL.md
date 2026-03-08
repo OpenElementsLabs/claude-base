@@ -53,6 +53,8 @@ Not every section is needed for every task — adapt the content to the type of 
 
 **For all designs**, consider **GDPR (DSGVO) compliance**: If the feature involves personal data (user input, profiles, tracking, analytics, etc.), the design must address data minimization, legal basis for processing, data subject rights (access, rectification, erasure, portability), and retention/deletion strategy. Add a dedicated section in the design doc when personal data is affected.
 
+**For features with UI components**, the design must reference the Open Elements Brand Guidelines (colors, typography, logo) and the Frontend Design skill for design quality. Note in the design doc which brand colors, fonts, and assets will be used.
+
 **For features**, the full design structure applies: Summary, Goals, Non-goals, Technical approach, API design, Data model, Key flows, etc.
 
 **For bug fixes**, the design focuses on different priorities:

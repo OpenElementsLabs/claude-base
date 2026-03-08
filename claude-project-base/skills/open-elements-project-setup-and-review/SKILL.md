@@ -45,6 +45,8 @@ Before performing any review or setup task, **read all convention documents firs
 
 6. When **setting up or updating** a project: apply all applicable conventions and create/modify files accordingly.
 
+7. For projects that include a **frontend**: Before creating or modifying any UI code, read and apply the **Open Elements Brand Guidelines** skill (`../open-elements-brand-guidelines/SKILL.md`) to use the correct brand colors, typography, and logo assets. Additionally, follow the **Frontend Design** skill (`../frontend-design/SKILL.md`) for design quality standards. All Open Elements frontends must use the brand identity — do not use generic colors, fonts, or placeholder styling.
+
 ## Project Types
 
 A project can be a Java library, a TypeScript library, a Java Backend (Spring Boot or Helidon SE based), a Web Frontend or a full application (containing 1-N back-ends and 1-N front-ends).
