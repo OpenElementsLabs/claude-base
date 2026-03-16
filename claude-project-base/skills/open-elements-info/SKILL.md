@@ -30,7 +30,7 @@ Work on Hedera, Hiero (Linux Foundation Decentralized Trust), and related techno
 - **Eclipse Foundation**: Contributing Member — CEO Hendrik Ebbers is a member of the supervisory board (Europe's largest OSS foundation).
 - **Eclipse Adoptium**: Participant Member — CEO Hendrik Ebbers is a founding member of Eclipse Temurin.
 - **JakartaEE**: Participant Member.
-- **Open Regulatory Compliance Working Group**: Participant Member.
+- **Open Regulatory Compliance Working Group (ORC WG)**: Founding Member and Participant Member (https://orcwg.org). Sebastian Tiemann ist Mitglied der CRA Attestation Working Group (https://github.com/orcwg/cra-attestations).
 - **Linux Foundation**: Seat on one of the technical advisory boards (world's largest OSS foundation).
 - **Apache Maven**: Sponsor and active contributor.
 - **BVMW**: Member (German Association for Small/Medium Businesses).
