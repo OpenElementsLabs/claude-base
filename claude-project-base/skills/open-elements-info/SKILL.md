@@ -1,6 +1,6 @@
 ---
 name: open-elements-info
-description: Background information about Open Elements GmbH — company profile, mission, business areas, foundation memberships, and contact details. Use when generating content that references the company, its values, or its organizational context.
+description: Background information about Open Elements GmbH — company profile, founder Hendrik Ebbers, team, mission, business areas (Support & Care, Digital Trust), foundation memberships, and contact details. Use when generating content that references the company, its people, its values, or its organizational context. Also use when the user mentions Hendrik Ebbers, Open Elements, or needs company background for proposals, tenders, or presentations.
 ---
 
 # Open Elements Company Information

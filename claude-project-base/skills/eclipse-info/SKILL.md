@@ -1,6 +1,6 @@
 ---
 name: eclipse-info
-description: Background information about the Eclipse Foundation and its key projects relevant to Open Elements — including Eclipse Adoptium/Temurin, Jakarta EE, and the Eclipse IDE. Use when generating content that references the Eclipse Foundation, Adoptium, Temurin, Jakarta EE, or when describing Open Elements' involvement in the Eclipse ecosystem.
+description: Background information about the Eclipse Foundation and its key projects relevant to Open Elements — including Eclipse Adoptium/Temurin, Jakarta EE, the ORC WG (CRA compliance for open source), and the Eclipse IDE. Use when generating content that references the Eclipse Foundation, Adoptium, Temurin, Jakarta EE, ORC WG, CRA attestation, or when describing Open Elements' involvement in the Eclipse ecosystem.
 ---
 
 # Eclipse Foundation Information

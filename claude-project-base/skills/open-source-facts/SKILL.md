@@ -1,6 +1,6 @@
 ---
 name: open-source-facts
-description: Statistics, economic data, and key facts about open-source software (OSS) adoption, market size, developer ecosystem, and business impact. Use when the user needs data points for presentations, tenders, proposals, blog posts, or any content that benefits from concrete open-source statistics. Also use when the user asks about OSS adoption rates, market trends, economic value, or developer demographics.
+description: Statistics, economic data, success stories, and key facts about open-source software (OSS) adoption, market size, developer ecosystem, ROI, and business impact. Use when the user needs data points for presentations, tenders, proposals, blog posts, or any content that benefits from concrete open-source statistics. Also use when the user asks about OSS adoption rates, market trends, economic value, developer demographics, CRA impact statistics, Bitkom Open Source Monitor, OSS ROI, or real-world OSS success stories and case studies.
 ---
 
 # Open Source Facts & Statistics
