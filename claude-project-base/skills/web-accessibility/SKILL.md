@@ -1,9 +1,11 @@
 ---
 name: web-accessibility
 description: Audit and improve web accessibility following WCAG 2.1 guidelines. Use when the user mentions accessibility, a11y, ARIA, screen readers, keyboard navigation, color contrast, alt text, focus management, or accessible forms. Also use during front-end development to ensure accessible web experiences, or when reviewing HTML for accessibility compliance.
+metadata:
+  source: https://github.com/addyosmani/web-quality-skills
+  author: Addy Osmani
+  modifications: Adapted for Open Elements projects
 ---
-
-This skill is based on https://github.com/addyosmani/web-quality-skills
 
 # Accessibility (a11y) for web developers
 

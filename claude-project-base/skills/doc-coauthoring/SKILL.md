@@ -1,13 +1,15 @@
 ---
 name: doc-coauthoring
 description: Guide users through a structured workflow for co-authoring documents such as proposals, tenders, technical specs, decision docs, or similar structured content. Helps users efficiently transfer context, refine content through iteration, and verify the document works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, preparing tenders, or similar documentation tasks.
+metadata:
+  source: https://github.com/anthropics/skills
+  author: Anthropic
+  modifications: Adapted for Open Elements projects with business communication rules
 ---
 
 # Doc Co-Authoring Workflow
 
 This skill provides a structured workflow for guiding users through collaborative document creation. Act as an active guide, walking users through three stages: Context Gathering, Refinement & Structure, and Reader Testing.
-
-Based on the [doc-coauthoring skill by Anthropic](https://github.com/anthropics/skills/blob/main/skills/doc-coauthoring/SKILL.md), adapted for Open Elements projects.
 
 ## When to Offer This Workflow
 
