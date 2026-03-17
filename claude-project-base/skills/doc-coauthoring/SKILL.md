@@ -1,6 +1,7 @@
 ---
 name: doc-coauthoring
 description: Guide users through a structured workflow for co-authoring documents such as proposals, tenders, technical specs, decision docs, or similar structured content. Helps users efficiently transfer context, refine content through iteration, and verify the document works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, preparing tenders, or similar documentation tasks.
+license: Apache-2.0
 metadata:
   source: https://github.com/anthropics/skills
   author: Anthropic

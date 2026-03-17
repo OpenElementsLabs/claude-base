@@ -1,6 +1,7 @@
 ---
 name: drawio
 description: Generate draw.io diagrams as .drawio files, optionally export to PNG/SVG/PDF with embedded XML. Use when the user asks to create diagrams, flowcharts, architecture diagrams, sequence diagrams, ER diagrams, network diagrams, org charts, or any visual diagram. Also use when the user mentions draw.io, drawio, mxGraph, or wants a visual representation of a system, process, or data flow.
+license: Apache-2.0
 metadata:
   source: https://github.com/jgraph/drawio-mcp
   author: JGraph
