@@ -26,7 +26,7 @@ Hendrik Ebbers is the founder of Open Elements and Director of Open Source at Ha
 - Vice Chair of the LFDT Technical Advisory Board (Linux Foundation)
 - Member of AAIF working groups (Linux Foundation)
 - Co-leading and contributing to Eclipse JakartaEE and Eclipse Adoptium
-- Founding member of Eclipse Temurin
+- Founding member of Eclipse Adoptium (formerly on the AdoptOpenJDK TSC)
 
 **Recognition:**
 
@@ -53,9 +53,9 @@ Work on Hedera, Hiero (Linux Foundation Decentralized Trust), and related techno
 ## Foundation Memberships and Roles
 
 - **Eclipse Foundation**: Contributing Member — Hendrik Ebbers is a member of the Board of Directors (Europe's largest OSS foundation).
-- **Eclipse Adoptium**: Participant Member — Hendrik Ebbers is a founding member of Eclipse Temurin.
+- **Eclipse Adoptium**: Participant Member — Hendrik Ebbers is a founding member of Eclipse Adoptium (formerly on the AdoptOpenJDK TSC).
 - **JakartaEE**: Participant Member.
-- **Open Regulatory Compliance Working Group (ORC WG)**: Founding Member and Participant Member (https://orcwg.org). Sebastian Tiemann is a member of the CRA Attestation Working Group (https://github.com/orcwg/cra-attestations).
+- **Open Regulatory Compliance Working Group (ORC WG)**: Founding Member and Participant Member (https://orcwg.org). Open Elements actively contributes to a practical implementation of the Cyber Resilience Act (CRA) rules for open-source software and industry. Initially Hendrik Ebbers was a regular participant in the WG meetings; Sebastian Tiemann has since taken over and is especially active in the CRA Attestation Working Group (https://github.com/orcwg/cra-attestations).
 - **Linux Foundation**: Hendrik Ebbers is Vice Chair of the LFDT Technical Advisory Board, TSC Chair of the Hiero project, and member of AAIF working groups (world's largest OSS foundation).
 - **Apache Maven**: Sponsor and active contributor.
 - **BVMW**: Member (German Association for Small/Medium Businesses).
