@@ -15,6 +15,31 @@ Open Elements sustainably reinvests income from Support & Care into OSS projects
 
 The company motto is "Open Source made right."
 
+## Founder — Hendrik Ebbers
+
+Hendrik Ebbers is the founder of Open Elements and Director of Open Source at Hashgraph.
+
+**Roles and positions:**
+
+- Member of the Board of Directors of the Eclipse Foundation
+- Technical Steering Committee Chair of the Hiero project (Linux Foundation)
+- Vice Chair of the LFDT Technical Advisory Board (Linux Foundation)
+- Member of AAIF working groups (Linux Foundation)
+- Co-leading and contributing to Eclipse JakartaEE and Eclipse Adoptium
+- Founding member of Eclipse Temurin
+
+**Recognition:**
+
+- Java Champion
+- JavaOne Rockstar
+- Member of JSR expert groups
+
+**Community:**
+
+- Founded the Java User Group Dortmund in 2012
+- Regular speaker at international conferences
+- Lectures on decentralized ledger technology at universities (OTH Regensburg)
+
 ## Business Areas
 
 ### Support & Care
@@ -27,23 +52,22 @@ Work on Hedera, Hiero (Linux Foundation Decentralized Trust), and related techno
 
 ## Foundation Memberships and Roles
 
-- **Eclipse Foundation**: Contributing Member — CEO Hendrik Ebbers is a member of the supervisory board (Europe's largest OSS foundation).
-- **Eclipse Adoptium**: Participant Member — CEO Hendrik Ebbers is a founding member of Eclipse Temurin.
+- **Eclipse Foundation**: Contributing Member — Hendrik Ebbers is a member of the Board of Directors (Europe's largest OSS foundation).
+- **Eclipse Adoptium**: Participant Member — Hendrik Ebbers is a founding member of Eclipse Temurin.
 - **JakartaEE**: Participant Member.
-- **Open Regulatory Compliance Working Group (ORC WG)**: Founding Member and Participant Member (https://orcwg.org). Sebastian Tiemann ist Mitglied der CRA Attestation Working Group (https://github.com/orcwg/cra-attestations).
-- **Linux Foundation**: Seat on one of the technical advisory boards (world's largest OSS foundation).
+- **Open Regulatory Compliance Working Group (ORC WG)**: Founding Member and Participant Member (https://orcwg.org). Sebastian Tiemann is a member of the CRA Attestation Working Group (https://github.com/orcwg/cra-attestations).
+- **Linux Foundation**: Hendrik Ebbers is Vice Chair of the LFDT Technical Advisory Board, TSC Chair of the Hiero project, and member of AAIF working groups (world's largest OSS foundation).
 - **Apache Maven**: Sponsor and active contributor.
 - **BVMW**: Member (German Association for Small/Medium Businesses).
 - **iJUG e.V.**: Member (German Java User Groups umbrella organization).
 
 ## Partners
 
-Eclipse Foundation, Linux Foundation, Sovereign Tech Agency, Hedera, Hashgraph Labs, OTH Regensburg, AKG GmbH, DUH-IT
+Eclipse Foundation, Linux Foundation, Sovereign Tech Agency, Hedera, Hashgraph, OTH Regensburg, AKG GmbH, DUH-IT
 
 ## Community Engagement
 
-- Hendrik Ebbers founded the Java User Group Dortmund in 2012.
-- Lectures on blockchain technology at OTH Regensburg.
+- See the "Founder — Hendrik Ebbers" section for details on community engagement.
 
 ## Mission
 

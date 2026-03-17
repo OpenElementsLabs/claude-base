@@ -29,7 +29,7 @@ If user declines, work freeform. If user accepts, proceed to Stage 1.
 
 ## Business Communication Rules
 
-**IMPORTANT:** For any document that represents Open Elements externally (proposals, tenders, presentations, cover letters), load and apply the rules from `../../conventions/business-communication.md` throughout all stages. These rules govern truthfulness, confidentiality, transparency, attribution, tone, and language.
+**IMPORTANT:** For any document that represents Open Elements externally (proposals, tenders, presentations, cover letters), load and apply the rules from `business-communication.md` throughout all stages. These rules govern truthfulness, confidentiality, transparency, attribution, tone, and language.
 
 Key rules to keep in mind at all times:
 - Every factual claim must be verifiable. Do not invent achievements, partnerships, certifications, or capabilities.

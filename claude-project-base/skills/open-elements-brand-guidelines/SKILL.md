@@ -73,7 +73,7 @@ When using the brand colors in web projects, define them as CSS custom propertie
 - **Headings**: Montserrat (or Lato)
 - **Body Text**: Lato
 - **Source Code**: Source_Code_Pro
-- In diagramms notes can be written in Permanent_Marker
+- In diagrams notes can be written in Permanent_Marker
 - **Note**: Fonts should be pre-installed in your environment for best results.
   All fonts are available in the [Google Fonts](https://fonts.google.com/) library.
 
@@ -96,7 +96,7 @@ On a light background only the *-light-background.* logos must be used.
 
 Next to that the graphic part of the logo without the "Open Elements" text is available (for example for use as fav-icon)
 - **open-elements-logo/logo-icon.png**: 1024x1024 PNG file
-- **open-elements-logo/logo-icon@0,5.png**: 0,5x PNG file
-- **open-elements-logo/logo-icon@0,25.png**: 0,25x PNG file
-- **open-elements-logo/logo-icon@0,33.png**: 0,33x PNG file
-- **open-elements-logo/logo-icon@0,75.png**: 0,75x PNG file
+- **open-elements-logo/logo-icon@0,5x.png**: 0,5x PNG file
+- **open-elements-logo/logo-icon@0,25x.png**: 0,25x PNG file
+- **open-elements-logo/logo-icon@0,33x.png**: 0,33x PNG file
+- **open-elements-logo/logo-icon@0,75x.png**: 0,75x PNG file

@@ -1,12 +1,12 @@
 ---
 name: project-setup
-description: This skill has a full understand of the structure we use at Open Elements for projects. This includes libraries, backends, frontends or full applications. The skill can review if a project fits to the specification and can give feedback on how to improve the project structure. The skill can also help to set up a new project based on the specifications and best practices of Open Elements, update a project based on them or even create a new project.
+description: Set up, review, or update Open Elements projects (Java libraries, TypeScript libraries, Java backends, web frontends, or fullstack applications). Use this skill when the user wants to create a new project, review an existing project's structure against Open Elements conventions, or update a project to match current best practices.
 ---
 
 # Open Elements Project Setup and Review
 
 This skill is designed to help with the setup and review of projects at Open Elements.
-A project in that case is most ofen a GitHub repository that contains code for a library, backend, frontend or full application.
+A project in that case is most often a GitHub repository that contains code for a library, backend, frontend or full application.
 It provides guidance on project structure, best practices, and helps ensure that projects align with our standards and guidelines.
 Whether you're setting up a new project or reviewing an existing one, this skill can provide valuable insights and recommendations.
 
@@ -57,8 +57,3 @@ Before performing any review or setup task, **read all convention documents firs
 7. After creating all project files: If a `.env.example` exists and no `.env` file is present, **copy `.env.example` to `.env`** so the project is immediately runnable without manual configuration.
 
 8. After the skeleton is complete, verify it works by running `docker-compose up --build`. If errors occur, fix them before considering the setup done.
-
-## Project Types
-
-A project can be a Java library, a TypeScript library, a Java Backend (Spring Boot or Helidon SE based), a Web Frontend or a full application (containing 1-N back-ends and 1-N front-ends).
-Depending on the project type, the skill will provide specific guidance on how to set up the project structure, what files and folders to include, and how to organize the code.
