@@ -1,5 +1,9 @@
 ---
 name: hedera-info
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
 description: Background information about the Hedera network — the public distributed ledger built on Hiero, governed by a council of global organizations. Covers the Hedera Mainnet, Testnet, HBAR cryptocurrency, Hedera Council, and the ecosystem organizations (Hashgraph, Hashgraph Association, HBAR Foundation). Use when generating content about Hedera as a product/network, its use cases, governance, HBAR token, or the organizations around it. Also use when the user mentions Hedera Mainnet, HBAR, HashScan, or Hedera Council.
 ---
 

@@ -1,5 +1,9 @@
 ---
 name: eclipse-info
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
 description: Background information about the Eclipse Foundation and its key projects relevant to Open Elements — including Eclipse Adoptium/Temurin, Jakarta EE, the ORC WG (CRA compliance for open source), and the Eclipse IDE. Use when generating content that references the Eclipse Foundation, Adoptium, Temurin, Jakarta EE, ORC WG, CRA attestation, or when describing Open Elements' involvement in the Eclipse ecosystem.
 ---
 

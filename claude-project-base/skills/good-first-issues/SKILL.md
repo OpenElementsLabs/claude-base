@@ -1,5 +1,9 @@
 ---
 name: good-first-issues
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
 description: Create well-structured Good First Issues for open-source projects on GitHub. Produces beginner-friendly issues with clear descriptions, solution ideas, and welcoming formatting. Use when the user wants to create issues for newcomers, onboard new contributors, write good first issues, or improve contributor experience on GitHub repositories.
 ---
 

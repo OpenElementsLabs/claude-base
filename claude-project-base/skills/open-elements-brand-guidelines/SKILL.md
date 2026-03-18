@@ -1,5 +1,9 @@
 ---
 name: open-elements-brand-guidelines
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
 description: Applies the official brand colors and typography of Open Elements to any sort of artifact that may benefit from having the look-and-feel of Open Elements. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.
 ---
 

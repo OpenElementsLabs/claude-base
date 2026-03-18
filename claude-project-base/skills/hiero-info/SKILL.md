@@ -1,5 +1,9 @@
 ---
 name: hiero-info
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
 description: Background information about the Hiero project — an open-source distributed ledger technology (DLT) under Linux Foundation Decentralized Trust (LFDT). Use when generating content that references Hiero, Hedera, hashgraph consensus, DLT/blockchain technology, or when working on code within the Hiero ecosystem. Also use when the user mentions LFDT, distributed ledger, or decentralized trust.
 ---
 
