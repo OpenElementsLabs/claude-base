@@ -1,5 +1,9 @@
 ---
 name: spec-implement
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
 description: Generate a concrete step-by-step implementation plan from a specification. Creates an ordered list of tasks that can be executed one by one, either manually by a developer or by Claude Code. Use this skill when you have a completed spec (design.md + behaviors.md) and want a clear roadmap for implementation.
 ---
 

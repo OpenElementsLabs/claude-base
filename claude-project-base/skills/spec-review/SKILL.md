@@ -1,5 +1,9 @@
 ---
 name: spec-review
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
 description: Review an implementation for completeness against its specification. Checks whether the design document and behavioral scenarios from a spec are fully covered by the actual code and tests. Use this skill after implementing a feature that was planned with spec-create.
 ---
 

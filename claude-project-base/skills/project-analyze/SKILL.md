@@ -1,5 +1,9 @@
 ---
 name: project-analyze
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
 description: Analyze the current project and generate or update the project-specific documentation files (features, tech stack, structure, architecture). Use this skill when setting up claude-project-base in a new project, or when the project has changed significantly and the documentation needs to be refreshed.
 ---
 

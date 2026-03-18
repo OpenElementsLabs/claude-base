@@ -1,5 +1,9 @@
 ---
 name: spec-create
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
 description: Plan a feature or bug fix by creating a structured specification. Starts from a GitHub issue or a description, produces a design document and behavioral scenarios (given-when-then) through interactive discussion. Use this skill when the user wants to plan a new feature, fix a complex bug, or define the technical approach for a ticket before implementation.
 ---
 

@@ -1,5 +1,9 @@
 ---
 name: quality-review
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
 description: Review code changes for quality, conventions, and potential issues. Checks against the project's convention documents (code quality, security, language-specific rules, testing). Use this skill after implementing a feature or bug fix, or when reviewing someone else's code changes.
 ---
 

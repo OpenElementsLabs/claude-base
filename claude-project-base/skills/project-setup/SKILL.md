@@ -1,5 +1,9 @@
 ---
 name: project-setup
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
 description: Set up, review, or update Open Elements projects (Java libraries, TypeScript libraries, Java backends, web frontends, or fullstack applications). Use this skill when the user wants to create a new project, review an existing project's structure against Open Elements conventions, or update a project to match current best practices.
 ---
 
