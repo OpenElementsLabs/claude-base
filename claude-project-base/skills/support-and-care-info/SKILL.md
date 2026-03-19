@@ -1,5 +1,9 @@
 ---
 name: support-and-care-info
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
 description: Background information about Open Elements' Support & Care offering — professional maintenance and support for critical open-source Java components (JUnit, Apache Maven, Log4j, Commons, Eclipse Temurin). Use when generating content about Support & Care, Java OSS maintenance, CRA compliance for open-source dependencies, or when the user mentions open-source support services, Java supply chain security, or OSS stewardship.
 ---
 

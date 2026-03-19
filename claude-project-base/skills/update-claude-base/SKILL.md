@@ -1,5 +1,9 @@
 ---
 name: update-claude-base
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
 description: Update the claude-project-base directory with the latest shared conventions and skills from the upstream repository, without overwriting project-specific customizations.
 ---
 

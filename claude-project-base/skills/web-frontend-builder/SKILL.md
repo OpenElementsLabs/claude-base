@@ -1,5 +1,9 @@
 ---
 name: web-frontend-builder
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
 description: Build and develop web frontend applications using the Open Elements tech stack (Next.js, React, TypeScript, Tailwind CSS, shadcn/ui, pnpm). Use when the user asks to create a new frontend project, add pages or components, set up routing, or develop features in a web application. Not for simple HTML snippets — use for real application development.
 ---
 
