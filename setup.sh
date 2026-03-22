@@ -80,23 +80,26 @@ if [ -f "$SRC/PROJECT_CLAUDE.md" ]; then
   echo "==> Merging CLAUDE.md..."
   if [ -f CLAUDE.md ]; then
     # Project already has a CLAUDE.md — use Claude to merge
+    echo "    Existing CLAUDE.md found — merging with base (this may take a moment)..."
     cp "$SRC/PROJECT_CLAUDE.md" .claude/_base_claude.md
-    claude --print -p "$(cat <<'PROMPT'
-You have two files:
-1. .claude/_base_claude.md — the base CLAUDE.md from Open Elements claude-base
-2. CLAUDE.md — the project's existing CLAUDE.md
-
-Merge them into a single CLAUDE.md. Rules:
-- The base content should come first, then project-specific content.
+    MERGED="$(claude --print --model sonnet -p "$(cat <<'PROMPT'
+Read the files .claude/_base_claude.md and CLAUDE.md.
+Merge them into a single Markdown document. Rules:
+- Base content (.claude/_base_claude.md) comes first, then project-specific content.
 - Do not duplicate rules that appear in both files.
-- Keep all project-specific rules, paths, and configurations from the existing CLAUDE.md.
+- Keep all project-specific rules, paths, and configurations from CLAUDE.md.
 - Keep all base rules from _base_claude.md.
 - If rules conflict, the project-specific version wins.
-- Write the merged result directly to CLAUDE.md using the Write tool.
-- Then delete .claude/_base_claude.md.
+- Output ONLY the merged Markdown content, no explanations or code fences.
 PROMPT
-)"
-    # Clean up temp file in case Claude didn't delete it
+)")"
+    if [ -n "$MERGED" ]; then
+      echo "$MERGED" > CLAUDE.md
+      echo "    Merged CLAUDE.md (base + project-specific)"
+    else
+      echo "    WARNING: Claude returned empty result — keeping existing CLAUDE.md unchanged"
+      echo "    You can merge manually: base is at .claude/_base_claude.md"
+    fi
     rm -f .claude/_base_claude.md
   else
     # No existing CLAUDE.md — just copy the base
