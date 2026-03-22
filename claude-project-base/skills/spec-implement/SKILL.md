@@ -38,13 +38,16 @@ A typical ordering is:
 4. Integration with external services
 5. Frontend / UI components (apply Open Elements Brand Guidelines and Frontend Design skill)
 6. Unit tests for core logic
-7. **Tests for all behavioral scenarios** — Every scenario in `behaviors.md` must have a corresponding test (unit, integration, or e2e). This is not optional. Map each given-when-then scenario to at least one test case.
-8. Edge case and error handling tests
-9. Documentation updates (if applicable)
+7. **Backend tests for all backend behavioral scenarios** — Every scenario in `behaviors.md` that describes backend behavior (API responses, data persistence, business logic, validation) must have a corresponding test (unit or integration). Map each given-when-then scenario to at least one test case.
+8. **Frontend tests for all frontend behavioral scenarios** — Every scenario in `behaviors.md` that describes UI behavior (user interactions, form submissions, dialog flows, navigation, error displays, loading states) must have a corresponding frontend test (component test, integration test, or e2e test). This includes CRUD dialogs, form validation visible to the user, conditional UI elements, and any behavior the user can see or trigger. Frontend behaviors are not covered by backend tests — they require their own dedicated tests.
+9. Edge case and error handling tests (both backend and frontend)
+10. Documentation updates (if applicable)
 
 Adapt the ordering to the project and technology stack.
 
 **Important:** The implementation is not complete until every scenario in `behaviors.md` is covered by a passing test. This is a hard requirement, not a nice-to-have. When writing `steps.md`, explicitly assign each behavior scenario to a step so that none are missed.
+
+**Important:** Behavioral scenarios that describe what the user sees or does in the UI (e.g., "the user clicks save and sees a success message", "the dialog shows a validation error") are frontend scenarios. They must be tested with frontend tests — a passing backend API test does not verify that the UI actually works. If the project has no frontend test setup yet, the plan must include a step to set it up before the frontend test steps.
 
 ### 3. Write the plan
 
@@ -58,17 +61,17 @@ For each step, include:
 
 ### 4. Verify full behavior coverage
 
-Before presenting the plan, cross-check: create a mapping of every scenario in `behaviors.md` to the step that tests it. If any scenario is not assigned to a step, add a step or extend an existing one. Present the coverage mapping to the user:
+Before presenting the plan, cross-check: create a mapping of every scenario in `behaviors.md` to the step that tests it. Classify each scenario by layer (Backend, Frontend, or Both). If any scenario is not assigned to a step, add a step or extend an existing one. Present the coverage mapping to the user:
 
 ```markdown
 ## Behavior Coverage
 
-| Scenario | Covered in Step |
-|----------|-----------------|
-| ...      | ...             |
+| Scenario | Layer | Covered in Step |
+|----------|-------|-----------------|
+| ...      | ...   | ...             |
 ```
 
-Every row must have a step assigned. No gaps allowed.
+Every row must have a step assigned. No gaps allowed. Scenarios classified as "Frontend" or "Both" must have a frontend test step — a backend-only test step is insufficient. Scenarios classified as "Both" need tests in both layers.
 
 ### 5. Review with the user
 
