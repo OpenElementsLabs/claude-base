@@ -29,7 +29,7 @@ cp -r /path/to/claude-base/claude-project-base/skills/* .claude/skills/
 Copy or merge the base `CLAUDE.md` into your project root:
 
 ```bash
-cp /path/to/claude-base/claude-project-base/CLAUDE.md ./CLAUDE.md
+cp /path/to/claude-base/claude-project-base/PROJECT_CLAUDE.md ./PROJECT_CLAUDE.md
 ```
 
 The resulting project structure:

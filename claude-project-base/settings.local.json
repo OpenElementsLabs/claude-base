@@ -1,0 +1,8 @@
+{
+  "env": {
+    "COOLIFY_API_URL": "enter-value",
+    "COOLIFY_API_TOKEN": "enter-value",
+    "GITHUB_PERSONAL_ACCESS_TOKEN": "enter-value",
+    "FIGMA_API_KEY": "enter-value"
+  }
+}
