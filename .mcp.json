@@ -3,6 +3,16 @@
     "hedera-docs": {
       "type": "http",
       "url": "https://docs.hedera.com/mcp"
+    },
+    "docker": {
+      "command": "docker",
+      "args": ["mcp", "gateway", "run"],
+      "type": "stdio"
+    },
+    "maven-central": {
+      "command": "npx",
+      "args": ["mcp-maven-deps"],
+      "type": "stdio"
     }
   }
 }

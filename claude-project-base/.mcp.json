@@ -26,6 +26,16 @@
     "figma": {
       "command": "npx",
       "args": ["-y", "figma-developer-mcp", "--figma-api-key=${FIGMA_API_KEY}"]
+    },
+    "docker": {
+      "command": "docker",
+      "args": ["mcp", "gateway", "run"],
+      "type": "stdio"
+    },
+    "maven-central": {
+      "command": "npx",
+      "args": ["mcp-maven-deps"],
+      "type": "stdio"
     }
   }
 }
