@@ -6,9 +6,9 @@ set -euo pipefail
 # and merges CLAUDE.md using Claude Code.
 #
 # Usage (run from your project root):
-#   curl -sSL https://raw.githubusercontent.com/open-elements/claude-base/main/setup.sh | bash
+#   curl -sSL https://raw.githubusercontent.com/OpenElementsLabs/claude-base/main/setup.sh | bash
 
-REPO_URL="https://github.com/open-elements/claude-base.git"
+REPO_URL="https://github.com/OpenElementsLabs/claude-base.git"
 BRANCH="main"
 TMPDIR_BASE="${TMPDIR:-/tmp}"
 WORK_DIR="$TMPDIR_BASE/claude-base-setup-$$"

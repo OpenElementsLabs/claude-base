@@ -12,6 +12,19 @@ The goal is to provide high-quality base configurations that other projects can 
 - `claude-project-base/conventions/` — Convention documents (languages, architecture, security, workflows)
 - `claude-project-base/skills/` — Reusable Claude Code skills
 - `README.md` — Public-facing documentation for users of this repository
+- `setup.sh` — Installation script for applying the base configuration to a project
+
+## Setup Script
+
+To apply the base configuration to a project, run from the project root:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/OpenElementsLabs/claude-base/main/setup.sh | bash
+```
+
+The script copies conventions, skills, hooks, MCP config, and settings into the target project's `.claude/` directory. It merges `CLAUDE.md` intelligently using Claude Code and appends required entries to `.gitignore`. Existing project-specific files (skills, settings, `.mcp.json`) are not overwritten.
+
+When modifying `setup.sh`, ensure it remains idempotent — running it multiple times on the same project must not duplicate or overwrite existing project-specific configuration.
 
 ## Writing Guidelines
 
