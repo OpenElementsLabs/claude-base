@@ -17,20 +17,13 @@ The base `CLAUDE.md` explains which conventions to include for different project
 
 ## How to use in your project
 
-Copy the contents of `claude-project-base/` into your project's `.claude/` directory:
+Run the setup script from your project root:
 
 ```bash
-# From your project directory
-mkdir -p .claude
-cp -r /path/to/claude-base/claude-project-base/conventions .claude/conventions
-cp -r /path/to/claude-base/claude-project-base/skills/* .claude/skills/
+curl -sSL https://raw.githubusercontent.com/OpenElementsLabs/claude-base/main/setup.sh | bash
 ```
 
-Copy or merge the base `CLAUDE.md` into your project root:
-
-```bash
-cp /path/to/claude-base/claude-project-base/PROJECT_CLAUDE.md ./PROJECT_CLAUDE.md
-```
+This copies conventions, skills, hooks, MCP config, and settings into `.claude/`, merges `CLAUDE.md` using Claude Code, and updates `.gitignore`. Existing project-specific files are not overwritten. The script is safe to run multiple times.
 
 The resulting project structure:
 
