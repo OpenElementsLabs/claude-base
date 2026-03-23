@@ -23,7 +23,9 @@ git clone --depth 1 --branch "$BRANCH" "$REPO_URL" "$WORK_DIR" 2>/dev/null
 
 SRC="$WORK_DIR/claude-project-base"
 
-# --- Copy conventions, skills, hooks into .claude/ (per-item, not whole folder) ---
+# --- Sync conventions, skills, hooks into .claude/ ---
+# Base items are overwritten to stay up to date.
+# Exception: conventions/project-specific/ is never overwritten (project-owned content).
 echo "==> Syncing conventions, skills, and hooks into .claude/..."
 for dir in conventions skills hooks; do
   src_dir="$SRC/$dir"
@@ -34,12 +36,25 @@ for dir in conventions skills hooks; do
   for item in "$src_dir"/*; do
     name="$(basename "$item")"
     dest="$dest_dir/$name"
+
+    # Never overwrite project-specific conventions
+    if [ "$dir" = "conventions" ] && [ "$name" = "project-specific" ]; then
+      if [ -e "$dest" ]; then
+        echo "    KEPT: .claude/$dir/$name (project-specific, not overwritten)"
+      else
+        cp -R "$item" "$dest"
+        echo "    Copied $dir/$name"
+      fi
+      continue
+    fi
+
     if [ -e "$dest" ]; then
-      echo "    SKIPPED: .claude/$dir/$name already exists (not overwritten)"
+      rm -rf "$dest"
+      echo "    Updated $dir/$name"
     else
-      cp -R "$item" "$dest"
       echo "    Copied $dir/$name"
     fi
+    cp -R "$item" "$dest"
   done
 done
 
