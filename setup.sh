@@ -9,7 +9,6 @@ set -euo pipefail
 #   curl -sSL https://raw.githubusercontent.com/OpenElementsLabs/claude-base/main/setup.sh | bash
 
 REPO_URL="https://github.com/OpenElementsLabs/claude-base.git"
-BRANCH="main"
 TMPDIR_BASE="${TMPDIR:-/tmp}"
 WORK_DIR="$TMPDIR_BASE/claude-base-setup-$$"
 
@@ -18,8 +17,21 @@ cleanup() {
 }
 trap cleanup EXIT
 
-echo "==> Cloning claude-base into temporary directory..."
-git clone --depth 1 --branch "$BRANCH" "$REPO_URL" "$WORK_DIR" 2>/dev/null
+# Resolve the latest semver tag (e.g. v2.1.1) from the remote
+echo "==> Finding latest release tag..."
+LATEST_TAG="$(git ls-remote --tags --sort=-v:refname "$REPO_URL" 'v*' \
+  | head -n 1 \
+  | sed 's|.*refs/tags/||')"
+
+if [ -z "$LATEST_TAG" ]; then
+  echo "    WARNING: No version tags found — falling back to main branch"
+  LATEST_TAG="main"
+else
+  echo "    Using tag: $LATEST_TAG"
+fi
+
+echo "==> Cloning claude-base ($LATEST_TAG) into temporary directory..."
+git clone --depth 1 --branch "$LATEST_TAG" "$REPO_URL" "$WORK_DIR" 2>/dev/null
 
 SRC="$WORK_DIR/claude-project-base"
 
