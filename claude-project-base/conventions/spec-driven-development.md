@@ -148,6 +148,7 @@ A typical flow:
 
 ## Principles
 
+- **English only** — All spec documents (`design.md`, `behaviors.md`, `steps.md`) must be written in English, regardless of what language the user communicates in. This ensures specs are accessible to all contributors and consistent across projects.
 - **Issue first** — Every PR should have a corresponding GitHub issue
 - **Discuss before writing** — Specs are created through dialogue, not generated silently
 - **Right-size the spec** — A bug fix needs less documentation than a new feature. Skip sections that are not relevant.
