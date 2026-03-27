@@ -16,11 +16,11 @@ Specs live in a `specs/` directory in the project root. Each spec gets its own s
 ```
 specs/
 ├── INDEX.md
-├── 001-user-auth-flow/
+├── user-auth-flow/
 │   ├── design.md
 │   ├── behaviors.md
 │   └── steps.md          (optional)
-├── 002-csv-export-api/
+├── csv-export-api/
 │   ├── design.md
 │   └── behaviors.md
 └── ...
@@ -28,9 +28,9 @@ specs/
 
 ### Folder Naming
 
-- Format: `<sequential-number>-short-description` (e.g., `001-user-auth-flow`, `002-csv-export-api`)
-- The sequential number is zero-padded to 3 digits and incremented from the last entry in `INDEX.md`.
-- Keep the description to 3–4 words in kebab-case.
+- Format: `short-description` in kebab-case (e.g., `user-auth-flow`, `csv-export-api`)
+- Keep the description to 3–4 words.
+- The sequential ID is tracked exclusively in `INDEX.md`, not in the folder name.
 
 ### `INDEX.md` — Spec Overview
 
