@@ -17,7 +17,9 @@ Before starting, read `../../conventions/spec-driven-development.md` for the ful
 
 ### 1. Identify the spec
 
-Ask the user which spec to review, or detect it from context. Locate the spec folder under `specs/` and read both `design.md` and `behaviors.md` completely.
+Ask the user which spec to review, or detect it from context. If no spec is specified, check `specs/INDEX.md` for specs with status `done` or `in progress` — these are candidates for review.
+
+Locate the spec folder under `specs/` and read both `design.md` and `behaviors.md` completely.
 
 ### 2. Review against `design.md`
 
