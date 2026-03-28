@@ -43,6 +43,8 @@ const nextConfig = {
 };
 ```
 
+**IMPORTANT**: Next.js evaluates `next.config.ts` — including `rewrites()` — at **build time**. Any environment variable used in `next.config.ts` (e.g., `BACKEND_URL` for API rewrites) must be available during `pnpm build`. In Docker, this means declaring it as a build argument (`ARG`) and setting it as an environment variable (`ENV`) in the Dockerfile **before** the build step. A runtime-only `environment:` entry in `docker-compose.yml` is too late — the rewrite rules are already baked into the build output. See `fullstack-architecture.md` for the Dockerfile and Docker Compose configuration.
+
 ### Step 3: Enable Strict TypeScript
 
 Verify `tsconfig.json` has `"strict": true`. This is non-negotiable.
