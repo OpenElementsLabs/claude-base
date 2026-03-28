@@ -34,6 +34,7 @@
 - Use shadcn/ui components (Card, Table, Button, Input, Dialog, etc.) instead of bare HTML elements. Bare `<table>`, `<button>`, or `<input>` elements without component library styling are not acceptable.
 - Ensure responsive design: layouts must work on mobile, tablet, and desktop. Use Tailwind's responsive prefixes (`sm:`, `md:`, `lg:`).
 - Apply the Open Elements brand colors and typography as defined in the Brand Guidelines skill. Configure them in `tailwind.config` so they are available as utility classes.
+- **IMPORTANT**: shadcn/ui components rely on semantic CSS custom properties (`--color-background`, `--color-foreground`, `--color-popover`, `--color-border`, etc.) defined in the `@theme` block of `globals.css`. If these variables are missing, components render with transparent backgrounds, invisible borders, and broken styling. When setting up or extending a project with shadcn/ui, define all required semantic tokens (`background`, `foreground`, `card`, `popover`, `muted`, `accent`, `primary`, `secondary`, `destructive`, `border`, `input`, `ring` — each with its `-foreground` counterpart where applicable) mapped to the project's brand colors. See the [shadcn/ui Theming docs](https://ui.shadcn.com/docs/theming) for the full list. Never hardcode colors in individual component files — always use the semantic tokens.
 
 ## Common Commands
 
