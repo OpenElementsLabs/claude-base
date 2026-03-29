@@ -7,6 +7,37 @@
 - **Application Framework**: [Next.js](https://nextjs.org) on top of React for concrete frontend applications.
 - **IMPORTANT**: Configure `output: 'standalone'` in `next.config.js` / `next.config.ts` for all Next.js applications. This is required for Docker deployments and produces a self-contained build output.
 - **IMPORTANT**: Pages that fetch data from a backend API must not be statically pre-rendered at build time. Use `export const dynamic = 'force-dynamic'` or other appropriate mechanisms to ensure they are rendered at request time. Static pre-rendering will cache stale or error states because the backend is not available during `next build`.
+- **IMPORTANT — Suspense Boundaries for Client-Side Hooks**: In Next.js 15, hooks that cause client-side rendering bailout (`useSearchParams()`, `usePathname()`, `useRouter()` from `next/navigation`) **must** be called inside a component wrapped in a `<Suspense>` boundary. Without this, `next build` fails with the error `useSearchParams() should be wrapped in a suspense boundary`. The required pattern is:
+  1. The `page.tsx` file exports a **Server Component** that renders a `<Suspense>` wrapper.
+  2. The actual page content that uses the client-side hook is extracted into a **separate Client Component** (e.g., `PageContent`) marked with `'use client'`.
+  3. The page component wraps `<PageContent />` in `<Suspense fallback={...}>`.
+
+  ```tsx
+  // page.tsx — Server Component (no 'use client' directive)
+  import { Suspense } from 'react';
+  import { PageContent } from './page-content';
+
+  export default function Page() {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <PageContent />
+      </Suspense>
+    );
+  }
+  ```
+
+  ```tsx
+  // page-content.tsx — Client Component
+  'use client';
+  import { useSearchParams } from 'next/navigation';
+
+  export function PageContent() {
+    const searchParams = useSearchParams();
+    // ... component logic
+  }
+  ```
+
+  **Never** call `useSearchParams()` directly inside a `page.tsx` — even if it has `'use client'` — without a Suspense boundary above it. This pattern applies to all pages and layouts that use these hooks.
 - **Styling**: [Tailwind CSS](https://tailwindcss.com) for all styling. Do not introduce other CSS frameworks.
 - **Component Library**: [shadcn/ui](https://ui.shadcn.com) as the component library.
 - **shadcn/ui MCP Server**: Projects using shadcn/ui should configure the [shadcn MCP server](https://ui.shadcn.com/docs/mcp) so that Claude Code can browse, search, and install components directly. Add the following to the project's `.mcp.json`:
