@@ -36,6 +36,10 @@
       "command": "npx",
       "args": ["mcp-maven-deps"],
       "type": "stdio"
+    },
+    "shadcn": {
+      "command": "npx",
+      "args": ["shadcn@latest", "mcp"]
     }
   }
 }
