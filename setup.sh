@@ -80,13 +80,13 @@ if [ -f "$SRC/settings.local.json" ]; then
   fi
 fi
 
-# --- Copy .mcp.json into project root ---
+# --- Copy .mcp.json into .claude/ ---
 if [ -f "$SRC/.mcp.json" ]; then
-  if [ -f .mcp.json ]; then
-    echo "    .mcp.json already exists — skipping (will not overwrite)"
+  if [ -f .claude/.mcp.json ]; then
+    echo "    .claude/.mcp.json already exists — skipping (will not overwrite)"
   else
-    cp "$SRC/.mcp.json" .mcp.json
-    echo "    Copied .mcp.json into project root"
+    cp "$SRC/.mcp.json" .claude/.mcp.json
+    echo "    Copied .mcp.json into .claude/"
   fi
 fi
 
