@@ -78,6 +78,11 @@ Available documents:
 ### Development Workflow
 
 - [Spec-Driven Development](.claude/conventions/spec-driven-development.md) — specs folder structure, design docs, behavioral scenarios, implementation steps
+- [Spec Index](specs/INDEX.md) — central index of all specifications with status, areas, and GitHub issue references. Read this file to discover which specs exist and their current state.
+
+### Build Integrity
+
+- [Reproducible Builds](.claude/conventions/reproducible-builds.md) — version pinning, deterministic output, common pitfalls, build verification scripts
 
 ### CI/CD
 
