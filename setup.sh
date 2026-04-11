@@ -80,6 +80,12 @@ if [ -f "$SRC/settings.local.json" ]; then
   fi
 fi
 
+# --- Copy automated-spec-implementation-prompt.md into .claude/ ---
+if [ -f "$SRC/automated-spec-implementation-prompt.md" ]; then
+  cp "$SRC/automated-spec-implementation-prompt.md" .claude/
+  echo "    Copied automated-spec-implementation-prompt.md into .claude/"
+fi
+
 # --- Copy .mcp.json into .claude/ ---
 if [ -f "$SRC/.mcp.json" ]; then
   if [ -f .claude/.mcp.json ]; then
