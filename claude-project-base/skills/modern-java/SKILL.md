@@ -315,7 +315,8 @@ Important rules for virtual threads:
 
 - Use for I/O-bound work (HTTP calls, database queries, file I/O). Not beneficial for CPU-bound work.
 - Do not pool virtual threads — create a new one per task.
-- Avoid `synchronized` blocks that do I/O inside — use `ReentrantLock` instead (to avoid pinning the carrier thread).
+- **Java 21–23**: Avoid `synchronized` blocks that do I/O inside — use `ReentrantLock` instead (to avoid pinning the carrier thread).
+- **Java 24+** (JEP 491): `synchronized` no longer pins virtual threads. The JVM now allows virtual threads to unmount inside `synchronized` blocks, so the `ReentrantLock` workaround is no longer necessary. `synchronized` is safe to use with virtual threads on Java 24+.
 - `Thread.sleep()` and blocking I/O work correctly and efficiently on virtual threads.
 
 #### Java 22 — Unnamed variables and patterns
@@ -757,9 +758,224 @@ new StringBuilder().repeat("abc", 3);  // "abcabcabc"
 
 For tools and frameworks that generate bytecode, `java.lang.classfile` replaces ASM/Byte Buddy for standard bytecode generation.
 
+#### Java 15 — EdDSA digital signatures
+
+Use the Edwards-Curve Digital Signature Algorithm (EdDSA) for modern, high-performance digital signatures.
+
+```java
+// Generate Ed25519 key pair
+KeyPairGenerator kpg = KeyPairGenerator.getInstance("Ed25519");
+KeyPair kp = kpg.generateKeyPair();
+
+// Sign
+Signature sig = Signature.getInstance("Ed25519");
+sig.initSign(kp.getPrivate());
+sig.update(message);
+byte[] signature = sig.sign();
+
+// Verify
+sig.initVerify(kp.getPublic());
+sig.update(message);
+boolean valid = sig.verify(signature);
+```
+
+EdDSA offers better performance and security than ECDSA at the same security level. Prefer Ed25519 for new signature use cases.
+
+#### Java 17 — Enhanced pseudo-random number generators
+
+Use the `RandomGenerator` interface and `RandomGeneratorFactory` instead of directly instantiating `Random` or `ThreadLocalRandom`.
+
+```java
+// Old: limited to specific classes
+Random random = new Random();
+ThreadLocalRandom tlr = ThreadLocalRandom.current();
+
+// Modern: uniform interface, interchangeable algorithms
+RandomGenerator rng = RandomGenerator.getDefault();
+RandomGenerator rng = RandomGenerator.of("L64X128MixRandom");
+
+// Splittable generators for parallel streams
+RandomGenerator.SplittableGenerator splittable =
+        RandomGenerator.SplittableGenerator.of("L64X128MixRandom");
+splittable.splits(10).forEach(splitRng -> {
+    // each split has independent, non-overlapping sequences
+});
+
+// Stream of random numbers
+rng.ints(100, 0, 1000).forEach(System.out::println);
+
+// List available algorithms
+RandomGeneratorFactory.all()
+        .map(RandomGeneratorFactory::name)
+        .sorted()
+        .forEach(System.out::println);
+```
+
+New algorithm families: LXM algorithms (`L64X128MixRandom`, `L128X256MixRandom`, etc.) and Xoshiro/Xoroshiro variants. These are higher quality than the legacy `Random` algorithm.
+
+#### Java 17 — Deserialization filters
+
+Configure context-specific deserialization filters to protect against deserialization attacks.
+
+```java
+// Set a JVM-wide deserialization filter factory
+ObjectInputFilter.Config.setSerialFilterFactory((current, next) -> {
+    // Allow only specific classes
+    return ObjectInputFilter.Config.createFilter(
+            "com.example.*;java.base/*;!*");
+});
+
+// Per-stream filter
+ObjectInputStream ois = new ObjectInputStream(inputStream);
+ois.setObjectInputFilter(ObjectInputFilter.Config.createFilter(
+        "com.example.dto.*;!*"));
+```
+
+Always configure deserialization filters when accepting serialized data from untrusted sources.
+
+#### Java 18 — Internet-Address Resolution SPI
+
+The `InetAddress` API now supports pluggable DNS resolvers via `java.net.spi.InetAddressResolverProvider`. Useful for testing (mock DNS) and custom resolution (DNS over HTTPS).
+
+```java
+// Custom resolver for testing
+public class MockResolverProvider extends InetAddressResolverProvider {
+    @Override
+    public InetAddressResolver get(Configuration configuration) {
+        return new MockResolver();
+    }
+    @Override
+    public String name() { return "Mock DNS Resolver"; }
+}
+// Register via ServiceLoader (META-INF/services or module-info.java)
+```
+
+#### Java 21 — Key Encapsulation Mechanism API (KEM)
+
+Use `javax.crypto.KEM` for modern key exchange instead of traditional RSA encryption with padding.
+
+```java
+// Generate key pair
+KeyPairGenerator g = KeyPairGenerator.getInstance("DHKEM");
+KeyPair kp = g.generateKeyPair();
+
+// Sender: encapsulate
+KEM kemS = KEM.getInstance("DHKEM");
+KEM.Encapsulator enc = kemS.newEncapsulator(kp.getPublic());
+KEM.Encapsulated encapsulated = enc.encapsulate();
+SecretKey sharedSecretS = encapsulated.key();
+byte[] keyEncapsulationMessage = encapsulated.encapsulation();
+
+// Receiver: decapsulate
+KEM kemR = KEM.getInstance("DHKEM");
+KEM.Decapsulator dec = kemR.newDecapsulator(kp.getPrivate());
+SecretKey sharedSecretR = dec.decapsulate(keyEncapsulationMessage);
+// sharedSecretS and sharedSecretR are the same
+```
+
+#### Java 22 — Foreign Function & Memory API
+
+Replace JNI with the `java.lang.foreign` API for calling native functions and managing off-heap memory.
+
+```java
+// Allocate and use off-heap memory with deterministic deallocation
+try (Arena arena = Arena.ofConfined()) {
+    // Allocate a native memory segment
+    MemorySegment segment = arena.allocate(100);
+    segment.set(ValueLayout.JAVA_INT, 0, 42);
+    int value = segment.get(ValueLayout.JAVA_INT, 0);
+
+    // Allocate a C string
+    MemorySegment cString = arena.allocateFrom("Hello");
+}
+// Memory is deterministically deallocated here
+
+// Call a native C function (e.g., strlen)
+Linker linker = Linker.nativeLinker();
+SymbolLookup stdlib = linker.defaultLookup();
+MethodHandle strlen = linker.downcallHandle(
+        stdlib.find("strlen").orElseThrow(),
+        FunctionDescriptor.of(ValueLayout.JAVA_LONG, ValueLayout.ADDRESS)
+);
+
+try (Arena arena = Arena.ofConfined()) {
+    MemorySegment cString = arena.allocateFrom("Hello");
+    long len = (long) strlen.invoke(cString);  // 5
+}
+```
+
+Arena types: `Arena.ofConfined()` (single-thread, deterministic), `Arena.ofShared()` (multi-thread), `Arena.ofAuto()` (GC-managed), `Arena.global()` (never deallocated).
+
+#### Java 24 — Quantum-resistant cryptography (ML-KEM, ML-DSA)
+
+Use NIST-standardized post-quantum algorithms for key exchange and digital signatures.
+
+```java
+// ML-KEM: quantum-resistant key encapsulation (FIPS 203)
+KeyPairGenerator g = KeyPairGenerator.getInstance("ML-KEM");
+g.initialize(NamedParameterSpec.ML_KEM_768); // or ML_KEM_512, ML_KEM_1024
+KeyPair kp = g.generateKeyPair();
+
+KEM kem = KEM.getInstance("ML-KEM");
+KEM.Encapsulator enc = kem.newEncapsulator(kp.getPublic());
+KEM.Encapsulated encapsulated = enc.encapsulate();
+// Use encapsulated.key() as shared secret
+
+// ML-DSA: quantum-resistant digital signatures (FIPS 204)
+KeyPairGenerator dsa = KeyPairGenerator.getInstance("ML-DSA");
+dsa.initialize(NamedParameterSpec.ML_DSA_65); // or ML_DSA_44, ML_DSA_87
+KeyPair dsaKp = dsa.generateKeyPair();
+
+Signature sig = Signature.getInstance("ML-DSA");
+sig.initSign(dsaKp.getPrivate());
+sig.update(message);
+byte[] signature = sig.sign();
+```
+
+Start planning migration to post-quantum algorithms now — an adversary can harvest encrypted data today and decrypt it when quantum computers are available.
+
 #### Java 24 — Deprecation of sun.misc.Unsafe memory access
 
 `sun.misc.Unsafe` memory-access methods are deprecated for removal. Use the Foreign Function & Memory API (`java.lang.foreign`) or `VarHandle` instead.
+
+#### Java 25 — Key Derivation Function API (KDF)
+
+Use `javax.crypto.KDF` for deriving cryptographic keys from shared secrets, replacing manual HKDF implementations.
+
+```java
+// HKDF: Extract-and-Expand
+KDF hkdf = KDF.getInstance("HKDF-SHA256");
+
+AlgorithmParameterSpec params =
+        HKDFParameterSpec.ofExtract()
+                .addIKM(initialKeyMaterial)
+                .addSalt(salt)
+                .thenExpand(info, 32);
+
+SecretKey derivedKey = hkdf.deriveKey("AES", params);
+```
+
+#### Java 25 — PEM encoding/decoding of cryptographic objects (Preview)
+
+Encode and decode cryptographic keys and certificates in PEM format without manual Base64/DER handling.
+
+```java
+// Old: manual Base64 encoding, tedious parsing
+String pem = "-----BEGIN PUBLIC KEY-----\n" +
+    Base64.getMimeEncoder().encodeToString(publicKey.getEncoded()) +
+    "\n-----END PUBLIC KEY-----";
+
+// Modern (Java 25, preview)
+PEMEncoder encoder = PEMEncoder.of();
+String pem = encoder.encodeToString(publicKey);
+
+// Decode
+PEMDecoder decoder = PEMDecoder.of();
+PublicKey key = decoder.decode(pemString, PublicKey.class);
+
+// Encrypt private key with password
+String encryptedPem = encoder.withEncryption(password).encodeToString(privateKey);
+```
 
 ### 4. Migration patterns — old to modern
 
@@ -786,6 +1002,16 @@ Always apply these substitutions when you encounter legacy patterns:
 | `flatMap` for simple conditional mapping | `mapMulti` | 16 |
 | Unused catch variable `ignored` | Unnamed variable `_` | 22 |
 | Validation after `super()` call | Pre-super validation | 24 |
+| `/** */` with HTML in Javadoc | `///` with Markdown | 23 |
+| `<pre>{@code ...}</pre>` in Javadoc | `{@snippet ...}` | 18 |
+| `new Random()` | `RandomGenerator.of(...)` | 17 |
+| JNI for native function calls | Foreign Function & Memory API | 22 |
+| `sun.misc.Unsafe` for off-heap memory | `Arena` + `MemorySegment` | 22 |
+| ECDSA for new signatures | EdDSA (Ed25519) | 15 |
+| RSA encryption for key exchange | KEM API (`javax.crypto.KEM`) | 21 |
+| Classical key exchange (RSA, DH) | ML-KEM (post-quantum) | 24 |
+| Manual PEM Base64 encoding | `PEMEncoder`/`PEMDecoder` | 25 (preview) |
+| Manual HKDF implementation | `KDF` API (`javax.crypto.KDF`) | 25 |
 
 ### 5. Usage rules
 
@@ -799,6 +1025,11 @@ Always apply these substitutions when you encounter legacy patterns:
 8. **Sequenced collection methods** — always use `getFirst()`/`getLast()` instead of index-based access for first/last elements on Java 21+.
 9. **`Stream.toList()`** — always use instead of `Collectors.toList()` on Java 16+ unless a mutable list is needed.
 10. **`strip()` over `trim()`** — always prefer `strip()` on Java 11+.
+11. **Markdown Javadoc** — on Java 23+, write new documentation comments using `///` with Markdown syntax instead of `/** */` with HTML.
+12. **`@snippet` over `<pre>{@code}`** — on Java 18+, use `{@snippet}` for code examples in documentation.
+13. **`RandomGenerator` over `Random`** — on Java 17+, use `RandomGenerator.of()` for new code. Use LXM algorithms for better quality.
+14. **Foreign Function & Memory API over JNI** — on Java 22+, use `Arena`, `MemorySegment`, and `Linker` instead of JNI for native interop.
+15. **Post-quantum cryptography** — on Java 24+, evaluate ML-KEM and ML-DSA for new security-sensitive applications.
 
 ### 6. Review checklist
 
@@ -819,3 +1050,10 @@ When reviewing Java code, check for these modernization opportunities:
 - [ ] Is `HttpURLConnection` used instead of `HttpClient`? (Java 11+)
 - [ ] Are byte arrays formatted to hex manually instead of using `HexFormat`? (Java 17+)
 - [ ] Are sealed types applicable for known type hierarchies? (Java 17+)
+- [ ] Are Javadoc comments using HTML where `///` Markdown comments would be cleaner? (Java 23+)
+- [ ] Are `<pre>{@code}</pre>` blocks used where `{@snippet}` would be better? (Java 18+)
+- [ ] Is `new Random()` used where `RandomGenerator` would be more appropriate? (Java 17+)
+- [ ] Is JNI used where the Foreign Function & Memory API could replace it? (Java 22+)
+- [ ] Are deserialization filters configured when accepting untrusted serialized data? (Java 17+)
+- [ ] Are classical (non-quantum-resistant) algorithms used where ML-KEM/ML-DSA should be considered? (Java 24+)
+- [ ] Is `synchronized` avoided unnecessarily for virtual thread compatibility? (No longer needed on Java 24+ — pinning is fixed)
