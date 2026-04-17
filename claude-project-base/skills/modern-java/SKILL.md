@@ -1301,6 +1301,15 @@ Always apply these substitutions when you encounter legacy patterns:
 | `sun.misc.Unsafe` memory access | FFM API (`MemorySegment`) or `VarHandle` | 24 (dep. for removal) |
 | `javax.security.cert.X509Certificate` | `java.security.cert.X509Certificate` | removed |
 | `Pack200` | `jlink` or standard compression | 14 (removed) |
+| `new Integer(42)` / `new Double(3.14)` etc. | `Integer.valueOf(42)` / `Double.valueOf(3.14)` | 9 (dep.) |
+| `new URL("...")` | `URI.create("...")` / `URL.of(uri, null)` | 20 (dep.) |
+| `new Locale("de", "DE")` | `Locale.of("de", "DE")` | 19 (dep.) |
+| `Class.newInstance()` | `getDeclaredConstructor().newInstance()` | 9 (dep.) |
+| `URLDecoder.decode(str)` (no charset) | `URLDecoder.decode(str, UTF_8)` | 10 |
+| `Runtime.exec(String)` | `ProcessBuilder` | best practice |
+| `Collections.unmodifiableList(new ArrayList<>(...))` | `List.of(...)` / `List.copyOf(...)` | 9/10 |
+| `DatatypeConverter.printBase64Binary()` | `Base64.getEncoder().encodeToString()` | 11 (removed) |
+| `@Deprecated` (no details) | `@Deprecated(since="...", forRemoval=true)` | 9 |
 
 ### 6. Usage rules
 
@@ -1320,7 +1329,238 @@ Always apply these substitutions when you encounter legacy patterns:
 14. **Foreign Function & Memory API over JNI** — on Java 22+, use `Arena`, `MemorySegment`, and `Linker` instead of JNI for native interop.
 15. **Post-quantum cryptography** — on Java 24+, evaluate ML-KEM and ML-DSA for new security-sensitive applications.
 
-### 7. Removed and deprecated APIs — do not use
+### 7. Deprecated constructors and methods — use modern replacements
+
+Many common constructors and methods have been deprecated in favor of better alternatives. Always use the modern replacement.
+
+#### Wrapper type constructors — use valueOf() or parse methods
+
+All wrapper type constructors are deprecated since Java 9. Use static factory methods instead.
+
+```java
+// DEPRECATED — never use wrapper constructors
+new Integer(42);          new Integer("42");
+new Long(42L);            new Long("42");
+new Double(3.14);         new Double("3.14");
+new Float(3.14f);         new Float("3.14");
+new Boolean(true);        new Boolean("true");
+new Short((short) 1);     new Byte((byte) 1);
+new Character('a');
+
+// MODERN — static factory methods (cached, no unnecessary allocation)
+Integer.valueOf(42);      Integer.valueOf("42");
+Long.valueOf(42L);        Long.valueOf("42");
+Double.valueOf(3.14);     Double.valueOf("3.14");
+Float.valueOf(3.14f);     Float.valueOf("3.14");
+Boolean.valueOf(true);    Boolean.valueOf("true");
+Short.valueOf((short) 1); Byte.valueOf((byte) 1);
+Character.valueOf('a');
+
+// For parsing strings to primitives, prefer parse methods:
+int n = Integer.parseInt("42");
+double d = Double.parseDouble("3.14");
+boolean b = Boolean.parseBoolean("true");
+```
+
+`valueOf()` uses caching (e.g., `Integer.valueOf()` caches values -128 to 127), avoiding unnecessary object creation.
+
+#### URL constructor — use URI.create() or URL.of()
+
+```java
+// DEPRECATED (Java 20) — throws checked MalformedURLException
+URL url = new URL("https://example.com");
+
+// MODERN — use URI first, convert to URL when needed
+URI uri = URI.create("https://example.com");
+URL url = uri.toURL();
+
+// Or use URL.of() (Java 20+)
+URL url = URL.of(URI.create("https://example.com"), null);
+```
+
+`URI` is the preferred type for representing resource identifiers. Convert to `URL` only when an API requires it.
+
+#### Date/Calendar constructors — use java.time
+
+```java
+// DEPRECATED — mutable, confusing API
+new Date(year, month, day);       // year is offset from 1900!
+Calendar.getInstance();
+
+// MODERN — immutable, clear API
+LocalDate.of(2025, Month.JANUARY, 15);
+LocalDateTime.now();
+Instant.now();
+ZonedDateTime.now(ZoneId.of("Europe/Berlin"));
+```
+
+#### String constructors for encoding
+
+```java
+// DEPRECATED
+new String(bytes, 0);  // deprecated hi-byte constructor
+
+// MODERN — always specify charset explicitly
+new String(bytes, StandardCharsets.UTF_8);
+```
+
+#### Class.newInstance() — use Constructor.newInstance()
+
+```java
+// DEPRECATED (Java 9) — swallows checked exceptions
+Object obj = MyClass.class.newInstance();
+
+// MODERN — proper exception handling
+Object obj = MyClass.class.getDeclaredConstructor().newInstance();
+```
+
+#### Locale constructor — use Locale.of()
+
+```java
+// DEPRECATED (Java 19)
+new Locale("de");
+new Locale("de", "DE");
+new Locale("de", "DE", "POSIX");
+
+// MODERN — factory method
+Locale.of("de");
+Locale.of("de", "DE");
+Locale.of("de", "DE", "POSIX");
+```
+
+#### URLDecoder/URLEncoder — specify charset
+
+```java
+// DEPRECATED — uses platform default encoding
+URLDecoder.decode(str);
+URLEncoder.encode(str);
+
+// MODERN — always specify charset (Java 10+)
+URLDecoder.decode(str, StandardCharsets.UTF_8);
+URLEncoder.encode(str, StandardCharsets.UTF_8);
+```
+
+#### Runtime.exec(String) — use ProcessBuilder
+
+```java
+// DEPRECATED pattern — fragile string splitting, no control
+Process p = Runtime.getRuntime().exec("ls -la /tmp");
+
+// MODERN — explicit arguments, configurable environment
+Process p = new ProcessBuilder("ls", "-la", "/tmp")
+        .directory(Path.of("/tmp").toFile())
+        .redirectErrorStream(true)
+        .start();
+```
+
+#### Thread constructors — use Thread.Builder (Java 21+)
+
+```java
+// Old: limited constructor options
+Thread t = new Thread(runnable, "worker-1");
+t.setDaemon(true);
+t.start();
+
+// Modern: fluent builder, supports virtual threads
+Thread t = Thread.ofPlatform()
+        .name("worker-1")
+        .daemon(true)
+        .start(runnable);
+
+// Virtual thread
+Thread t = Thread.ofVirtual()
+        .name("handler-", 0)
+        .start(runnable);
+```
+
+#### Collections.unmodifiable* — prefer List/Set/Map.of() and .copyOf()
+
+```java
+// Old: mutable collection wrapped as unmodifiable
+List<String> list = Collections.unmodifiableList(new ArrayList<>(Arrays.asList("a", "b")));
+Set<String> set = Collections.unmodifiableSet(new HashSet<>(Arrays.asList("a", "b")));
+Map<String, Integer> map = Collections.unmodifiableMap(new HashMap<>() {{ put("a", 1); }});
+
+// Modern: truly immutable from creation (Java 9+)
+List<String> list = List.of("a", "b");
+Set<String> set = Set.of("a", "b");
+Map<String, Integer> map = Map.of("a", 1, "b", 2);
+
+// Copy existing collection to immutable (Java 10+)
+List<String> copy = List.copyOf(existingList);
+Set<String> copy = Set.copyOf(existingSet);
+Map<K, V> copy = Map.copyOf(existingMap);
+
+// For larger maps (>10 entries)
+Map<String, Integer> map = Map.ofEntries(
+        Map.entry("a", 1),
+        Map.entry("b", 2),
+        Map.entry("c", 3)
+);
+```
+
+#### Collections.synchronized* — prefer concurrent collections
+
+```java
+// Old: external synchronization wrapper
+List<String> list = Collections.synchronizedList(new ArrayList<>());
+
+// Modern: purpose-built concurrent collections
+List<String> list = new CopyOnWriteArrayList<>();
+Map<K, V> map = new ConcurrentHashMap<>();
+Queue<T> queue = new ConcurrentLinkedQueue<>();
+Deque<T> deque = new ConcurrentLinkedDeque<>();
+```
+
+#### Base64 encoding — use java.util.Base64
+
+```java
+// REMOVED (Java 11) — javax.xml.bind.DatatypeConverter
+String encoded = DatatypeConverter.printBase64Binary(bytes);
+byte[] decoded = DatatypeConverter.parseBase64Binary(str);
+
+// Also deprecated: sun.misc.BASE64Encoder/BASE64Decoder
+
+// MODERN (Java 8+)
+String encoded = Base64.getEncoder().encodeToString(bytes);
+byte[] decoded = Base64.getDecoder().decode(str);
+
+// URL-safe variant
+String urlSafe = Base64.getUrlEncoder().encodeToString(bytes);
+
+// MIME variant (line-wrapped)
+String mime = Base64.getMimeEncoder().encodeToString(bytes);
+```
+
+#### Logging — avoid java.util.logging for new projects
+
+```java
+// Old: JUL (java.util.logging) — verbose configuration
+Logger logger = Logger.getLogger(MyClass.class.getName());
+logger.log(Level.INFO, "Processing {0}", item);
+
+// Modern for libraries: System.Logger (Java 9+) — no external dependency
+System.Logger logger = System.getLogger(MyClass.class.getName());
+logger.log(System.Logger.Level.INFO, "Processing {0}", item);
+
+// Modern for applications: SLF4J
+private static final org.slf4j.Logger log = LoggerFactory.getLogger(MyClass.class);
+log.info("Processing {}", item);
+```
+
+#### Annotation Type changes
+
+```java
+// DEPRECATED (Java 9) — @Deprecated without information
+@Deprecated
+public void oldMethod() {}
+
+// MODERN — include since and forRemoval
+@Deprecated(since = "2.3", forRemoval = true)
+public void oldMethod() {}
+```
+
+### 8. Removed and deprecated APIs — never use
 
 These APIs have been removed from the JDK or are deprecated for removal. Never use them in new code. When encountering them in existing code, migrate to the listed replacement.
 
@@ -1425,7 +1665,7 @@ Applets are dead. Use web technologies or desktop frameworks (JavaFX, Swing with
 - `java.lang.invoke.VarHandle` for atomic/volatile field access
 - `java.lang.ref.Cleaner` for cleanup actions
 
-### 8. Review checklist
+### 9. Review checklist
 
 When reviewing Java code, check for these modernization opportunities:
 
@@ -1467,3 +1707,12 @@ When reviewing Java code, check for these modernization opportunities:
 - [ ] Is `sun.misc.Unsafe` used for memory access? (Use FFM API or `VarHandle`)
 - [ ] Is `javax.security.cert.X509Certificate` used instead of `java.security.cert.X509Certificate`?
 - [ ] Are `Subject.doAs()` / `doAsPrivileged()` used? (deprecated for removal)
+- [ ] Are wrapper type constructors used (`new Integer()`, `new Double()`)? (Use `valueOf()`)
+- [ ] Is `new URL(...)` used? (Use `URI.create()` + `toURL()` or `URL.of()`)
+- [ ] Is `new Locale(...)` used? (Use `Locale.of()` since Java 19)
+- [ ] Is `Class.newInstance()` used? (Use `getDeclaredConstructor().newInstance()`)
+- [ ] Is `URLDecoder.decode()` / `URLEncoder.encode()` used without charset? (Always specify `UTF_8`)
+- [ ] Is `Runtime.exec(String)` used? (Use `ProcessBuilder`)
+- [ ] Are `Collections.unmodifiable*` wrappers used? (Prefer `List.of()` / `List.copyOf()`)
+- [ ] Is `DatatypeConverter` used for Base64? (Use `java.util.Base64`)
+- [ ] Is `@Deprecated` used without `since` and `forRemoval`?
