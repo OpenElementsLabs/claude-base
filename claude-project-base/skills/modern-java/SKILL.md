@@ -319,6 +319,38 @@ Important rules for virtual threads:
 - **Java 24+** (JEP 491): `synchronized` no longer pins virtual threads. The JVM now allows virtual threads to unmount inside `synchronized` blocks, so the `ReentrantLock` workaround is no longer necessary. `synchronized` is safe to use with virtual threads on Java 24+.
 - `Thread.sleep()` and blocking I/O work correctly and efficiently on virtual threads.
 
+#### Java 19 — ExecutorService as AutoCloseable
+
+Use try-with-resources for automatic executor shutdown.
+
+```java
+// Old: manual shutdown in finally block
+ExecutorService exec = Executors.newCachedThreadPool();
+try {
+    exec.submit(task);
+} finally {
+    exec.shutdown();
+    exec.awaitTermination(1, TimeUnit.MINUTES);
+}
+
+// Modern: auto-shutdown on close
+try (var exec = Executors.newCachedThreadPool()) {
+    exec.submit(task);
+}
+// shutdown() + awaitTermination() called automatically
+```
+
+#### Java 19 — Thread.sleep(Duration)
+
+```java
+// Old: what unit is 5000? milliseconds? microseconds?
+Thread.sleep(5000);
+
+// Modern: self-documenting time units
+Thread.sleep(Duration.ofSeconds(5));
+Thread.sleep(Duration.ofMillis(500));
+```
+
 #### Java 22 — Unnamed variables and patterns
 
 Use `_` for variables that are intentionally unused.
@@ -510,6 +542,130 @@ Java 25 (September 2025) finalizes several important features:
 
 Always prefer `strip()` over `trim()` — it handles Unicode whitespace correctly.
 
+#### Java 9 — Stream and Optional enhancements
+
+```java
+// Stream.ofNullable — zero-or-one element stream from nullable value
+Stream<String> s = Stream.ofNullable(nullableValue);  // empty if null
+
+// Stream.iterate with predicate — like a for-loop in stream form
+Stream.iterate(1, n -> n < 1000, n -> n * 2)
+      .forEach(System.out::println);
+// stops when n >= 1000 — no more limit() guessing
+
+// takeWhile / dropWhile — short-circuit on ordered streams
+List<Integer> small = sorted.stream()
+        .takeWhile(n -> n < 100)
+        .toList();
+List<Integer> afterSkip = sorted.stream()
+        .dropWhile(n -> n < 10)
+        .toList();
+
+// Collectors.flatMapping — flatten inside a grouping collector
+Map<String, Set<String>> tagsByDept = employees.stream()
+        .collect(Collectors.groupingBy(
+                Employee::dept,
+                Collectors.flatMapping(e -> e.tags().stream(), Collectors.toSet())
+        ));
+
+// Optional.or — chain fallback Optionals lazily
+Optional<Config> cfg = primary()
+        .or(this::secondary)
+        .or(this::defaults);
+
+// Optional.ifPresentOrElse — handle both cases in one call
+findUser(id).ifPresentOrElse(
+        this::greet,
+        this::handleMissing
+);
+```
+
+#### Java 9 — I/O convenience methods
+
+```java
+// InputStream.transferTo — copy stream in one call
+input.transferTo(output);  // replaces manual read/write loop
+
+// Try-with-resources on effectively final variables
+Connection conn = getConnection();
+try (conn) {                 // no re-declaration needed (Java 9+)
+    use(conn);
+}
+```
+
+#### Java 9 — ProcessHandle API
+
+Inspect and manage OS processes without `Runtime.exec()`.
+
+```java
+ProcessHandle ph = ProcessHandle.current();
+long pid = ph.pid();
+ph.info().command().ifPresent(System.out::println);
+ph.children().forEach(c -> System.out.println(c.pid()));
+
+// Async notification when process exits
+process.toHandle().onExit().thenAccept(p -> System.out.println("Exited: " + p.pid()));
+```
+
+#### Java 9 — Objects.requireNonNullElse
+
+```java
+// Old: ternary null check
+String name = input != null ? input : "default";
+
+// Modern: clear intent, default also checked for null
+String name = Objects.requireNonNullElse(input, "default");
+
+// Lazy default with supplier
+String name = Objects.requireNonNullElseGet(input, this::computeDefault);
+```
+
+#### Java 9 — Private interface methods
+
+Extract shared logic between default methods without exposing it.
+
+```java
+interface Logger {
+    private String format(String level, String msg) {
+        return "[" + level + "] " + Instant.now() + " " + msg;
+    }
+    default void info(String msg) { System.out.println(format("INFO", msg)); }
+    default void warn(String msg) { System.out.println(format("WARN", msg)); }
+}
+```
+
+#### Java 10 — Optional.orElseThrow() no-arg
+
+```java
+// Old: get() hides the risk of NoSuchElementException
+String value = optional.get();
+
+// Modern: explicit intent that absence is unexpected
+String value = optional.orElseThrow();
+```
+
+Prefer `orElseThrow()` over `get()` — it communicates intent and satisfies static analysis tools.
+
+#### Java 11 — Predicate.not()
+
+```java
+// Old: lambda wrapper to negate a method reference
+list.stream().filter(s -> !s.isBlank()).toList();
+
+// Modern: negate method references directly
+list.stream().filter(Predicate.not(String::isBlank)).toList();
+```
+
+#### Java 11 — Path.of() factory
+
+```java
+// Old: separate Paths utility class
+Path path = Paths.get("src", "main", "java");
+
+// Modern: factory on Path itself, consistent with List.of(), Set.of()
+Path path = Path.of("src", "main", "java");
+```
+
 #### Java 11 — HttpClient
 
 Replace `HttpURLConnection` and third-party HTTP clients for simple use cases.
@@ -556,6 +712,57 @@ var result = stream.collect(Collectors.teeing(
         (count, sum) -> new Summary(count, sum)
 ));
 ```
+
+#### Java 12 — Files.mismatch()
+
+```java
+// Old: load both files into memory and compare
+byte[] f1 = Files.readAllBytes(path1);
+byte[] f2 = Files.readAllBytes(path2);
+boolean equal = Arrays.equals(f1, f2);
+
+// Modern: memory-efficient, returns position of first difference
+long pos = Files.mismatch(path1, path2);
+// -1 if identical, otherwise byte position of first difference
+```
+
+#### Java 14 — Helpful NullPointerExceptions
+
+No code change needed — just run on Java 14+. The JVM automatically provides detailed NPE messages:
+
+```
+// Old: "NullPointerException" — which variable was null?!
+// Modern: "Cannot invoke String.length() because user.address().city() is null"
+```
+
+The exact null variable is identified in chained method calls. Enabled by default since Java 14.
+
+#### Java 15 — String.formatted()
+
+```java
+// Old: static method, template is an argument
+String msg = String.format("Hello %s, you are %d", name, age);
+
+// Modern: instance method on the template string itself
+String msg = "Hello %s, you are %d".formatted(name, age);
+```
+
+Reads more naturally in left-to-right flow and is chainable with other string methods.
+
+#### Java 16 — Static members in inner classes
+
+Since Java 16, non-static inner classes can declare static fields, methods, and nested types.
+
+```java
+class Outer {
+    class Inner {
+        static int instanceCount = 0;  // allowed since Java 16
+        Inner() { instanceCount++; }
+    }
+}
+```
+
+Previously, only static nested classes could contain static members.
 
 #### Java 16 — Stream.toList()
 
@@ -977,7 +1184,66 @@ PublicKey key = decoder.decode(pemString, PublicKey.class);
 String encryptedPem = encoder.withEncryption(password).encodeToString(privateKey);
 ```
 
-### 4. Migration patterns — old to modern
+### 4. Tooling improvements
+
+#### Java 9 — JShell REPL
+
+Test expressions interactively without creating files or a main method.
+
+```
+$ jshell
+jshell> "hello".chars().count()
+$1 ==> 5
+jshell> List.of(1,2,3).reversed()
+$2 ==> [3, 2, 1]
+```
+
+#### Java 11 — Single-file execution
+
+Run single-file programs directly without explicit `javac` step:
+
+```
+$ java HelloWorld.java
+```
+
+Also supports Unix shebang lines (`#!/usr/bin/java --source 25`) for script-like usage.
+
+#### Java 22 — Multi-file source launcher
+
+Launch multi-file programs without a build tool — referenced classes are found and compiled automatically:
+
+```
+$ java Main.java
+# automatically compiles classes referenced by Main.java
+```
+
+#### Java 9/11 — Java Flight Recorder (JFR)
+
+Low-overhead profiling built into the JVM (~1% performance impact, safe for production):
+
+```
+$ java -XX:StartFlightRecording=filename=rec.jfr MyApp
+$ jcmd <pid> JFR.start   # attach to running app
+```
+
+Captures CPU, memory, GC, I/O, thread, and lock events without external tools.
+
+#### Java 25 — AOT class preloading
+
+Cache class loading from a training run for faster startup:
+
+```
+# Training run
+$ java -XX:AOTCacheOutput=app.aot -cp app.jar com.App
+# Production — faster startup
+$ java -XX:AOTCache=app.aot -cp app.jar com.App
+```
+
+#### Java 25 — Compact object headers
+
+Enable with `-XX:+UseCompactObjectHeaders` to reduce per-object header overhead from 16 bytes to 8 bytes (50% reduction), improving memory density and cache utilization.
+
+### 5. Migration patterns — old to modern
 
 Always apply these substitutions when you encounter legacy patterns:
 
@@ -1012,8 +1278,22 @@ Always apply these substitutions when you encounter legacy patterns:
 | Classical key exchange (RSA, DH) | ML-KEM (post-quantum) | 24 |
 | Manual PEM Base64 encoding | `PEMEncoder`/`PEMDecoder` | 25 (preview) |
 | Manual HKDF implementation | `KDF` API (`javax.crypto.KDF`) | 25 |
+| `input != null ? input : default` | `Objects.requireNonNullElse()` | 9 |
+| `optional.get()` | `optional.orElseThrow()` | 10 |
+| `s -> !s.isBlank()` in filter | `Predicate.not(String::isBlank)` | 11 |
+| `Paths.get(...)` | `Path.of(...)` | 11 |
+| `String.format(template, args)` | `template.formatted(args)` | 15 |
+| Manual read/write loop for streams | `InputStream.transferTo()` | 9 |
+| Manual byte comparison of files | `Files.mismatch()` | 12 |
+| `Stream.iterate(seed, op).limit(n)` | `Stream.iterate(seed, pred, op)` | 9 |
+| Ternary for nullable stream | `Stream.ofNullable()` | 9 |
+| Manual loop to take prefix | `Stream.takeWhile()` / `dropWhile()` | 9 |
+| `isPresent()` + `get()` anti-pattern | `ifPresentOrElse()` / `or()` | 9 |
+| Manual executor shutdown in finally | `try (var exec = ...)` (AutoCloseable) | 19 |
+| `Thread.sleep(5000)` | `Thread.sleep(Duration.ofSeconds(5))` | 19 |
+| `javac` + `java` two-step | `java File.java` single-file execution | 11 |
 
-### 5. Usage rules
+### 6. Usage rules
 
 1. **Always check the project's Java version** before using any feature. Do not use Java 21 features in a Java 17 project.
 2. **Prefer the modern pattern** whenever the project version supports it. Do not write legacy-style code on modern Java.
@@ -1031,7 +1311,7 @@ Always apply these substitutions when you encounter legacy patterns:
 14. **Foreign Function & Memory API over JNI** — on Java 22+, use `Arena`, `MemorySegment`, and `Linker` instead of JNI for native interop.
 15. **Post-quantum cryptography** — on Java 24+, evaluate ML-KEM and ML-DSA for new security-sensitive applications.
 
-### 6. Review checklist
+### 7. Review checklist
 
 When reviewing Java code, check for these modernization opportunities:
 
@@ -1057,3 +1337,12 @@ When reviewing Java code, check for these modernization opportunities:
 - [ ] Are deserialization filters configured when accepting untrusted serialized data? (Java 17+)
 - [ ] Are classical (non-quantum-resistant) algorithms used where ML-KEM/ML-DSA should be considered? (Java 24+)
 - [ ] Is `synchronized` avoided unnecessarily for virtual thread compatibility? (No longer needed on Java 24+ — pinning is fixed)
+- [ ] Is `Paths.get()` used instead of `Path.of()`? (Java 11+)
+- [ ] Is `String.format()` used where `String.formatted()` would be cleaner? (Java 15+)
+- [ ] Is `optional.get()` used instead of `optional.orElseThrow()`? (Java 10+)
+- [ ] Are manual stream copy loops used instead of `InputStream.transferTo()`? (Java 9+)
+- [ ] Is `Predicate.not()` applicable for negated method references? (Java 11+)
+- [ ] Are `Optional.or()` / `ifPresentOrElse()` applicable instead of `isPresent()` + `get()`? (Java 9+)
+- [ ] Is `Stream.takeWhile()`/`dropWhile()` applicable instead of manual loops? (Java 9+)
+- [ ] Are executors shut down manually instead of using try-with-resources? (Java 19+)
+- [ ] Is `Thread.sleep(long)` used instead of `Thread.sleep(Duration)`? (Java 19+)
