@@ -1292,6 +1292,15 @@ Always apply these substitutions when you encounter legacy patterns:
 | Manual executor shutdown in finally | `try (var exec = ...)` (AutoCloseable) | 19 |
 | `Thread.sleep(5000)` | `Thread.sleep(Duration.ofSeconds(5))` | 19 |
 | `javac` + `java` two-step | `java File.java` single-file execution | 11 |
+| `javax.xml.bind.*` (JAXB) | `jakarta.xml.bind:jakarta.xml.bind-api` | 11 (removed) |
+| `javax.xml.ws.*` (JAX-WS) | `jakarta.xml.ws:jakarta.xml.ws-api` | 11 (removed) |
+| `javax.activation` (JAF) | `jakarta.activation:jakarta.activation-api` | 11 (removed) |
+| `SecurityManager` / `AccessController` | Framework-level auth (Spring Security) | 17 (dep. for removal) |
+| `Object.finalize()` | `try-with-resources` or `Cleaner` | 18 (dep. for removal) |
+| `Thread.stop()` / `suspend()` / `resume()` | `Thread.interrupt()` + cooperative shutdown | removed |
+| `sun.misc.Unsafe` memory access | FFM API (`MemorySegment`) or `VarHandle` | 24 (dep. for removal) |
+| `javax.security.cert.X509Certificate` | `java.security.cert.X509Certificate` | removed |
+| `Pack200` | `jlink` or standard compression | 14 (removed) |
 
 ### 6. Usage rules
 
@@ -1311,7 +1320,112 @@ Always apply these substitutions when you encounter legacy patterns:
 14. **Foreign Function & Memory API over JNI** — on Java 22+, use `Arena`, `MemorySegment`, and `Linker` instead of JNI for native interop.
 15. **Post-quantum cryptography** — on Java 24+, evaluate ML-KEM and ML-DSA for new security-sensitive applications.
 
-### 7. Review checklist
+### 7. Removed and deprecated APIs — do not use
+
+These APIs have been removed from the JDK or are deprecated for removal. Never use them in new code. When encountering them in existing code, migrate to the listed replacement.
+
+#### Removed modules and packages (Java 11+)
+
+These Java EE and CORBA modules were removed in Java 11. Use standalone replacements from Maven Central.
+
+| Removed module | Removed packages | Replacement (Maven) |
+|---|---|---|
+| java.xml.bind (JAXB) | `javax.xml.bind.*` | `jakarta.xml.bind:jakarta.xml.bind-api` + `org.glassfish.jaxb:jaxb-runtime` |
+| java.xml.ws (JAX-WS) | `javax.xml.ws.*`, `javax.jws.*` | `jakarta.xml.ws:jakarta.xml.ws-api` + CXF or Metro |
+| java.activation (JAF) | `javax.activation` | `jakarta.activation:jakarta.activation-api` |
+| java.xml.ws.annotation | `javax.annotation` | `jakarta.annotation:jakarta.annotation-api` |
+| java.transaction (JTA) | `javax.transaction` | `jakarta.transaction:jakarta.transaction-api` |
+| java.corba (CORBA) | `org.omg.*`, `javax.rmi.*`, `javax.activity` | No direct replacement — redesign away from CORBA |
+
+Additional removals:
+- **`java.rmi.activation`** — RMI Activation (removed Java 17). No replacement needed for new code.
+- **`java.security.acl`** — ACL API (removed Java 14). Use `java.security.Policy` or framework-specific authorization.
+- **`javax.security.cert`** — Old certificate API. Use `java.security.cert` instead.
+
+#### Removed classes
+
+| Removed class | Since | Replacement |
+|---|---|---|
+| `java.lang.Compiler` | 12 | No replacement — JIT is handled by the JVM |
+| `java.util.jar.Pack200` | 14 | Use `jlink` for modular JARs or standard compression |
+| `javax.security.auth.Policy` | 12 | `java.security.Policy` (also deprecated) |
+| `javax.management.remote.rmi.RMIIIOPServerImpl` | 15 | Not needed — CORBA/IIOP removed |
+
+#### Removed methods
+
+| Removed method | Replacement |
+|---|---|
+| `Thread.stop(Throwable)` | Cooperative interruption with `Thread.interrupt()` |
+| `Thread.destroy()` | Not needed — use `interrupt()` and clean shutdown |
+| `Thread.suspend()` / `resume()` | Use `java.util.concurrent` locks and conditions |
+| `Thread.countStackFrames()` | `Thread.getStackTrace()` or `StackWalker` |
+| `Runtime.runFinalizersOnExit()` | Use `try-with-resources` or `Cleaner` |
+| `Runtime.traceInstructions()` / `traceMethodCalls()` | Use JFR or debugger |
+| `FileInputStream.finalize()` / `FileOutputStream.finalize()` | Use `try-with-resources` |
+| All `finalize()` overrides in JDK classes | Use `try-with-resources` or `java.lang.ref.Cleaner` |
+
+#### Deprecated for removal — do not use in new code
+
+**SecurityManager ecosystem** (deprecated for removal since Java 17):
+
+The entire Security Manager is being removed. Do not use any of these in new code:
+- `java.lang.SecurityManager`
+- `System.getSecurityManager()` / `System.setSecurityManager()`
+- `java.security.AccessController`, `AccessControlContext`, `AccessControlException`
+- `java.security.Policy`, `PolicySpi`
+- All `*Permission` classes (`RuntimePermission`, `FilePermission`, `NetPermission`, `PropertyPermission`, etc.)
+- `javax.security.auth.Subject.doAs()` / `doAsPrivileged()` / `getSubject()`
+- `java.security.DomainCombiner`, `SubjectDomainCombiner`
+
+Use framework-level authorization (Spring Security, etc.) instead.
+
+**Finalization** (deprecated for removal since Java 18):
+
+- `Object.finalize()` — never override this method
+- `System.runFinalization()` / `Runtime.runFinalization()`
+
+Use `try-with-resources` for resource cleanup. For exotic cases, use `java.lang.ref.Cleaner`.
+
+**Applet API** (deprecated for removal):
+
+- `java.applet.Applet`, `AppletContext`, `AppletStub`, `AudioClip`
+- `javax.swing.JApplet`
+
+Applets are dead. Use web technologies or desktop frameworks (JavaFX, Swing without Applet).
+
+**Legacy threading** (deprecated for removal):
+
+- `Thread.stop()` — use cooperative interruption with `Thread.interrupt()` + checking `Thread.interrupted()`
+- `Thread.checkAccess()` / `ThreadGroup.checkAccess()` — part of SecurityManager, being removed
+- `ThreadGroup.destroy()` / `ThreadGroup.isDaemon()` / `ThreadGroup.setDaemon()`
+- `ThreadDeath` — no longer thrown
+
+**Legacy concurrency** (deprecated for removal):
+
+- `Executors.privilegedCallable()`, `privilegedCallableUsingCurrentClassLoader()`, `privilegedThreadFactory()` — part of SecurityManager ecosystem
+
+**Legacy security certificates**:
+
+- `javax.security.cert.X509Certificate` — use `java.security.cert.X509Certificate`
+- `SSLSession.getPeerCertificateChain()` — use `getPeerCertificates()`
+
+**Other deprecated-for-removal**:
+
+- `java.util.zip.ZipError` — use `ZipException`
+- `java.rmi.RMISecurityManager` — SecurityManager removal
+- `java.beans.beancontext.*` — entire BeanContext API (14 classes)
+- `java.beans.AppletInitializer`
+- `java.security.Identity`, `IdentityScope`, `Signer` — legacy identity model
+- `java.security.Certificate` (interface) — use `java.security.cert.Certificate`
+
+#### sun.misc.Unsafe
+
+`sun.misc.Unsafe` memory-access methods are deprecated for removal (Java 24). Use:
+- `java.lang.foreign.MemorySegment` and `Arena` for off-heap memory
+- `java.lang.invoke.VarHandle` for atomic/volatile field access
+- `java.lang.ref.Cleaner` for cleanup actions
+
+### 8. Review checklist
 
 When reviewing Java code, check for these modernization opportunities:
 
@@ -1346,3 +1460,10 @@ When reviewing Java code, check for these modernization opportunities:
 - [ ] Is `Stream.takeWhile()`/`dropWhile()` applicable instead of manual loops? (Java 9+)
 - [ ] Are executors shut down manually instead of using try-with-resources? (Java 19+)
 - [ ] Is `Thread.sleep(long)` used instead of `Thread.sleep(Duration)`? (Java 19+)
+- [ ] Are any removed APIs used (`javax.xml.bind`, `javax.xml.ws`, CORBA, `Pack200`, `java.lang.Compiler`)?
+- [ ] Is `SecurityManager` or `AccessController` used? (deprecated for removal)
+- [ ] Is `Object.finalize()` overridden? (Use `try-with-resources` or `Cleaner`)
+- [ ] Is `Thread.stop()` / `suspend()` / `resume()` used? (Use cooperative interruption)
+- [ ] Is `sun.misc.Unsafe` used for memory access? (Use FFM API or `VarHandle`)
+- [ ] Is `javax.security.cert.X509Certificate` used instead of `java.security.cert.X509Certificate`?
+- [ ] Are `Subject.doAs()` / `doAsPrivileged()` used? (deprecated for removal)
