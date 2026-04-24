@@ -62,6 +62,8 @@ Adapt the ordering to the project and technology stack.
 
 **Important:** Behavioral scenarios that describe what the user sees or does in the UI (e.g., "the user clicks save and sees a success message", "the dialog shows a validation error") are frontend scenarios. They must be tested with frontend tests — a passing backend API test does not verify that the UI actually works. If the project has no frontend test setup yet, the plan must include a step to set it up before the frontend test steps.
 
+**Important — Mocking is a last resort:** Design implementations to be easily testable without mocks. Before introducing any mock, ask: "Can this be tested without mocking?" Prefer real collaborators, in-memory implementations, test fixtures, or lightweight integration tests over mocks. When mocking is unavoidable (e.g., external APIs, third-party services, or infrastructure that cannot run in tests), mock only the specific dependency that requires it — never mock broadly. Over-mocking hides real bugs and makes tests brittle. If a class is hard to test without mocks, that is a signal to improve the design (e.g., extract an interface, inject a dependency), not to add more mocks.
+
 ### 3. Write the plan
 
 Write `steps.md` in the spec folder following the format from the spec-driven development doc. Use GitHub-flavored Markdown checkboxes (`- [ ]` / `- [x]`) for all changes and acceptance criteria so developers can track progress.
