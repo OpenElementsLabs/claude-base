@@ -147,7 +147,21 @@ EOF
 )"
 ```
 
-### 8. Summary
+### 8. Verify CI checks
+
+After the PR is created, check whether the repository has GitHub Actions workflows. If it does, wait for the CI checks to complete:
+
+1. Poll the PR check status using `gh pr checks <pr-number> --watch` (times out after 5 minutes)
+2. If all checks pass, continue to the summary
+3. If checks fail within 5 minutes:
+   - Read the failing workflow logs: `gh run view <run-id> --log-failed`
+   - Diagnose the failure — common causes include test failures, lint errors, build issues, or environment mismatches between local and CI
+   - Fix the issue, commit, and push to the branch
+   - Wait for the new CI run (again up to 5 minutes)
+   - If checks still fail after one fix attempt, report the failure details to the user and ask how to proceed rather than looping indefinitely
+4. If no checks appear within 2 minutes, the repository likely has no CI configured — note this in the summary and move on
+
+### 9. Summary
 
 Present the final result to the user:
 
