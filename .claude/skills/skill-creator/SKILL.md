@@ -5,6 +5,8 @@ description: Create new skills, modify and improve existing skills, and measure 
 
 # Skill Creator
 
+**IMPORTANT:** Use the /grill-me skill get a really good and clear understanding of the skill that should be created / modified / improved...
+
 A skill for creating new skills and iteratively improving them.
 
 At a high level, the process of creating a skill goes like this:
