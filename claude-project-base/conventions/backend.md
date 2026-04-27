@@ -17,6 +17,53 @@ Both are valid choices depending on the project requirements. We aim to provide 
 
 When building libraries that target backend applications, provide support for Spring Boot and Helidon SE as primary targets. Additionally, offer support for [Eclipse MicroProfile](https://microprofile.io/) and [Eclipse Jakarta EE](https://jakarta.ee/) where feasible, to broaden compatibility. For concrete backend applications, we typically do not use MicroProfile or Jakarta EE directly.
 
+## Package Structure
+
+- **IMPORTANT**: Organize backend packages **by feature/domain context**, not by technical layer.
+- Each feature or domain concept gets its own package containing all related classes: entities, repositories, services, DTOs, and controllers.
+- Do **not** create top-level packages like `entities/`, `repositories/`, `services/`, `controllers/`, `dtos/` that group classes by their technical role across unrelated features.
+
+**Correct** — packages by feature:
+
+```
+com.example.app/
+├── user/
+│   ├── User.java              (entity)
+│   ├── UserRepository.java    (repository)
+│   ├── UserService.java       (service)
+│   ├── UserDto.java           (DTO)
+│   └── UserController.java    (controller)
+├── order/
+│   ├── Order.java
+│   ├── OrderItem.java
+│   ├── OrderRepository.java
+│   ├── OrderService.java
+│   ├── OrderDto.java
+│   └── OrderController.java
+└── common/
+    └── ...                    (shared utilities, base classes, cross-cutting concerns)
+```
+
+**Wrong** — packages by layer:
+
+```
+com.example.app/
+├── entities/
+│   ├── User.java
+│   └── Order.java
+├── repositories/
+│   ├── UserRepository.java
+│   └── OrderRepository.java
+├── services/
+│   ├── UserService.java
+│   └── OrderService.java
+└── controllers/
+    ├── UserController.java
+    └── OrderController.java
+```
+
+Feature-based packaging keeps related code together, makes dependencies between features visible, and allows each feature to evolve independently. It also enables better encapsulation — classes that are only used within a feature can be package-private.
+
 ## REST APIs and OpenAPI
 
 - Every backend that exposes REST endpoints must include a Swagger UI for interactive API exploration.
