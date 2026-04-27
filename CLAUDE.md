@@ -35,7 +35,7 @@ When modifying `setup.sh`, ensure it remains idempotent — running it multiple 
 - Keep rules concise. One sentence per rule where possible.
 - Group related rules under clear headings.
 - Do not contradict rules from other documents in this repository.
-- When a rule applies only to a specific language, it belongs in the language-specific convention (`conventions/java.md` or `conventions/typescript.md`), not in the base `CLAUDE.md`.
+- When a rule applies only to a specific language, it belongs in the language-specific convention (e.g., `conventions/typescript.md`) or skill (e.g., `java-best-practices`), not in the base `CLAUDE.md`.
 
 ### For skills (`skills/*.md`)
 

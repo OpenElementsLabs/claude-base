@@ -2,7 +2,7 @@
 
 ## Overview
 
-Our backends are written in Java. This document covers conventions specific to backend applications. For general Java conventions, see [java.md](java.md).
+Our backends are written in Java. This document covers conventions specific to backend applications. For general Java conventions, see the `java-best-practices` skill.
 
 ## Frameworks
 

@@ -1,4 +1,13 @@
-# Java Conventions for Claude Code
+---
+name: java-best-practices
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Hendrik Ebbers
+description: Several best practices for writing Java code, including API design, generics, design patterns, modularization, defensive coding, and stability. Should be automatically loaded whenever Java code is planned, generated or reviewed.
+---
+
+# Java Best Practices
 
 ## Common Commands
 
@@ -25,14 +34,14 @@ Formatting rules (indentation, charset, line endings) are defined in `.editorcon
 - Follow standard Java naming: `PascalCase` for classes, `camelCase` for methods/fields, `UPPER_SNAKE_CASE` for
   constants.
 - **IMPORTANT**: Use consistent class name suffixes to express architectural roles:
-  - `Service` — Business-logic classes (e.g., `UserService`, `PaymentService`).
-  - `Repository` — Data access layer classes (e.g., `UserRepository`, `OrderRepository`).
-  - `Entity` — JPA entities / persisted domain objects (e.g., `UserEntity`, `OrderEntity`).
-  - `DTO` — Data Transfer Objects for the API layer and between internal layers (e.g., `UserDTO`, `OrderDTO`). This is the default suffix for all objects that carry data across layer boundaries, including REST request and response bodies.
-  - `Request` / `Response` — Use only when a generic DTO does not fit, for example when request and response structures differ significantly or when separate naming improves clarity. Prefer `DTO` as the default.
-  - `Controller` — REST controllers / route handlers (e.g., `UserController`).
-  - `Registry` — Central lookup or management of objects (e.g., `ServiceRegistry`, `EventRegistry`).
-  - `Config` or `Configuration` — Configuration classes (e.g., `SecurityConfig`, `DatabaseConfiguration`).
+    - `Service` — Business-logic classes (e.g., `UserService`, `PaymentService`).
+    - `Repository` — Data access layer classes (e.g., `UserRepository`, `OrderRepository`).
+    - `Entity` — JPA entities / persisted domain objects (e.g., `UserEntity`, `OrderEntity`).
+    - `DTO` — Data Transfer Objects for the API layer and between internal layers (e.g., `UserDTO`, `OrderDTO`). This is the default suffix for all objects that carry data across layer boundaries, including REST request and response bodies.
+    - `Request` / `Response` — Use only when a generic DTO does not fit, for example when request and response structures differ significantly or when separate naming improves clarity. Prefer `DTO` as the default.
+    - `Controller` — REST controllers / route handlers (e.g., `UserController`).
+    - `Registry` — Central lookup or management of objects (e.g., `ServiceRegistry`, `EventRegistry`).
+    - `Config` or `Configuration` — Configuration classes (e.g., `SecurityConfig`, `DatabaseConfiguration`).
 - Do not invent custom suffixes for these roles — use the ones listed above for consistency across projects.
 - **IMPORTANT**: Do not use Lombok. Use modern Java features (records, pattern matching) instead.
 - Always override `equals`, `hashCode`, and `toString` together for non-record classes. Use `Objects.equals()` and
@@ -56,13 +65,13 @@ Formatting rules (indentation, charset, line endings) are defined in `.editorcon
 
 - **IMPORTANT**: Every new Maven project must explicitly define versions for all default lifecycle plugins in `<build><pluginManagement>` to ensure reproducible builds across all systems.
 - Pin at least the following plugins (always use the latest stable version of each):
-  - `maven-clean-plugin`
-  - `maven-compiler-plugin`
-  - `maven-resources-plugin`
-  - `maven-surefire-plugin`
-  - `maven-jar-plugin`
-  - `maven-install-plugin`
-  - `maven-deploy-plugin`
+    - `maven-clean-plugin`
+    - `maven-compiler-plugin`
+    - `maven-resources-plugin`
+    - `maven-surefire-plugin`
+    - `maven-jar-plugin`
+    - `maven-install-plugin`
+    - `maven-deploy-plugin`
 - When reviewing or setting up an existing project, check that these plugins have explicit versions and update them to the latest stable release if they are outdated.
 
 ## Testing
@@ -90,7 +99,7 @@ Formatting rules (indentation, charset, line endings) are defined in `.editorcon
 
 - Prefer `Optional<T>` for return types that may have no value. Do not use `Optional` as a method parameter, constructor parameter, or field type — use `@Nullable` annotations instead.
 - Prefer `Optional.ofNullable(value)` when nullability is uncertain. Use `Optional.of(value)` only when the value is guaranteed non-null.
-- Annotate parameters and fields with `@Nullable` or `@NonNull` (using `org.jspecify` when available) to make intent explicit.
+- **IMPORTANT**: Annotate parameters and fields with `@Nullable`, `@NonNull`, `@NullMarked`, or `@NullUnmarked` (using `org.jspecify:jspecify` as compile scoped dependency) to make intent explicit.
 - Use `Objects.requireNonNull(param, "paramName must not be null")` for early validation of non-null parameters — always include the parameter name in the message.
 - **IMPORTANT**: Never return `null` from a method that returns a collection — return an empty collection instead.
 

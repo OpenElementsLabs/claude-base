@@ -28,7 +28,7 @@ Read all changed files completely — diffs alone are not enough to judge qualit
 Read the convention documents that apply to the project. Determine which are relevant based on the languages and files in the changeset:
 
 - Always read `../../conventions/software-quality.md` — applies to all projects
-- For Java files: read `../../conventions/java.md`
+- For Java files: the `java-best-practices` skill provides the conventions
 - For TypeScript files: read `../../conventions/typescript.md`
 - For backend code: read `../../conventions/backend.md`
 - For security-sensitive changes: read `../../conventions/security.md`
@@ -61,7 +61,7 @@ Check each changed file against the applicable conventions. Focus on these areas
 - Are assertions specific with clear failure messages?
 
 **Language-specific conventions:**
-- Apply the rules from the relevant language doc (java.md, typescript.md)
+- Apply the rules from the relevant language conventions (typescript.md, java-best-practices skill)
 - Check for language-specific anti-patterns (e.g., wildcard imports in Java, `any` type in TypeScript)
 
 **Architecture:**

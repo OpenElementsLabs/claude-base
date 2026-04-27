@@ -31,7 +31,6 @@ Before performing any review or setup task, **read all convention documents firs
    - `../../conventions/software-quality.md` — API design, technical integrity, namespace, SBOM, CI
    - `../../conventions/repo-setup.md` — required root files (README, LICENSE, CoC, .gitignore)
    - `../../conventions/documentation.md` — Markdown, MkDocs, GitHub Pages, ADRs
-   - `../../conventions/java.md` — Java conventions
    - `../../conventions/typescript.md` — TypeScript conventions
    - `../../conventions/backend.md` — Backend frameworks, REST/OpenAPI, database, observability
    - `../../conventions/fullstack-architecture.md` — Frontend/backend separation, Docker, configuration, pinned tool versions
@@ -43,11 +42,11 @@ Before performing any review or setup task, **read all convention documents firs
 
 4. Based on the project type, apply only the relevant conventions:
    - **All projects**: `software-quality.md`, `repo-setup.md`, `documentation.md`
-   - **Java projects**: additionally `java.md`
+   - **Java projects**: Java conventions are provided via skills (`java-best-practices`, `modern-java`, `java-api-design`)
    - **TypeScript projects**: additionally `typescript.md`
-   - **Backend projects**: additionally `backend.md`, `java.md`
+   - **Backend projects**: additionally `backend.md`
    - **Frontend projects**: additionally `typescript.md`
-   - **Fullstack projects**: additionally `fullstack-architecture.md`, `backend.md`, `java.md`, `typescript.md`
+   - **Fullstack projects**: additionally `fullstack-architecture.md`, `backend.md`, `typescript.md`
 
 5. When **reviewing** an existing project: compare the project structure, files, and conventions against the applicable docs. List what matches, what is missing, and what should be changed.
 

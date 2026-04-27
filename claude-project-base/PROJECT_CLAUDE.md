@@ -57,22 +57,22 @@ Projects that use this as a base can override or extend these rules in their own
 
 **IMPORTANT**: Only include the documents that are relevant to your project. Do not reference all docs — each referenced
 file is loaded into Claude's context and excessive context causes rules to be ignored. A Java library does not need
-`typescript.md` or `fullstack-architecture.md`. A frontend does not need `java.md` or `backend.md`.
+`typescript.md` or `fullstack-architecture.md`. A frontend does not need `backend.md`.
+
+Java conventions are provided via the `java-best-practices`, `modern-java`, and `java-api-design` skills — they do not need to be referenced as convention documents.
 
 Typical combinations:
 
-- **Java library**: `software-quality.md`, `java.md`, `repo-setup.md`
-- **Java backend**: `software-quality.md`, `java.md`, `backend.md`, `repo-setup.md`
+- **Java library**: `software-quality.md`, `repo-setup.md`
+- **Java backend**: `software-quality.md`, `backend.md`, `repo-setup.md`
 - **TypeScript frontend**: `software-quality.md`, `typescript.md`, `repo-setup.md`
-- **Fullstack application**: `software-quality.md`, `java.md`, `typescript.md`, `backend.md`,
+- **Fullstack application**: `software-quality.md`, `typescript.md`, `backend.md`,
   `fullstack-architecture.md`, `repo-setup.md`
 
 Available documents:
 
 ### Language-Specific
 
-- [Java Conventions](.claude/conventions/java.md) — code style, build tools, testing, logging, null handling,
-  collections, JPMS, SPI
 - [TypeScript Conventions](.claude/conventions/typescript.md) — technology stack, code style, package manager, testing,
   linting
 

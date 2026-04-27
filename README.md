@@ -33,7 +33,7 @@ project-root/
 ├── .claude/
 │   ├── settings.json                  ← permissions and security (see conventions/security.md)
 │   ├── conventions/                   ← convention documents
-│   │   ├── java.md
+│   │   ├── (java conventions moved to skills: java-best-practices, modern-java, java-api-design)
 │   │   ├── typescript.md
 │   │   ├── security.md
 │   │   ├── project-specific/          ← your project-specific docs
