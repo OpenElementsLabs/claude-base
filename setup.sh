@@ -35,11 +35,11 @@ git clone --depth 1 --branch "$LATEST_TAG" "$REPO_URL" "$WORK_DIR" 2>/dev/null
 
 SRC="$WORK_DIR/claude-project-base"
 
-# --- Sync conventions, skills, hooks into .claude/ ---
+# --- Sync conventions and hooks into .claude/ ---
 # Base items are overwritten to stay up to date.
 # Exception: conventions/project-specific/ is never overwritten (project-owned content).
-echo "==> Syncing conventions, skills, and hooks into .claude/..."
-for dir in conventions skills hooks; do
+echo "==> Syncing conventions and hooks into .claude/..."
+for dir in conventions hooks; do
   src_dir="$SRC/$dir"
   dest_dir=".claude/$dir"
   [ -d "$src_dir" ] || continue
@@ -69,6 +69,46 @@ for dir in conventions skills hooks; do
     cp -R "$item" "$dest"
   done
 done
+
+# --- Sync skills into .claude/skills/ (flatten categories) ---
+# Source layout: claude-project-base/skills/<category>/<skill-name>/SKILL.md
+# Target layout: .claude/skills/<skill-name>/SKILL.md
+# The categories (information/, tools/, workflows/, coding/, other/) are
+# kept in the source repo for navigation but flattened in the target so
+# Claude Code's skill discovery (which expects flat skills) works unchanged.
+# Convention paths inside SKILL.md files reference `../../../conventions/`
+# in the source (skill is three levels deep). After flattening they live
+# two levels deep, so we rewrite them to `../../conventions/` on copy.
+echo "==> Syncing skills into .claude/skills/ (flattening categories)..."
+src_skills="$SRC/skills"
+dest_skills=".claude/skills"
+if [ -d "$src_skills" ]; then
+  mkdir -p "$dest_skills"
+
+  for category_dir in "$src_skills"/*/; do
+    [ -d "$category_dir" ] || continue
+    for skill_dir in "$category_dir"*/; do
+      [ -d "$skill_dir" ] || continue
+      skill_name="$(basename "$skill_dir")"
+      dest="$dest_skills/$skill_name"
+
+      if [ -e "$dest" ]; then
+        rm -rf "$dest"
+        echo "    Updated skills/$skill_name"
+      else
+        echo "    Copied skills/$skill_name"
+      fi
+      cp -R "$skill_dir" "$dest"
+
+      # Adjust convention paths: ../../../conventions/ -> ../../conventions/
+      find "$dest" -name 'SKILL.md' -type f -print0 | while IFS= read -r -d '' f; do
+        if grep -q '\.\./\.\./\.\./conventions/' "$f"; then
+          perl -i -pe 's|\.\./\.\./\.\./conventions/|\.\./\.\./conventions/|g' "$f"
+        fi
+      done
+    done
+  done
+fi
 
 # --- Copy settings.local.json into .claude/ ---
 if [ -f "$SRC/settings.local.json" ]; then

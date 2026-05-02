@@ -25,14 +25,14 @@ Depending on the project type, the skill will provide specific guidance on how t
 
 ## Instructions
 
-Before performing any review or setup task, **read all convention documents first** to have full knowledge of Open Elements standards. The docs are located relative to this skill at `../../conventions/`:
+Before performing any review or setup task, **read all convention documents first** to have full knowledge of Open Elements standards. The docs are located relative to this skill at `../../../conventions/`:
 
 1. Read all of the following files:
-   - `../../conventions/software-quality.md` — API design, technical integrity, namespace, SBOM, CI
+   - `../../../conventions/software-quality.md` — API design, technical integrity, namespace, SBOM, CI
    - `references/repo-setup.md` — required root files (README, LICENSE, CoC, `.gitignore`, `.editorconfig`)
    - `references/editorconfig.md` — standard `.editorconfig` content for Java/TypeScript projects
-   - `../../conventions/backend.md` — Backend frameworks, REST/OpenAPI, database, observability
-   - `../../conventions/project-specific/README.md` — Project-specific docs (if any exist)
+   - `../../../conventions/backend.md` — Backend frameworks, REST/OpenAPI, database, observability
+   - `../../../conventions/project-specific/README.md` — Project-specific docs (if any exist)
 
    For TypeScript / React / Next.js conventions, invoke the `typescript-best-practices` skill when the project includes a frontend.
 
@@ -59,7 +59,7 @@ Before performing any review or setup task, **read all convention documents firs
    The skeleton includes:
    - **Root**: `.editorconfig`, `.gitignore`, `LICENSE`, `.env.example`, `docker-compose.yml`, `README.md`
    - **Backend**: `pom.xml` (with all required plugins and dependencies), Maven Wrapper, `Dockerfile`, `.dockerignore`, `.sdkmanrc`, application config, and a single main application class with one health/ping endpoint to verify the backend starts correctly
-   - **Frontend**: `package.json`, `next.config.ts`, `tailwind.config.ts`, `tsconfig.json`, `.nvmrc`, `Dockerfile`, `.dockerignore`, `public/favicon.ico`, and a single landing page that shows the project name and confirms the frontend is running. Apply the Open Elements Brand Guidelines (`../open-elements-brand-guidelines/SKILL.md`) and Frontend Design skill (`../frontend-design/SKILL.md`) for the landing page styling.
+   - **Frontend**: `package.json`, `next.config.ts`, `tailwind.config.ts`, `tsconfig.json`, `.nvmrc`, `Dockerfile`, `.dockerignore`, `public/favicon.ico`, and a single landing page that shows the project name and confirms the frontend is running. Invoke the `open-elements-brand-guidelines` and `frontend-design` skills for the landing page styling.
 
    **Do not create**: entities, DTOs, repositories, services, controllers (beyond the health endpoint), database migrations, multiple pages, or any business-logic code.
 

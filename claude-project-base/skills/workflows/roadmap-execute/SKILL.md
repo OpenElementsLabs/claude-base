@@ -11,7 +11,7 @@ description: Autonomously execute all steps in a ROADMAP.md file using sub-agent
 
 Autonomously work through all steps in a `ROADMAP.md` by delegating each step to a sub-agent. The orchestrator (this skill) manages sequencing and progress tracking — the sub-agents handle the actual work.
 
-Before starting, read `../../conventions/spec-driven-development.md` for the spec folder structure and conventions.
+Before starting, read `../../../conventions/spec-driven-development.md` for the spec folder structure and conventions.
 
 ## Expected ROADMAP.md Format
 

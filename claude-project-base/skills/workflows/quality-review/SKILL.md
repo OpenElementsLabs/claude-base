@@ -27,11 +27,11 @@ Read all changed files completely — diffs alone are not enough to judge qualit
 
 Read the convention documents that apply to the project. Determine which are relevant based on the languages and files in the changeset:
 
-- Always read `../../conventions/software-quality.md` — applies to all projects
+- Always read `../../../conventions/software-quality.md` — applies to all projects
 - For Java files: the `java-best-practices` skill provides the conventions
 - For TypeScript files: the `typescript-best-practices` skill provides the conventions
-- For backend code: read `../../conventions/backend.md`
-- For security-sensitive changes: read `../../conventions/security.md`
+- For backend code: read `../../../conventions/backend.md`
+- For security-sensitive changes: read `../../../conventions/security.md`
 
 Also read the project's `CLAUDE.md` for any project-specific rules.
 

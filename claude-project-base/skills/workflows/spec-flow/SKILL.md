@@ -11,7 +11,7 @@ description: Implement a completed spec end-to-end using a proper GitHub flow. C
 
 Take a completed specification and turn it into a reviewed, ready-to-merge Pull Request using GitHub flow. This skill orchestrates the full lifecycle: issue tracking, branching, implementation, iterative review, and PR creation.
 
-Before starting, read `../../conventions/spec-driven-development.md` for the spec folder structure and conventions.
+Before starting, read `../../../conventions/spec-driven-development.md` for the spec folder structure and conventions.
 
 ## Prerequisites
 
@@ -59,7 +59,7 @@ Update the spec's status to `in progress` in `specs/INDEX.md` and commit this ch
 
 Invoke `/spec-implement` to generate the implementation plan and execute it. This means:
 
-1. Read the spec-implement skill at `../../skills/spec-implement/SKILL.md`
+1. Invoke the `spec-implement` skill
 2. Follow its instructions to create `steps.md` and work through the implementation steps
 3. Use automated execution mode — work through steps sequentially, checking off items as they are completed
 4. After each step, verify the project builds and tests pass before moving on
@@ -72,7 +72,7 @@ After implementation is complete, run two review passes. Repeat this cycle until
 
 #### 5a. Spec review
 
-Read the spec-review skill at `../../skills/spec-review/SKILL.md` and follow its instructions to review the implementation against the spec. This checks:
+Invoke the `spec-review` skill and follow its instructions to review the implementation against the spec. This checks:
 
 - Every element in `design.md` is implemented
 - Every scenario in `behaviors.md` has a corresponding test
@@ -80,7 +80,7 @@ Read the spec-review skill at `../../skills/spec-review/SKILL.md` and follow its
 
 #### 5b. Quality review
 
-Read the quality-review skill at `../../skills/quality-review/SKILL.md` and follow its instructions to review the code for quality. This checks:
+Invoke the `quality-review` skill and follow its instructions to review the code for quality. This checks:
 
 - Code quality (DRY, KISS, naming, dead code)
 - Security (no hardcoded secrets, input validation, parameterized queries)

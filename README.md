@@ -11,7 +11,7 @@ This repository solves that by providing a shared base configuration in `claude-
 - **`CLAUDE.md`** — Base conventions for code quality, security, testing, and PRs
 - **`conventions/`** — Detailed convention documents for languages, architecture, and tooling (selectively included per project)
 - **`conventions/project-specific/`** — Place for your own project-specific documentation
-- **`skills/`** — Reusable Claude Code skills for common tasks
+- **`skills/`** — Reusable Claude Code skills, organized by category (`information/`, `tools/`, `workflows/`, `coding/`, `other/`). The setup script flattens these into `.claude/skills/` in the target project so Claude Code's flat skill discovery keeps working.
 
 The base `CLAUDE.md` explains which conventions to include for different project types (Java library, TypeScript frontend, fullstack app, etc.) so that only relevant context is loaded.
 

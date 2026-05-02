@@ -11,7 +11,7 @@ description: Generate a concrete step-by-step implementation plan from a specifi
 
 Turn a completed specification into an ordered, actionable list of implementation steps.
 
-Before starting, read `../../conventions/spec-driven-development.md` for the full spec folder structure and file
+Before starting, read `../../../conventions/spec-driven-development.md` for the full spec folder structure and file
 formats.
 
 ## Instructions
@@ -26,8 +26,7 @@ Read both `design.md` and `behaviors.md` from the spec folder.
 Also read any relevant existing code that the implementation will modify or extend. Understand the current state of the
 codebase before planning changes.
 
-If the spec involves **frontend or UI work**, also read the **Open Elements Brand Guidelines** skill (
-`../open-elements-brand-guidelines/SKILL.md`) and the **Frontend Design** skill (`../frontend-design/SKILL.md`). All
+If the spec involves **frontend or UI work**, also invoke the `open-elements-brand-guidelines` and `frontend-design` skills. All
 frontend implementation steps must reference and apply the brand colors, typography, and design quality standards.
 
 ### 2. Break down into steps
