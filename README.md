@@ -34,8 +34,11 @@ project-root/
 │   ├── settings.json                  ← permissions and security (see conventions/security.md)
 │   ├── conventions/                   ← convention documents
 │   │   ├── (java conventions moved to skills: java-best-practices, modern-java, java-api-design)
-│   │   ├── typescript.md
+│   │   ├── (typescript conventions moved to skill: typescript-best-practices)
 │   │   ├── security.md
+│   │   ├── software-quality.md
+│   │   ├── backend.md
+│   │   ├── spec-driven-development.md
 │   │   ├── project-specific/          ← your project-specific docs
 │   │   └── ...
 │   └── skills/                        ← auto-discovered by Claude Code

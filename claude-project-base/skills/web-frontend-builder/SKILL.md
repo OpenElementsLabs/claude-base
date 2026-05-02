@@ -13,7 +13,7 @@ Build production-grade web frontend applications using the Open Elements tech st
 
 **Stack**: Next.js + React 18 + TypeScript (strict) + Tailwind CSS + shadcn/ui + pnpm
 
-**IMPORTANT**: All conventions from `../../conventions/typescript.md` apply. When in doubt, defer to that document.
+**IMPORTANT**: All conventions from the `typescript-best-practices` skill apply. When in doubt, defer to that skill.
 
 ## Design Guidelines
 

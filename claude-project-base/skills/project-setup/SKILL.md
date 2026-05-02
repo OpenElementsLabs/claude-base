@@ -31,9 +31,10 @@ Before performing any review or setup task, **read all convention documents firs
    - `../../conventions/software-quality.md` — API design, technical integrity, namespace, SBOM, CI
    - `references/repo-setup.md` — required root files (README, LICENSE, CoC, `.gitignore`, `.editorconfig`)
    - `references/editorconfig.md` — standard `.editorconfig` content for Java/TypeScript projects
-   - `../../conventions/typescript.md` — TypeScript conventions
    - `../../conventions/backend.md` — Backend frameworks, REST/OpenAPI, database, observability
    - `../../conventions/project-specific/README.md` — Project-specific docs (if any exist)
+
+   For TypeScript / React / Next.js conventions, invoke the `typescript-best-practices` skill when the project includes a frontend.
 
    For project documentation (MkDocs, GitHub Pages), invoke the `mkdocs-setup` skill when the project needs technical documentation beyond the README.
 
@@ -46,10 +47,10 @@ Before performing any review or setup task, **read all convention documents firs
 4. Based on the project type, apply only the relevant conventions:
    - **All projects**: `software-quality.md`, plus the bundled `references/repo-setup.md` and `references/editorconfig.md`
    - **Java projects**: Java conventions are provided via skills (`java-best-practices`, `modern-java`, `java-api-design`)
-   - **TypeScript projects**: additionally `typescript.md`
+   - **TypeScript projects**: invoke the `typescript-best-practices` skill
    - **Backend projects**: additionally `backend.md`
-   - **Frontend projects**: additionally `typescript.md`
-   - **Fullstack projects**: additionally `backend.md`, `typescript.md` — and invoke the `fullstack-architecture-setup` skill
+   - **Frontend projects**: invoke the `typescript-best-practices` skill
+   - **Fullstack projects**: additionally `backend.md` — invoke the `typescript-best-practices` skill and the `fullstack-architecture-setup` skill
 
 5. When **reviewing** an existing project: compare the project structure, files, and conventions against the applicable docs. List what matches, what is missing, and what should be changed.
 

@@ -56,17 +56,18 @@ Projects that use this as a base can override or extend these rules in their own
 ## Additional Conventions
 
 **IMPORTANT**: Only include the documents that are relevant to your project. Do not reference all docs — each referenced
-file is loaded into Claude's context and excessive context causes rules to be ignored. A Java library does not need
-`typescript.md`. A frontend does not need `backend.md`.
+file is loaded into Claude's context and excessive context causes rules to be ignored. A frontend does not need `backend.md`.
 
 Java conventions are provided via the `java-best-practices`, `modern-java`, and `java-api-design` skills — they do not need to be referenced as convention documents.
+
+TypeScript conventions are provided via the `typescript-best-practices` skill — it does not need to be referenced as a convention document.
 
 Typical combinations:
 
 - **Java library**: `software-quality.md`
 - **Java backend**: `software-quality.md`, `backend.md`
-- **TypeScript frontend**: `software-quality.md`, `typescript.md`
-- **Fullstack application**: `software-quality.md`, `typescript.md`, `backend.md` — fullstack architecture details (Docker, OIDC, Compose) are provided on demand via the `fullstack-architecture-setup` skill.
+- **TypeScript frontend**: `software-quality.md`
+- **Fullstack application**: `software-quality.md`, `backend.md` — fullstack architecture details (Docker, OIDC, Compose) are provided on demand via the `fullstack-architecture-setup` skill.
 
 Repository setup (required root files like `README.md`, `LICENSE`, `CODE_OF_CONDUCT.md`, `.gitignore`, `.editorconfig`) is provided on demand via the `project-setup` skill.
 
@@ -74,8 +75,7 @@ Available documents:
 
 ### Language-Specific
 
-- [TypeScript Conventions](.claude/conventions/typescript.md) — technology stack, code style, package manager, testing,
-  linting
+- TypeScript conventions (technology stack, Next.js pitfalls, code style, package manager, testing, linting, i18n, error handling) are provided via the `typescript-best-practices` skill — it does not need to be referenced as a convention document.
 
 ### Security
 

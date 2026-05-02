@@ -1,4 +1,13 @@
-# TypeScript Conventions for Claude Code
+---
+name: typescript-best-practices
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
+description: Best practices for writing TypeScript code at Open Elements — covers the React/Next.js/Tailwind/shadcn stack, code style, package management, testing, i18n, logging, error handling, and the Next.js-specific pitfalls that bite during `next build` (Suspense boundaries, `dynamic = 'force-dynamic'`, `output: 'standalone'`). Should be automatically loaded whenever TypeScript or React code is planned, generated, or reviewed — including any work touching `.ts`/`.tsx`/`tsconfig.json`/`next.config.ts`/`tailwind.config.*`/`package.json`, components, hooks (`useSearchParams`, `usePathname`, `useRouter`), shadcn/ui setup, pnpm workflows, ESLint/Prettier, or i18n strings.
+---
+
+# TypeScript Best Practices
 
 ## Technology Stack
 

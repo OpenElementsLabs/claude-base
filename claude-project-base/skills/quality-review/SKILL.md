@@ -29,7 +29,7 @@ Read the convention documents that apply to the project. Determine which are rel
 
 - Always read `../../conventions/software-quality.md` — applies to all projects
 - For Java files: the `java-best-practices` skill provides the conventions
-- For TypeScript files: read `../../conventions/typescript.md`
+- For TypeScript files: the `typescript-best-practices` skill provides the conventions
 - For backend code: read `../../conventions/backend.md`
 - For security-sensitive changes: read `../../conventions/security.md`
 
@@ -61,7 +61,7 @@ Check each changed file against the applicable conventions. Focus on these areas
 - Are assertions specific with clear failure messages?
 
 **Language-specific conventions:**
-- Apply the rules from the relevant language conventions (typescript.md, java-best-practices skill)
+- Apply the rules from the relevant language skills (`typescript-best-practices`, `java-best-practices`)
 - Check for language-specific anti-patterns (e.g., wildcard imports in Java, `any` type in TypeScript)
 
 **Architecture:**
