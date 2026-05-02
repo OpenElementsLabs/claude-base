@@ -82,7 +82,7 @@ These are the typical commands for TypeScript/Next.js projects. Adjust the packa
 
 ## Code Style
 
-Formatting rules (indentation, charset, line endings) are defined in `.editorconfig` — see [editorconfig.md](editorconfig.md).
+Formatting rules (indentation, charset, line endings) are defined in `.editorconfig`. The standard configuration is provided by the `project-setup` skill.
 
 - **IMPORTANT**: Enable `strict` mode in `tsconfig.json`. Do not weaken strict checks without explicit justification.
 - Use explicit type annotations for function parameters and return types. Rely on inference for local variables.

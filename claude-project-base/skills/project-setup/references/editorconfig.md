@@ -1,4 +1,4 @@
-# EditorConfig Conventions for Claude Code
+# EditorConfig
 
 ## Overview
 
@@ -64,4 +64,4 @@ indent_size = 4
 
 ## Usage
 
-Copy the `.editorconfig` content above into the root of your repository. It will be picked up automatically by supported editors.
+Copy the `.editorconfig` content above into the root of the repository. It will be picked up automatically by supported editors.

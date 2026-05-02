@@ -1,6 +1,42 @@
-# Reproducible Builds Convention for Claude Code
+---
+name: reproducible-builds-check
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
+description: Enforce, audit, or set up reproducible builds for Open Elements projects (Java/Maven, TypeScript/Node, Docker). Use this skill whenever the user touches build configuration (`pom.xml`, `package.json`, `Dockerfile`, lockfiles, CI workflows), pins dependency or base-image versions, debugs why two builds produce different artifacts, releases from a Git tag, or asks how to verify byte-identical output. Trigger this skill even if the user only mentions "version pin", "floating tag", "SNAPSHOT in release", "lockfile", "byte-identical", "SOURCE_DATE_EPOCH", "non-deterministic build", or "diff between two builds" without explicitly naming reproducibility.
+---
+
+# Reproducible Builds
 
 Reproducible builds ensure that building the same source code with the same instructions always produces byte-identical artifacts, regardless of when, where, or by whom the build is executed. This is a core quality requirement for all Open Elements projects.
+
+This skill bundles both the **rules** (avoid these pitfalls, pin these versions) and the **verification recipes** (scripts that build twice and diff). Apply the rules whenever you touch build configuration or write code that emits build output. Apply the verification recipes when the user wants to set up or run a reproducibility check.
+
+## When to use this skill
+
+Use this skill when the user:
+
+- Adds or modifies build configuration (`pom.xml`, `build.gradle`, `package.json`, `Dockerfile`, CI workflows)
+- Adds, upgrades, or pins dependencies, plugins, or Docker base images
+- Sets up a release pipeline or release-from-tag workflow
+- Reports that two builds produce different artifacts (binary diff, different SHA, manifest changes)
+- Wants to add a `verify-reproducible-build` script or CI job
+- Reviews lockfile handling or `--frozen-lockfile` usage in CI
+
+## Instructions
+
+1. **Apply the [Core Principle](#core-principle).** If a proposed change would prevent byte-identical rebuilds, push back rather than working around it.
+
+2. **Audit against [Common Sources of Non-Reproducibility](#common-sources-of-non-reproducibility).** When reviewing a build config or generated code, walk through the list — these are the places things actually break.
+
+3. **Verify [Version Pinning](#version-pinning).** Every dependency, plugin, base image, CI action, and toolchain version must be hard-pinned for release builds. SNAPSHOT and ranges are tolerated only on development branches.
+
+4. **Verify [Lockfiles](#lockfiles)** are committed and CI uses the frozen-lockfile flag.
+
+5. **If the user wants verification**, install the appropriate [Verification Task](#verification-tasks) for the project's language. Wire it into CI as a separate job that runs after the main build.
+
+For CI workflows, see the `github-actions-setup` skill — it produces workflows that already use pinned action versions and `--frozen-lockfile`.
 
 ## Core Principle
 
@@ -10,14 +46,14 @@ Reproducible builds ensure that building the same source code with the same inst
 
 Avoid these well-known pitfalls in all code and build configurations:
 
-1. **OS-specific line endings** -- Use `.editorconfig` and `.gitattributes` to enforce consistent line endings (`LF`). Never rely on OS defaults.
-2. **Timestamps embedded in artifacts** -- Do not store build timestamps, dates, or "built at" strings inside compiled artifacts, manifests, or generated code. If a build date is required for display purposes, derive it from the Git commit timestamp (`SOURCE_DATE_EPOCH`), not from `System.currentTimeMillis()` or `Date.now()`.
-3. **Time without timezone** -- Always use UTC for any time-related operation in build scripts and generated code. Never use the local timezone of the build machine.
-4. **Non-deterministic file ordering** -- Archive tools (JAR, ZIP, TAR) may list files in filesystem order, which varies across OS and filesystem. Ensure deterministic file ordering in all archive steps.
-5. **Non-deterministic map/set iteration** -- When generating code or configuration from collections, sort entries before writing output.
-6. **Locale-dependent formatting** -- Use a fixed locale (e.g., `Locale.ROOT` in Java, `en-US` in JavaScript) for any formatting that ends up in build output.
-7. **Absolute paths in artifacts** -- Never embed absolute paths of the build machine in compiled output, debug info, or generated files.
-8. **Randomized or non-deterministic identifiers** -- Do not use `UUID.randomUUID()`, `Math.random()`, or similar sources for values that end up in build output.
+1. **OS-specific line endings** — Use `.editorconfig` and `.gitattributes` to enforce consistent line endings (`LF`). Never rely on OS defaults.
+2. **Timestamps embedded in artifacts** — Do not store build timestamps, dates, or "built at" strings inside compiled artifacts, manifests, or generated code. If a build date is required for display purposes, derive it from the Git commit timestamp (`SOURCE_DATE_EPOCH`), not from `System.currentTimeMillis()` or `Date.now()`.
+3. **Time without timezone** — Always use UTC for any time-related operation in build scripts and generated code. Never use the local timezone of the build machine.
+4. **Non-deterministic file ordering** — Archive tools (JAR, ZIP, TAR) may list files in filesystem order, which varies across OS and filesystem. Ensure deterministic file ordering in all archive steps.
+5. **Non-deterministic map/set iteration** — When generating code or configuration from collections, sort entries before writing output.
+6. **Locale-dependent formatting** — Use a fixed locale (e.g., `Locale.ROOT` in Java, `en-US` in JavaScript) for any formatting that ends up in build output.
+7. **Absolute paths in artifacts** — Never embed absolute paths of the build machine in compiled output, debug info, or generated files.
+8. **Randomized or non-deterministic identifiers** — Do not use `UUID.randomUUID()`, `Math.random()`, or similar sources for values that end up in build output.
 
 ## Version Pinning
 

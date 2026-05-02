@@ -80,7 +80,7 @@ Feature-based packaging keeps related code together, makes dependencies between 
 - Use **[Flyway](https://flywaydb.org/)** for database schema management and migrations in all projects with a database.
 - **PostgreSQL** is the preferred database for test environments and production.
 - **H2** (in-memory) is the preferred database for fast, automated unit/integration tests. In the future, we plan to replace H2 with [Testcontainers](https://www.testcontainers.org/)-based PostgreSQL to test against the same database in all environments.
-- **IMPORTANT**: Database connection URLs, credentials, and other settings must be configurable via environment variables (see [fullstack-architecture.md](fullstack-architecture.md#configuration)).
+- **IMPORTANT**: Database connection URLs, credentials, and other settings must be configurable via environment variables. For fullstack applications, see the `fullstack-architecture-setup` skill for the full configuration pattern.
 
 ## Data Privacy and GDPR
 

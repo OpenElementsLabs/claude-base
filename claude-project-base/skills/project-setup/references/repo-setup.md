@@ -1,4 +1,4 @@
-# Repository Setup Conventions for Claude Code
+# Repository Setup
 
 ## Overview
 
@@ -73,7 +73,7 @@ If a file is already provided by the `.github` repository, it does not need to b
 project-root/
 ├── .editorconfig          # Formatting rules (indentation, charset, line endings)
 ├── .gitignore             # Excludes .env, .idea/, target/, node_modules/, etc.
-├── CODE_OF_CONDUCT.md    # Open Elements CoC (Contributor Covenant 2.0, CC BY 4.0)
+├── CODE_OF_CONDUCT.md     # Open Elements CoC (Contributor Covenant 2.0, CC BY 4.0)
 ├── CONTRIBUTING.md        # Contributing guide (planned)
 ├── LICENSE                # Apache License 2.0
 └── README.md              # Project description, status, build & usage instructions

@@ -1,16 +1,57 @@
-# Fullstack Architecture Conventions for Claude Code
+---
+name: fullstack-architecture-setup
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
+description: Set up or review the architecture of an Open Elements fullstack project (independent backend + frontend in one repo, wired via Docker Compose, optionally with OAuth2/OIDC). Use this skill whenever the user wants to scaffold a new fullstack repo, add a Dockerfile or docker-compose.yml, configure backend↔frontend communication via Next.js rewrites, set the `BACKEND_URL` build arg, add a `docker-compose.override.yml` for local dev, wire up authentication via OIDC (Authentik, Keycloak, mock OAuth2 server), or pin Java/Node versions across the repo. Trigger this skill even if the user only mentions "fullstack repo", "backend + frontend container", "compose override", "Coolify deployment", "mock OAuth2", or "BACKEND_URL not reaching backend" without explicitly naming the architecture convention.
+---
 
-## Overview
+# Fullstack Architecture Setup
 
-In Open Elements projects that have both a frontend and a backend,
-both parts are treated as fully independent applications within a single repository.
-They share no code, no build process, and no runtime.
-The only coupling is at the network level through APIs.
+This skill defines the architecture for Open Elements projects that combine a frontend and a backend in a single repository, and walks you through creating or reviewing them.
 
-Reference implementations of this architecture:
+In an Open Elements fullstack project, **backend and frontend are fully independent applications** within one repo. They share no code, no build process, and no runtime. The only coupling is at the network level through APIs.
 
-- [maven-initializer](https://github.com/support-and-care/maven-initializer) — Fullstack application without authentication andf without database.
-- [application-skeleton](https://github.com/OpenElementsLabs/application-skeleton) — Fullstack application starter with OAuth2/OIDC authentication (compatible with Authentik, Keycloak, and other OIDC providers), mock OAuth2 server for local development, and `docker-compose.override.yml` pattern for dev/prod separation. Designed for deployment on Open Elements Coolify infrastructure.
+Reference implementations:
+
+- [maven-initializer](https://github.com/support-and-care/maven-initializer) — Fullstack application without authentication and without database.
+- [application-skeleton](https://github.com/OpenElementsLabs/application-skeleton) — Fullstack starter with OAuth2/OIDC authentication (Authentik/Keycloak compatible), mock OAuth2 server for local development, and `docker-compose.override.yml` pattern for dev/prod separation. Designed for Open Elements Coolify infrastructure.
+
+## When to use this skill
+
+Use this skill when the user:
+
+- Sets up a new fullstack repository
+- Adds Docker / Docker Compose to an existing fullstack repo
+- Reviews the structure or wiring of an existing fullstack project
+- Adds OAuth2/OIDC authentication to a fullstack app
+- Hits a problem where the frontend can't reach the backend in containers (`BACKEND_URL` not propagating, CORS issues, hardcoded URLs)
+- Configures deployment on Coolify with Authentik
+
+For backend-only or frontend-only projects, use the `project-setup` skill instead.
+
+## Instructions
+
+1. **Inspect the repository.** Look for existing `backend/`, `frontend/`, `docker-compose.yml`, and `Dockerfile`s. If they exist, review them against the conventions in this skill rather than overwriting blindly.
+
+2. **Apply the [Core Principles](#core-principles)** to every decision. Independence between the two apps is the highest-priority rule — if a proposed change couples them, push back.
+
+3. **Set up the [Repository Structure](#repository-structure).**
+
+4. **Create or update the Dockerfiles** following the [Docker](#docker) section. Pay particular attention to the `BACKEND_URL` build-arg pattern for Next.js — it is the most common source of "frontend can't reach backend" bugs.
+
+5. **Wire services together via `docker-compose.yml`** at the repo root, and add a `docker-compose.override.yml` for local-only services (port mappings, mock OAuth2, debug config).
+
+6. **Configure communication** so the frontend uses Next.js rewrites to proxy `/api/*` to the backend via `BACKEND_URL`. Never call the backend directly from the browser. Never enable CORS as a workaround.
+
+7. **If authentication is required**, follow [Authentication with OAuth2/OIDC](#authentication-with-oauth2oidc). Use the `application-skeleton` repo as a working reference.
+
+8. **Pin tool versions** (`.sdkmanrc` for Java, `.nvmrc` for Node, Maven/Gradle wrapper scripts).
+
+9. **Verify configuration is environment-driven.** All env-specific values must come from environment variables, with `.env` gitignored and `.env.example` checked in.
+
+For CI workflows that build and test this fullstack setup, invoke the `github-actions-setup` skill.
 
 ## Repository Structure
 

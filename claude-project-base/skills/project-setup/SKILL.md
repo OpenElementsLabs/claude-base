@@ -29,24 +29,27 @@ Before performing any review or setup task, **read all convention documents firs
 
 1. Read all of the following files:
    - `../../conventions/software-quality.md` — API design, technical integrity, namespace, SBOM, CI
-   - `../../conventions/repo-setup.md` — required root files (README, LICENSE, CoC, .gitignore)
-   - `../../conventions/documentation.md` — Markdown, MkDocs, GitHub Pages, ADRs
+   - `references/repo-setup.md` — required root files (README, LICENSE, CoC, `.gitignore`, `.editorconfig`)
+   - `references/editorconfig.md` — standard `.editorconfig` content for Java/TypeScript projects
    - `../../conventions/typescript.md` — TypeScript conventions
    - `../../conventions/backend.md` — Backend frameworks, REST/OpenAPI, database, observability
-   - `../../conventions/fullstack-architecture.md` — Frontend/backend separation, Docker, configuration, pinned tool versions
    - `../../conventions/project-specific/README.md` — Project-specific docs (if any exist)
+
+   For project documentation (MkDocs, GitHub Pages), invoke the `mkdocs-setup` skill when the project needs technical documentation beyond the README.
+
+   For fullstack architecture (independent backend + frontend, Docker Compose, OIDC, pinned tool versions), invoke the `fullstack-architecture-setup` skill when the project is a fullstack application.
 
 2. Determine the project type (Java library, TypeScript library, Java backend, web frontend, or fullstack application). If the project type is not obvious from the existing codebase, **ask the user** which type they want.
 
 3. If the project includes a backend (Java backend or fullstack application), **ask the user** which backend framework to use: **Spring Boot** or **Helidon SE**. Do not assume a default — the user must make this choice explicitly.
 
 4. Based on the project type, apply only the relevant conventions:
-   - **All projects**: `software-quality.md`, `repo-setup.md`, `documentation.md`
+   - **All projects**: `software-quality.md`, plus the bundled `references/repo-setup.md` and `references/editorconfig.md`
    - **Java projects**: Java conventions are provided via skills (`java-best-practices`, `modern-java`, `java-api-design`)
    - **TypeScript projects**: additionally `typescript.md`
    - **Backend projects**: additionally `backend.md`
    - **Frontend projects**: additionally `typescript.md`
-   - **Fullstack projects**: additionally `fullstack-architecture.md`, `backend.md`, `typescript.md`
+   - **Fullstack projects**: additionally `backend.md`, `typescript.md` — and invoke the `fullstack-architecture-setup` skill
 
 5. When **reviewing** an existing project: compare the project structure, files, and conventions against the applicable docs. List what matches, what is missing, and what should be changed.
 

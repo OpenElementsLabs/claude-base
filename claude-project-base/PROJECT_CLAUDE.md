@@ -57,17 +57,18 @@ Projects that use this as a base can override or extend these rules in their own
 
 **IMPORTANT**: Only include the documents that are relevant to your project. Do not reference all docs — each referenced
 file is loaded into Claude's context and excessive context causes rules to be ignored. A Java library does not need
-`typescript.md` or `fullstack-architecture.md`. A frontend does not need `backend.md`.
+`typescript.md`. A frontend does not need `backend.md`.
 
 Java conventions are provided via the `java-best-practices`, `modern-java`, and `java-api-design` skills — they do not need to be referenced as convention documents.
 
 Typical combinations:
 
-- **Java library**: `software-quality.md`, `repo-setup.md`
-- **Java backend**: `software-quality.md`, `backend.md`, `repo-setup.md`
-- **TypeScript frontend**: `software-quality.md`, `typescript.md`, `repo-setup.md`
-- **Fullstack application**: `software-quality.md`, `typescript.md`, `backend.md`,
-  `fullstack-architecture.md`, `repo-setup.md`
+- **Java library**: `software-quality.md`
+- **Java backend**: `software-quality.md`, `backend.md`
+- **TypeScript frontend**: `software-quality.md`, `typescript.md`
+- **Fullstack application**: `software-quality.md`, `typescript.md`, `backend.md` — fullstack architecture details (Docker, OIDC, Compose) are provided on demand via the `fullstack-architecture-setup` skill.
+
+Repository setup (required root files like `README.md`, `LICENSE`, `CODE_OF_CONDUCT.md`, `.gitignore`, `.editorconfig`) is provided on demand via the `project-setup` skill.
 
 Available documents:
 
@@ -85,14 +86,12 @@ Available documents:
 
 - [Software Quality and Architecture](.claude/conventions/software-quality.md) — API design, technical integrity,
   namespace, SBOM, CI
-- [Fullstack Architecture](.claude/conventions/fullstack-architecture.md) — frontend/backend separation, Docker,
-  configuration, pinned tool versions
+- Fullstack architecture (frontend/backend separation, Docker, OIDC, pinned tool versions) is provided via the `fullstack-architecture-setup` skill — it does not need to be referenced as a convention document.
 - [Backend Conventions](.claude/conventions/backend.md) — REST APIs, OpenAPI, Swagger UI
 
 ### Development Workflow
 
-- [Spec-Driven Development](.claude/conventions/spec-driven-development.md) — specs folder structure, design docs,
-  behavioral scenarios, implementation steps
+- The spec folder structure, `design.md`/`behaviors.md`/`steps.md` formats, and Drift-Log conventions are loaded on demand by the spec workflow skills (`spec-create`, `spec-flow`, `spec-implement`, `spec-review`, `roadmap-execute`). Do not reference `spec-driven-development.md` as an always-on convention — the skills pull it in when needed.
 - [Spec Index](specs/INDEX.md) — central index of all specifications with status, areas, and GitHub issue references.
   Read this file to discover which specs exist and their current state.
 - [Roadmap](ROADMAP.md) — optional high-level project roadmap with checkboxes for each milestone. When present, use
@@ -100,20 +99,16 @@ Available documents:
 
 ### Build Integrity
 
-- [Reproducible Builds](.claude/conventions/reproducible-builds.md) — version pinning, deterministic output, common
-  pitfalls, build verification scripts
+- Reproducible builds (version pinning, deterministic output, common pitfalls, build verification scripts) are provided via the `reproducible-builds-check` skill — it does not need to be referenced as a convention document.
 
 ### CI/CD
 
-- [GitHub Actions](.claude/conventions/github-actions.md) — build workflows, docs deployment, release drafter for Java,
-  TypeScript, and fullstack projects
+- GitHub Actions workflows are provided via the `github-actions-setup` skill — it does not need to be referenced as a convention document.
 
 ### Documentation and Repository Setup
 
-- [Repository Setup](.claude/conventions/repo-setup.md) — required root files (README, LICENSE, CoC, CONTRIBUTING,
-  .editorconfig)
-- [EditorConfig](.claude/conventions/editorconfig.md) — standard .editorconfig for Java and TypeScript projects
-- [Project Documentation](.claude/conventions/documentation.md) — Markdown, MkDocs setup, GitHub Pages deployment, ADRs
+- Repository setup (required root files: `README.md`, `LICENSE`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `.gitignore`, `.editorconfig`) is provided via the `project-setup` skill — it does not need to be referenced as a convention document.
+- MkDocs project documentation is provided via the `mkdocs-setup` skill — it does not need to be referenced as a convention document.
 
 ### Project-Specific
 
