@@ -12,16 +12,16 @@ argument-hint: [target version to document, e.g. v1.4 or 0.16.0]
 
 Produce the documentation that explains what changed between two versions and what a reader must do about it. There are two output shapes for two audiences:
 
-- **Application release notes** (`docs/releases/vX.Y.md`) — for the humans who operate the deployed app.
-- **Library upgrade guide** (`docs/releases/upgrade-to-X.Y.md`) — an AI-executable prompt that lets an agent upgrade this dependency inside a *downstream* project.
+- **Application release notes** (`docs/releases/vX.Y.md`) — for the humans who operate the deployed app. Readable without the source.
+- **Library upgrade guide** (`docs/releases/upgrade-to-X.Y.md`) — an AI-executable prompt that lets an agent upgrade this dependency inside a *downstream* project. Not a passive description — **it is a prompt to be executed.**
 
-Before starting, read `../../../conventions/release-documentation.md` for the full structure, naming, and rules of both document types. This skill operationalizes that convention; the convention is the source of truth for format.
+Both types share the `docs/releases/` directory. Worked, gold-standard examples live in `examples/` next to this skill — these are filled-in templates. Read the one matching your document type and mirror its structure; `examples/README.md` indexes them and links the live canonical docs.
 
-Worked, gold-standard examples live in `examples/` next to this skill — read the one matching your document type and mirror its structure (see `examples/README.md` for the index and links to the live canonical docs).
+## Core principles
 
-## Core rule
-
-The content of these documents must come from the **actual git history and the code**, never from memory. A release note that misses a breaking change, or an upgrade guide that describes the wrong signature, is worse than no document. Verify every claim against the diff.
+- **Derive from reality, not memory.** Content must come from the actual git history, diffs, tags, merged PRs, and the code — never from recollection of "what probably changed." A release note that misses a breaking change, or an upgrade guide with the wrong signature, is worse than none. Verify every claim against the diff.
+- **One file per version, immutable.** Each released version gets its own file. Never rewrite a previously published release/upgrade doc — add a new file. Upgrading across several versions means running the relevant files in sequence; never collapse multiple version jumps into one document.
+- **Match the document to its reader.** Operator-facing notes stay user-centered; library guides stay concrete enough to act on without opening the library's source.
 
 ## Instructions
 
@@ -54,7 +54,7 @@ Summarize the delta back to the user grouped into: **breaking changes**, **new/o
 
 ### 3a. Application release notes
 
-Create `docs/releases/vX.Y.md` following the structure in the convention doc; use `examples/application-release-notes.md` as the model. Focus on the reader who operates the app:
+Create `docs/releases/vX.Y.md` using `examples/application-release-notes.md` as the template. The structure is: a header block (released date, GitHub release link, previous version), a one-paragraph intro naming the theme, then `## Highlights for Admins and Users`, `## Other changes under the hood`, `## Upgrade notes`, and `## Full commit history`. Rules:
 
 - Frame each highlighted change in user-facing terms and explain **why it matters**, not just that it happened.
 - Flag every removal or destructive change loudly, with the action required **before** upgrading (e.g. export data first).
@@ -63,22 +63,35 @@ Create `docs/releases/vX.Y.md` following the structure in the convention doc; us
 
 ### 3b. Library upgrade guide
 
-Create `docs/releases/upgrade-to-X.Y.md` following the structure in the convention doc. This is the high-stakes path — the document must be **executable by an AI agent against a downstream project**. Use `examples/library-upgrade-breaking.md` as the model when there are breaking changes, or `examples/library-upgrade-additive.md` for a purely additive release.
+Create `docs/releases/upgrade-to-X.Y.md`. This is the high-stakes path. The bar is the **defining requirement**:
+
+> Given only this file and access to a consumer project's codebase, a competent AI agent must be able to perform the upgrade **correctly, completely, and without touching anything out of scope.**
+
+If a human would have to open the library's source to know what to do, the guide has failed. Use `examples/library-upgrade-breaking.md` as the template when there are breaking changes, or `examples/library-upgrade-additive.md` for a purely additive release. The structure is: `## Prompt`, then `### What changed` (with `#### Dependencies` and one `####` per change), `### Steps`, `### Guard rails`, `### Don't do this`.
 
 Work the changes systematically:
 
 1. **Walk the full public contract delta** from step 2 — every changed/removed public method, type, annotation, schema column, config key, default, and message string. Each one is a potential consumer break.
-2. **Classify each change** with a severity tag in its heading: **Breaking** (won't compile/run), **Breaking-light** (compiles but behavior/tests change), or **Additive** (optional; old behavior preserved).
+2. **Classify each change** with a severity tag in its heading:
+   - **Breaking** — the consumer's code won't compile or run until changed.
+   - **Breaking-light** — it still compiles, but behavior or test assertions change (message strings, defaults, side effects). Call these out explicitly.
+   - **Additive** — a new optional capability; defaults preserve old behavior. State that skipping it is safe and what the unchanged behavior is.
 3. **Write concrete before/after** for each — real signatures, column definitions, and literals the agent can match against a consumer's code. No "see the source," no "adjust as needed."
-4. **Write ordered Steps** the agent runs top to bottom, including which coordinate to bump and to what version, migrations in the correct order (e.g. backfill before `NOT NULL`), call-site edits, test fixes, and a verification step.
-5. **Write Guard rails and "Don't do this"** — explicitly forbid the predictable wrong moves: bumping unrelated/peer dependencies, leaving constraints off, passing `null` for new required args, shimming the old API to avoid the migration, bundling unrelated refactors.
-6. State clearly, for every **optional** change, that skipping it is safe and what the unchanged behavior is.
+4. **Write ordered Steps** the agent runs top to bottom: which coordinate to bump and to what version, migrations in the correct order (e.g. backfill before applying a `NOT NULL` constraint), call-site edits, test fixes, and a verification step.
+5. **Write Guard rails and "Don't do this"** — forbid the predictable wrong moves: bumping unrelated/peer dependencies, leaving constraints off, passing `null` for new required args, shimming the old API to avoid the migration, bundling unrelated refactors. Enforce scope: the guide drives *only* the changes this version requires.
 
-Before finishing, run the self-check from the convention doc. The bar is: *with only this file and a consumer repo, could an agent complete and verify the upgrade?* If not, fill the gap.
+Before finishing, run this self-check — if any item fails, the guide is incomplete:
+
+- [ ] The exact coordinate and target version to bump are stated, and what must **not** change is listed.
+- [ ] Every breaking change has concrete before/after the agent can match against a consumer codebase.
+- [ ] Optional changes are clearly marked optional, with the safe default behavior stated.
+- [ ] Migration steps are ordered, and ordering-sensitive steps have matching guard rails.
+- [ ] Guard rails and "Don't do this" close off the predictable wrong moves.
+- [ ] An agent with only this file and a consumer repo could finish the upgrade and verify it.
 
 ### 4. Place and link the document
 
-- Put the file in `docs/releases/` with the exact naming from the convention (`vX.Y.md` for release notes, `upgrade-to-X.Y.md` for library upgrade guides).
+- Put the file in `docs/releases/` with the exact naming (`vX.Y.md` for release notes, `upgrade-to-X.Y.md` for library upgrade guides).
 - If a previous version's document exists, do **not** edit it — these are an immutable record. Only add the new file.
 - If the project keeps an index/listing of releases or upgrade guides, add the new entry.
 
