@@ -4,16 +4,16 @@ license: Apache-2.0
 metadata:
   source: https://github.com/open-elements/claude-base
   author: Open Elements
-description: Autonomously execute all steps in a ROADMAP.md file using sub-agents. Reads the roadmap, then processes each unchecked step sequentially — creating a spec, implementing it, reviewing it, and committing — by delegating each step to a dedicated sub-agent. The orchestrator stays lean and tracks overall progress. Use this skill when the user has a ROADMAP.md and wants Claude Code to work through it end-to-end without stopping after individual steps.
+description: Autonomously execute all steps in a docs/roadmap.md file using sub-agents. Reads the roadmap, then processes each unchecked step sequentially — creating a spec, implementing it, reviewing it, and committing — by delegating each step to a dedicated sub-agent. The orchestrator stays lean and tracks overall progress. Use this skill when the user has a docs/roadmap.md and wants Claude Code to work through it end-to-end without stopping after individual steps.
 ---
 
 # Execute Roadmap
 
-Autonomously work through all steps in a `ROADMAP.md` by delegating each step to a sub-agent. The orchestrator (this skill) manages sequencing and progress tracking — the sub-agents handle the actual work.
+Autonomously work through all steps in a `docs/roadmap.md` by delegating each step to a sub-agent. The orchestrator (this skill) manages sequencing and progress tracking — the sub-agents handle the actual work.
 
 Before starting, read `../../../conventions/spec-driven-development.md` for the spec folder structure and conventions.
 
-## Expected ROADMAP.md Format
+## Expected docs/roadmap.md Format
 
 The roadmap must use GitHub-flavored Markdown checkboxes. Each top-level checkbox is one step. Steps may have sub-items for context, but only top-level checkboxes are treated as steps.
 
@@ -32,14 +32,14 @@ Steps marked `[x]` are skipped. Steps are processed top-to-bottom.
 
 ### 1. Read and parse the roadmap
 
-Read `ROADMAP.md` from the project root. If it does not exist, ask the user for the path.
+Read `docs/roadmap.md`. If it does not exist, ask the user for the path.
 
 Parse all top-level checklist items (`- [ ] ...`). Build a numbered list of pending steps (skip any `- [x]` items). Count total steps and pending steps.
 
 Present the plan to the user:
 
 ```
-Found X steps in ROADMAP.md, Y already completed, Z pending:
+Found X steps in docs/roadmap.md, Y already completed, Z pending:
   1. [ ] User authentication with JWT ...
   2. [ ] Dashboard page ...
   ...
@@ -170,7 +170,7 @@ End your work with a brief summary:
 
 **After the sub-agent returns**, read its result and:
 
-1. **Update ROADMAP.md** — Change the step from `- [ ]` to `- [x]`
+1. **Update docs/roadmap.md** — Change the step from `- [ ]` to `- [x]`
 2. **Log the result**:
    ```
    ==> Step N/Z completed: <brief summary from sub-agent>

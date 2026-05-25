@@ -199,7 +199,7 @@ Each step is:
 
 ## Roadmap Integration
 
-Projects may include a `ROADMAP.md` in the project root that defines high-level milestones as a checklist:
+Projects may include a `docs/roadmap.md` that defines high-level milestones as a checklist:
 
 ```markdown
 # Roadmap V1
@@ -212,7 +212,7 @@ Projects may include a `ROADMAP.md` in the project root that defines high-level 
 
 Each top-level checkbox represents one step that maps to a spec. Steps marked `[x]` are completed. The roadmap provides the **what** at a high level — specs provide the **how** in detail.
 
-When a `ROADMAP.md` exists, the `/roadmap-execute` skill can autonomously process all unchecked steps end-to-end: creating specs, implementing them, reviewing, and committing — using a fresh sub-agent for each step to avoid context bloat.
+When a `docs/roadmap.md` exists, the `/roadmap-execute` skill can autonomously process all unchecked steps end-to-end: creating specs, implementing them, reviewing, and committing — using a fresh sub-agent for each step to avoid context bloat.
 
 The roadmap is optional. Projects can also create specs directly from GitHub issues using `/spec-create`.
 
@@ -226,7 +226,7 @@ The spec-driven workflow uses three skills:
 | `/spec-implement` | Generate `steps.md` from a completed spec |
 | `/spec-review` | Verify implementation completeness against design and behaviors |
 | `/spec-flow` | End-to-end GitHub flow: issue → branch → implement → review → PR |
-| `/roadmap-execute` | Autonomously process all unchecked steps in `ROADMAP.md` end-to-end using sub-agents |
+| `/roadmap-execute` | Autonomously process all unchecked steps in `docs/roadmap.md` end-to-end using sub-agents |
 
 A typical flow:
 1. Start with a GitHub issue (or create one first)
@@ -241,7 +241,7 @@ Alternative flow with spec-flow (recommended for a complete GitHub workflow):
 3. `/spec-flow` — Implements, reviews iteratively, and opens a PR
 
 Alternative flow with roadmap:
-1. Write a `ROADMAP.md` with high-level steps
+1. Write a `docs/roadmap.md` with high-level steps
 2. `/roadmap-execute` — Processes all steps autonomously (creates specs, implements, reviews, commits)
 
 ## Principles

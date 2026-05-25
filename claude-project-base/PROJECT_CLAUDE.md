@@ -94,7 +94,7 @@ Available documents:
 - The spec folder structure, `design.md`/`behaviors.md`/`steps.md` formats, and Drift-Log conventions are loaded on demand by the spec workflow skills (`spec-create`, `spec-flow`, `spec-implement`, `spec-review`, `roadmap-execute`). Do not reference `spec-driven-development.md` as an always-on convention — the skills pull it in when needed.
 - [Spec Index](docs/specs/INDEX.md) — central index of all specifications with status, areas, and GitHub issue references.
   Read this file to discover which specs exist and their current state.
-- [Roadmap](ROADMAP.md) — optional high-level project roadmap with checkboxes for each milestone. When present, use
+- [Roadmap](docs/roadmap.md) — optional high-level project roadmap with checkboxes for each milestone. When present, use
   `/roadmap-execute` to autonomously work through all steps end-to-end (spec creation, implementation, review, commit).
 
 ### Build Integrity

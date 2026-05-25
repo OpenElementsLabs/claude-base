@@ -4,7 +4,7 @@ license: Apache-2.0
 metadata:
   source: https://github.com/open-elements/claude-base
   author: Open Elements
-description: Create an Architecture Decision Record (ADR) that documents one architecturally significant decision with full justification. Mandatorily stress-tests the decision with /grill-me first, then records context, the chosen option, rejected alternatives, and consequences — where every factual claim must be backed by a verifiable source. Use this skill when the user wants to record an architectural decision, document a technology or library choice, justify rejecting a dependency, capture a design trade-off, or write/supersede an ADR.
+description: Create an Architecture Decision Record (ADR) that documents one architecturally significant decision with full justification. Mandatorily stress-tests the decision with /grill-me first, then records context, the chosen option, rejected alternatives, and consequences — where every factual claim must be backed by a verifiable source. Use this skill when the user wants to record an architectural decision, document a technology or library choice, justify rejecting a dependency, capture a design trade-off, or write/supersede an ADR. Use this skill when the user does a clear architectural decision - in that case suggest the creation of a new ADR.  
 argument-hint: [the architectural decision, technology choice, or trade-off to record]
 ---
 
