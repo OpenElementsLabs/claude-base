@@ -37,7 +37,7 @@ Explore and understand:
 - **Data model** — Existing database schemas, entities, and data flows
 - **Configuration and infrastructure** — Build system, deployment setup, and environment configuration
 - **Existing documentation** — Read any existing docs, ADRs, or architecture notes
-- **Specifications** — Check if `specs/INDEX.md` exists. If it does, read the index and then read the `design.md` and `behaviors.md` files of all specs with status `done` or `implemented`. These specs capture the *reasoning* behind design decisions — why the code is structured the way it is, what alternatives were considered, and what constraints drove the design. This context is essential for producing architecture documentation that explains not just *what* the code does but *why* it was built that way.
+- **Specifications** — Check if `docs/specs/INDEX.md` exists. If it does, read the index and then read the `design.md` and `behaviors.md` files of all specs with status `done` or `implemented`. These specs capture the *reasoning* behind design decisions — why the code is structured the way it is, what alternatives were considered, and what constraints drove the design. This context is essential for producing architecture documentation that explains not just *what* the code does but *why* it was built that way.
 - **CI/CD** — Check `.github/workflows/` to understand the build and deployment pipeline
 
 Use the Explore agent or read key files directly. Invest the time to read actual source code, not just configuration — understanding the real functionality and modularization is essential for producing accurate project documentation.

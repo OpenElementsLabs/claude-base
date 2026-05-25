@@ -18,7 +18,7 @@ formats.
 
 ### 1. Load the spec
 
-Ask the user which spec to use, or detect it from context. If no spec is specified, check `specs/INDEX.md` for specs
+Ask the user which spec to use, or detect it from context. If no spec is specified, check `docs/specs/INDEX.md` for specs
 with status `open` or `in progress` — these are candidates for implementation.
 
 Read both `design.md` and `behaviors.md` from the spec folder.

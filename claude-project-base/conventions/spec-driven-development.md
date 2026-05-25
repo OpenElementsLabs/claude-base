@@ -1,6 +1,6 @@
 # Spec-Driven Development
 
-This document defines the structure and conventions for the `specs/` directory used in spec-driven development. Features and bug fixes are planned as specifications before implementation begins.
+This document defines the structure and conventions for the `docs/specs/` directory used in spec-driven development. Features and bug fixes are planned as specifications before implementation begins.
 
 ## Overview
 
@@ -11,10 +11,10 @@ Every non-trivial change goes through a specification phase:
 
 ## Directory Structure
 
-Specs live in a `specs/` directory in the project root. Each spec gets its own sub-folder:
+Specs live in a `docs/specs/` directory, alongside the project's other documentation under `docs/` — such as `docs/adr/` (architecture decision records) and `docs/releases/` (release notes and upgrade guides). Each spec gets its own sub-folder:
 
 ```
-specs/
+docs/specs/
 ├── INDEX.md
 ├── 001-user-auth-flow/
 │   ├── design.md
@@ -34,7 +34,7 @@ specs/
 
 ### `INDEX.md` — Spec Overview
 
-The file `specs/INDEX.md` is a central index of all specs. It provides Claude and developers with an at-a-glance overview of which specs exist, what they cover, and whether they have been implemented.
+The file `docs/specs/INDEX.md` is a central index of all specs. It provides Claude and developers with an at-a-glance overview of which specs exist, what they cover, and whether they have been implemented.
 
 Format:
 
@@ -50,7 +50,7 @@ Format:
 
 Rules:
 - Every spec must have an entry in `INDEX.md`. A spec without an index entry is incomplete.
-- **Spec-Folder** contains the exact folder name under `specs/` (e.g., `001-user-auth-flow`). This allows Claude and developers to navigate directly to the spec folder without ambiguity.
+- **Spec-Folder** contains the exact folder name under `docs/specs/` (e.g., `001-user-auth-flow`). This allows Claude and developers to navigate directly to the spec folder without ambiguity.
 - **Areas** lists the affected parts of the project as comma-separated lowercase tags. Common values: `frontend`, `backend`, `database`, `build`, `docker`, `styling`, `documentation`, `authentication`, `security`, `architecture`, `api`, `testing`, `infrastructure`. Use project-appropriate terms — this list is not exhaustive.
 - **Status** values: `open` (not started), `in progress` (being implemented), `done` (implemented and verified).
 - **GitHub Issue** column contains the issue reference (e.g., `#42`) or `—` if no issue exists.

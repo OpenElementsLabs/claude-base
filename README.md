@@ -45,7 +45,10 @@ project-root/
 │       ├── spec-create/
 │       ├── quality-review/
 │       └── ...
-├── specs/                             ← created by /spec-create
+├── docs/                              ← project documentation (uniform structure)
+│   ├── adr/                           ← architecture decision records (/adr-create)
+│   ├── releases/                      ← release notes & upgrade guides (/release-doc)
+│   └── specs/                         ← specifications (/spec-create)
 └── ...
 ```
 

@@ -90,10 +90,10 @@ Execute these phases strictly in order:
 
 ### Phase 1 — Create the spec
 
-Read `specs/INDEX.md` to determine the next spec ID (or create the file if it does not exist).
+Read `docs/specs/INDEX.md` to determine the next spec ID (or create the file if it does not exist).
 Read the convention file `.claude/conventions/spec-driven-development.md` for the required format.
 
-Create a spec folder under `specs/` with:
+Create a spec folder under `docs/specs/` with:
 
 1. `design.md` — Technical design for this step. Include:
    - Summary of what is being built and why
@@ -109,7 +109,7 @@ Create a spec folder under `specs/` with:
    - Edge cases
    - Error cases
 
-3. Update `specs/INDEX.md` with the new spec (status: `in progress`).
+3. Update `docs/specs/INDEX.md` with the new spec (status: `in progress`).
 
 ### Phase 2 — Plan the implementation
 
@@ -150,10 +150,10 @@ git add -A
 git commit -m "feat: implement <spec-name> — <one-line summary>"
 ```
 
-Update `specs/INDEX.md` to set the spec status to `done`.
+Update `docs/specs/INDEX.md` to set the spec status to `done`.
 Create a separate commit for the status update:
 ```
-git add specs/INDEX.md
+git add docs/specs/INDEX.md
 git commit -m "docs: mark <spec-name> as done"
 ```
 
@@ -206,7 +206,7 @@ Issues encountered:
 - **Fresh sub-agent per step** — Each step gets a new sub-agent with a clean context. This prevents context bloat and ensures each agent sees the latest code state.
 - **Never skip a failing step** — If a sub-agent fails, log the failure and ask the user whether to continue with the next step or abort.
 - **Autonomous spec creation** — Unlike interactive `/spec-create`, the sub-agent creates specs without user interaction. It makes reasonable decisions based on the roadmap description and existing codebase.
-- **Respect existing specs** — If a roadmap step already has a corresponding spec in `specs/INDEX.md` (matching by name/description), reuse it instead of creating a duplicate.
+- **Respect existing specs** — If a roadmap step already has a corresponding spec in `docs/specs/INDEX.md` (matching by name/description), reuse it instead of creating a duplicate.
 - **Git hygiene** — Each roadmap step produces its own commit(s). Do not batch multiple steps into one commit.
 
 ## When NOT to use this skill
