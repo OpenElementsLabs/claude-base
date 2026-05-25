@@ -103,12 +103,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - uses: pnpm/action-setup@v4          # reads the pnpm version from packageManager
       - uses: actions/setup-node@v6
         with:
-          node-version: "24"
+          node-version-file: ".nvmrc"        # reads the Node version from .nvmrc
           cache: "pnpm"
       - run: |
           pnpm install --frozen-lockfile
@@ -118,11 +116,13 @@ jobs:
 ```
 
 Key points:
-- Use `pnpm/action-setup` for pnpm projects.
-- Cache pnpm store via `actions/setup-node` cache option.
-- Use `--frozen-lockfile` in CI to ensure reproducible builds.
+- **Do not hardcode versions in the workflow.** `pnpm/action-setup` reads the exact pnpm version from `package.json` → `packageManager`, and `actions/setup-node` reads the Node version from `.nvmrc` via `node-version-file`. This requires the project to declare both (see the `typescript-best-practices` skill).
+- Do **not** also pass a `version:` input to `pnpm/action-setup` — a mismatch with `packageManager` is an error.
+- `pnpm/action-setup` **must** run before `actions/setup-node`, because `cache: "pnpm"` needs pnpm on the `PATH` to locate the store.
+- Cache the pnpm store via the `actions/setup-node` `cache: "pnpm"` option.
+- Use `--frozen-lockfile` so the lockfile is authoritative — the install fails on drift, which is required for reproducible builds.
 - Run format check and tests before build.
-- Adapt `node-version` to match the project's `.nvmrc`.
+- Do **not** run `nvm` in CI: it is not available on GitHub-hosted runners, and `setup-node` already installs Node.
 
 ### Fullstack Application
 
@@ -162,10 +162,10 @@ jobs:
       - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v4
         with:
-          version: 10
+          package_json_file: "frontend/package.json"  # reads pnpm version from the frontend's packageManager
       - uses: actions/setup-node@v6
         with:
-          node-version: "24"
+          node-version-file: "frontend/.nvmrc"          # reads the Node version from frontend/.nvmrc
           cache: "pnpm"
           cache-dependency-path: "frontend/pnpm-lock.yaml"
       - run: |
@@ -188,7 +188,8 @@ jobs:
 ```
 
 Key points:
-- Use `defaults.run.working-directory` for monorepo sub-directories.
+- Use `defaults.run.working-directory` for monorepo sub-directories. Note this affects only `run:` steps, **not** `uses:` steps — so action inputs that take a path (`node-version-file`, `package_json_file`, `cache-dependency-path`) must be given **relative to the repo root** (e.g. `frontend/.nvmrc`).
+- As in the single-project template, versions are read from files rather than hardcoded: `package_json_file` points `pnpm/action-setup` at the frontend's `packageManager`, and `node-version-file` reads the frontend's `.nvmrc`.
 - Backend and frontend jobs run in parallel.
 - Docker job runs after both succeed (`needs: [backend, frontend]`).
 - Set `cache-dependency-path` when the lockfile is not in the repo root.
