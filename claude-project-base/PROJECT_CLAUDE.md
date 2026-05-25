@@ -109,6 +109,7 @@ Available documents:
 
 - Repository setup (required root files: `README.md`, `LICENSE`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `.gitignore`, `.editorconfig`) is provided via the `project-setup` skill — it does not need to be referenced as a convention document.
 - MkDocs project documentation is provided via the `mkdocs-setup` skill — it does not need to be referenced as a convention document.
+- The structure for application release notes (`docs/releases/vX.Y.md`) and AI-executable library upgrade guides (`docs/releases/upgrade-to-X.Y.md`) is loaded on demand by the `release-doc` skill. Do not reference `release-documentation.md` as an always-on convention — the skill pulls it in when needed.
 
 ### Project-Specific
 
