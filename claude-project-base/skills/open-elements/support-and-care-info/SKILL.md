@@ -13,9 +13,9 @@ description: Background information about Open Elements' Support & Care offering
 
 The Support & Care logo is available in this skill's folder in three formats:
 
-- **Support & Care-01.svg** — SVG vector format (preferred)
-- **Support & Care-01.png** — PNG with transparent background
-- **Support & Care-01-w.png** — PNG white version for dark backgrounds
+- **support-and-care-01.svg** — SVG vector format (preferred)
+- **support-and-care-01.png** — PNG with transparent background
+- **support-and-care-01-w.png** — PNG white version for dark backgrounds
 
 ## Overview
 
