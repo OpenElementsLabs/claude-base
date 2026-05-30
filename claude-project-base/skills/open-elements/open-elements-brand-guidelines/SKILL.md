@@ -203,10 +203,10 @@ On a light background only the *-light-background.* logos must be used.
 
 Next to that the graphic part of the logo without the "Open Elements" text is available (for example for use as fav-icon)
 - **open-elements-logo/logo-icon.png**: 1024x1024 PNG file
-- **open-elements-logo/logo-icon@0,5x.png**: 0,5x PNG file
-- **open-elements-logo/logo-icon@0,25x.png**: 0,25x PNG file
-- **open-elements-logo/logo-icon@0,33x.png**: 0,33x PNG file
-- **open-elements-logo/logo-icon@0,75x.png**: 0,75x PNG file
+- **open-elements-logo/logo-icon-0.5x.png**: 0.5x PNG file
+- **open-elements-logo/logo-icon-0.25x.png**: 0.25x PNG file
+- **open-elements-logo/logo-icon-0.33x.png**: 0.33x PNG file
+- **open-elements-logo/logo-icon-0.75x.png**: 0.75x PNG file
 
 ### Sample Artifacts
 
