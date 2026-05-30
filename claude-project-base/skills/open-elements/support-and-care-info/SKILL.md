@@ -218,6 +218,12 @@ Open Elements combines:
 
 Active contributions to critical OSS projects including Eclipse Adoptium, Jakarta EE, Apache Maven, and other key projects. See the `open-elements-info` skill for the full list of foundation memberships and roles.
 
+### Maintainer vs. Vendor
+
+A core distinction in Support & Care messaging: Open Elements is not a vendor reselling third-party OSS support — it is a **maintainer**. In the open-source world, a maintainer takes overall responsibility for a component: not only patching, but also further development, security posture, and the long-term roadmap.
+
+For most foundational Java components there is hardly anyone who can or will take this responsibility. Open Elements can, because it has co-built and maintained these components for years — inside foundations, in technical committees, partially on a voluntary basis, long before a commercial market existed. **This depth cannot be bought; it has grown over years.** That is the structural difference between an OSS support provider and a maintainer, and it is the strongest argument for choosing Support & Care over generic vendor support contracts.
+
 ### Experts Behind Support & Care
 
 A defining feature of Support & Care is that the people answering tickets are the same people who maintain the code. The named experts include:
