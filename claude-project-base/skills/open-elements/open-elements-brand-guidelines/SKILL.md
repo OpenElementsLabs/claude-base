@@ -13,6 +13,16 @@ description: Applies the official brand colors and typography of Open Elements t
 
 To access the official brand identity and style resources of Open Elements, use this skill.
 
+## Online Design Reference
+
+The canonical Open Elements corporate design reference is published online at:
+
+- **https://design.production.open-elements.cloud** — Main entry point for the corporate design system
+- **https://design.production.open-elements.cloud/color.html** — Authoritative color palette reference
+- **https://design.production.open-elements.cloud/components.html** — UI components and their usage
+
+When working on web projects or UI artifacts, treat this website as the source of truth. If the values in this skill ever diverge from the online reference, the online reference wins — fetch it to verify before applying styles to production artifacts.
+
 ## Brand Guidelines
 
 ### Colors
