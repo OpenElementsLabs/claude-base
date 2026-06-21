@@ -123,6 +123,8 @@ Every backend layer must have its own tests. Tests at a higher layer do not repl
 
 ### General test rules
 
+- **IMPORTANT**: Every test must document what it verifies — use `@DisplayName` for the scenario and expected outcome, and Javadoc on the test class for the unit under test. See [software-quality.md](software-quality.md#testing).
+- **IMPORTANT**: Every new feature must reach at least **80% test coverage** on the added or changed code. Measure with JaCoCo as part of the build and fail below the threshold. See [software-quality.md](software-quality.md#testing).
 - Do not mock repositories or other internal dependencies when the real implementation is fast and available. Mocks add complexity without proportional value in small codebases and miss integration bugs.
 - Use H2 for all automated tests. In the future, Testcontainers with PostgreSQL will replace H2 (see Data Access section).
 - Test classes live in the same package structure as the code they test.

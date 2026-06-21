@@ -178,8 +178,10 @@ pnpm test
 ```
 
 - Name tests descriptively: `it('should return empty array when no items exist')`
+- Document what each test verifies — the `describe` block names the unit and the `it` description states the scenario and expected outcome, so the test is understandable without reading its body
 - Group related tests with `describe` blocks
 - Avoid excessive mocking — prefer simple stub/dummy implementations
+- New features must reach at least **70% test coverage** on the added or changed code (see [software-quality.md](../../../conventions/software-quality.md)); measure with `pnpm test --coverage`
 
 ## Common Commands
 

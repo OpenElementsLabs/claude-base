@@ -79,6 +79,7 @@ Formatting rules (indentation, charset, line endings) are defined in `.editorcon
 - Use JUnit 5 (`org.junit.jupiter`) for tests.
 - Use AssertJ for assertions (`org.assertj.core.api.Assertions`).
 - Name test methods descriptively: `shouldReturnEmptyListWhenNoItemsExist()` or use `@DisplayName`.
+- **IMPORTANT**: Document what each test verifies. Add a `@DisplayName` describing the scenario and expected outcome, and use Javadoc on the test class to describe the unit under test. A reader must understand what is tested without reading the test body.
 - Use `@Nested` classes to group related tests within a test class.
 - Use `@ParameterizedTest` for testing multiple inputs with the same logic.
 - Use `//GIVEN //WHEN //THEN` comments to structure test methods.
@@ -86,6 +87,7 @@ Formatting rules (indentation, charset, line endings) are defined in `.editorcon
 - Test edge cases: null values, empty collections, boundary values, and expected exceptions.
 - Keep tests independent and fast — each test should run in milliseconds without depending on other tests.
 - **IMPORTANT**: Avoid excessive mocking. Excessive mocking is often a sign that APIs have too many dependencies or are poorly designed. Prefer simple dummy/stub implementations of interfaces for test dependencies instead if possible. Use mocking when the dependency is a concrete or final class that cannot be substituted otherwise or the complexity becomes too big.
+- **IMPORTANT**: New features must reach at least **80% test coverage** on the added or changed code (see [software-quality.md](../../../conventions/software-quality.md)). Use the JaCoCo Maven plugin (`org.jacoco:jacoco-maven-plugin`) to measure coverage during the build and fail the build below the threshold.
 
 ## Logging
 

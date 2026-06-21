@@ -195,9 +195,11 @@ Contains the single Node version used for development and CI (e.g. `24`). `nvm u
 
 - Use the testing framework already present in the project (e.g., Jest, Vitest, or Node test runner).
 - Name test cases descriptively: `it('should return empty array when no items exist')`.
+- **IMPORTANT**: Document what each test verifies. The `describe` block names the unit under test and the `it` description states the scenario and expected outcome, so a reader understands what is tested without reading the test body.
 - Group related tests with `describe` blocks.
 - Prefer `toEqual` for deep equality and `toBe` for reference/primitive equality.
 - **IMPORTANT**: Avoid excessive mocking. Prefer simple stub/dummy implementations for test dependencies if possible and not too complexe. Excessive mocking often indicates poorly designed APIs with too many dependencies. Only mock when the dependency cannot be substituted otherwise (e.g., browser APIs, third-party services) or complexity will become too big.
+- **IMPORTANT**: New features must reach at least **70% test coverage** on the added or changed code (see [software-quality.md](../../../conventions/software-quality.md)). Measure coverage with the test runner's coverage mode (e.g., `vitest run --coverage` or `jest --coverage`) and fail the build below the threshold.
 
 ## Linting and Formatting
 
