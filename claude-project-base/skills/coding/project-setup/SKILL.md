@@ -31,8 +31,9 @@ Before performing any review or setup task, **read all convention documents firs
    - `../../../conventions/software-quality.md` — API design, technical integrity, namespace, SBOM, CI
    - `references/repo-setup.md` — required root files (README, LICENSE, CoC, `.gitignore`, `.editorconfig`)
    - `references/editorconfig.md` — standard `.editorconfig` content for Java/TypeScript projects
-   - `../../../conventions/backend.md` — Backend frameworks, REST/OpenAPI, database, observability
    - The **Project Context** section of the project's `CLAUDE.md` — project-specific context (tech stack, features, structure, architecture), if already filled in
+
+   For Java backend conventions (frameworks, REST/OpenAPI, database, GDPR, testing, observability), invoke the `java-backend` skill when the project includes a backend.
 
    For TypeScript / React / Next.js conventions, invoke the `typescript-best-practices` skill when the project includes a frontend.
 
@@ -48,9 +49,9 @@ Before performing any review or setup task, **read all convention documents firs
    - **All projects**: `software-quality.md`, plus the bundled `references/repo-setup.md` and `references/editorconfig.md`
    - **Java projects**: Java conventions are provided via skills (`java-best-practices`, `modern-java`, `java-api-design`)
    - **TypeScript projects**: invoke the `typescript-best-practices` skill
-   - **Backend projects**: additionally `backend.md`
+   - **Backend projects**: additionally invoke the `java-backend` skill
    - **Frontend projects**: invoke the `typescript-best-practices` skill
-   - **Fullstack projects**: additionally `backend.md` — invoke the `typescript-best-practices` skill and the `fullstack-architecture-setup` skill
+   - **Fullstack projects**: invoke the `java-backend`, `typescript-best-practices`, and `fullstack-architecture-setup` skills
 
 5. When **reviewing** an existing project: compare the project structure, files, and conventions against the applicable docs. List what matches, what is missing, and what should be changed.
 

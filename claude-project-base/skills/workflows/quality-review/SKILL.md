@@ -29,8 +29,8 @@ Read the convention documents that apply to the project. Determine which are rel
 
 - Always: `../../../conventions/software-quality.md` (installed as `.claude/conventions/software-quality.md`) — applies to all projects
 - For Java files: the `java-best-practices` skill provides the conventions
+- For Java backend code (controllers, services, repositories, entities, DTOs, REST): the `java-backend` skill provides the conventions
 - For TypeScript files: the `typescript-best-practices` skill provides the conventions
-- For backend code: `../../../conventions/backend.md` (installed as `.claude/conventions/backend.md`)
 - For security-sensitive changes: `../../../conventions/security.md` (installed as `.claude/conventions/security.md`)
 
 Also read the project's `CLAUDE.md` for any project-specific rules.

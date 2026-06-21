@@ -101,18 +101,18 @@ An architecture diagram (e.g. a Mermaid `graph`) can be embedded here. -->
 ## Additional Conventions
 
 **IMPORTANT**: Only include the documents that are relevant to your project. Do not reference all docs — each referenced
-file is loaded into Claude's context and excessive context causes rules to be ignored. A frontend does not need `backend.md`.
+file is loaded into Claude's context and excessive context causes rules to be ignored. Most conventions are now provided as skills that load on demand only when relevant, so a frontend never pulls in backend rules.
 
-Java conventions are provided via the `java-best-practices`, `modern-java`, and `java-api-design` skills — they do not need to be referenced as convention documents.
+Java conventions are provided via the `java-best-practices`, `modern-java`, `java-api-design`, and `java-backend` skills — they do not need to be referenced as convention documents.
 
 TypeScript conventions are provided via the `typescript-best-practices` skill — it does not need to be referenced as a convention document.
 
 Typical combinations:
 
 - **Java library**: `software-quality.md`
-- **Java backend**: `software-quality.md`, `backend.md`
+- **Java backend**: `software-quality.md` — backend specifics (frameworks, REST/OpenAPI, JPA, GDPR, testing) are provided on demand via the `java-backend` skill.
 - **TypeScript frontend**: `software-quality.md`
-- **Fullstack application**: `software-quality.md`, `backend.md` — fullstack architecture details (Docker, OIDC, Compose) are provided on demand via the `fullstack-architecture-setup` skill.
+- **Fullstack application**: `software-quality.md` — backend specifics via the `java-backend` skill; fullstack architecture details (Docker, OIDC, Compose) via the `fullstack-architecture-setup` skill.
 
 Repository setup (required root files like `README.md`, `LICENSE`, `CODE_OF_CONDUCT.md`, `.gitignore`, `.editorconfig`) is provided on demand via the `project-setup` skill.
 
@@ -132,7 +132,7 @@ Available documents:
 - [Software Quality and Architecture](.claude/conventions/software-quality.md) — API design, technical integrity,
   namespace, SBOM, CI
 - Fullstack architecture (frontend/backend separation, Docker, OIDC, pinned tool versions) is provided via the `fullstack-architecture-setup` skill — it does not need to be referenced as a convention document.
-- [Backend Conventions](.claude/conventions/backend.md) — REST APIs, OpenAPI, Swagger UI
+- Backend conventions (frameworks, feature-based packaging, REST/OpenAPI/Swagger, JPA/Flyway/PostgreSQL, GDPR, layer-specific testing, observability) are provided via the `java-backend` skill — it does not need to be referenced as a convention document.
 
 ### Development Workflow
 

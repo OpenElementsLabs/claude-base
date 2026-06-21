@@ -33,10 +33,10 @@ project-root/
 │   ├── settings.json                  ← permissions and security (see conventions/security.md)
 │   ├── conventions/                   ← convention documents
 │   │   ├── (java conventions moved to skills: java-best-practices, modern-java, java-api-design)
+│   │   ├── (backend conventions moved to skill: java-backend)
 │   │   ├── (typescript conventions moved to skill: typescript-best-practices)
 │   │   ├── security.md
 │   │   ├── software-quality.md
-│   │   ├── backend.md
 │   │   └── ...
 │   └── skills/                        ← auto-discovered by Claude Code
 │       ├── _workflow-shared/          ← shared reference docs for the spec workflows (e.g. spec-driven-development.md)

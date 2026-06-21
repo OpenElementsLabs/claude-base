@@ -1,8 +1,15 @@
-# Backend Conventions for Claude Code
+---
+name: java-backend
+license: Apache-2.0
+metadata:
+  source: https://github.com/open-elements/claude-base
+  author: Open Elements
+description: Conventions for building Java backend applications at Open Elements — covers framework choice (Spring Boot vs. Helidon SE), feature-based package structure, REST APIs with OpenAPI/Swagger UI, JPA/Flyway/PostgreSQL data access, GDPR compliance, layer-specific testing (DTO/repository/service/controller), and observability (Prometheus, Loki). Should be automatically loaded whenever Java backend code — controllers, services, repositories, entities, DTOs, REST endpoints, or persistence — is planned, generated, or reviewed. For general Java conventions, see the `java-best-practices` skill.
+---
 
-## Overview
+# Java Backend Conventions
 
-Our backends are written in Java. This document covers conventions specific to backend applications. For general Java conventions, see the `java-best-practices` skill.
+Conventions specific to backend applications. Our backends are written in Java. For general Java conventions (code style, testing idioms, logging, build setup), see the `java-best-practices` skill — this skill covers only what is backend-specific.
 
 ## Frameworks
 
@@ -123,8 +130,8 @@ Every backend layer must have its own tests. Tests at a higher layer do not repl
 
 ### General test rules
 
-- **IMPORTANT**: Every test must document what it verifies — use `@DisplayName` for the scenario and expected outcome, and Javadoc on the test class for the unit under test. See [software-quality.md](software-quality.md#testing).
-- **IMPORTANT**: Every new feature must reach at least **80% test coverage** on the added or changed code. Measure with JaCoCo as part of the build and fail below the threshold. See [software-quality.md](software-quality.md#testing).
+- **IMPORTANT**: Every test must document what it verifies — use `@DisplayName` for the scenario and expected outcome, and Javadoc on the test class for the unit under test. See `../../../conventions/software-quality.md` (Testing section).
+- **IMPORTANT**: Every new feature must reach at least **80% test coverage** on the added or changed code. Measure with JaCoCo as part of the build and fail below the threshold. See `../../../conventions/software-quality.md` (Testing section).
 - Do not mock repositories or other internal dependencies when the real implementation is fast and available. Mocks add complexity without proportional value in small codebases and miss integration bugs.
 - Use H2 for all automated tests. In the future, Testcontainers with PostgreSQL will replace H2 (see Data Access section).
 - Test classes live in the same package structure as the code they test.
