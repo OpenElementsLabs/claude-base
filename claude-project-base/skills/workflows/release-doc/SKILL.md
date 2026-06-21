@@ -4,7 +4,7 @@ license: Apache-2.0
 metadata:
   source: https://github.com/open-elements/claude-base
   author: Open Elements
-description: Create version-change documentation that helps humans and AI understand and act on changes between versions. Produces application release notes (docs/releases/vX.Y.md) for operators, or — for libraries — an AI-executable upgrade guide (docs/releases/upgrade-to-X.Y.md) that lets an agent upgrade the dependency in a downstream project. Use this skill when the user wants to write release notes, a changelog for a version, an upgrade or migration guide, or document what changed between two versions.
+description: Create version-change documentation that helps humans and AI understand and act on changes between versions. Produces application release notes (docs/releases/vX.Y.Z.md) for operators, or — for libraries — an AI-executable upgrade guide (docs/releases/upgrade-to-X.Y.Z.md) that lets an agent upgrade the dependency in a downstream project. Use this skill when the user wants to write release notes, a changelog for a version, an upgrade or migration guide, or document what changed between two versions.
 argument-hint: [target version to document, e.g. v1.4 or 0.16.0]
 ---
 
@@ -12,8 +12,8 @@ argument-hint: [target version to document, e.g. v1.4 or 0.16.0]
 
 Produce the documentation that explains what changed between two versions and what a reader must do about it. There are two output shapes for two audiences:
 
-- **Application release notes** (`docs/releases/vX.Y.md`) — for the humans who operate the deployed app. Readable without the source.
-- **Library upgrade guide** (`docs/releases/upgrade-to-X.Y.md`) — an AI-executable prompt that lets an agent upgrade this dependency inside a *downstream* project. Not a passive description — **it is a prompt to be executed.**
+- **Application release notes** (`docs/releases/vX.Y.Z.md`) — for the humans who operate the deployed app. Readable without the source.
+- **Library upgrade guide** (`docs/releases/upgrade-to-X.Y.Z.md`) — an AI-executable prompt that lets an agent upgrade this dependency inside a *downstream* project. Not a passive description — **it is a prompt to be executed.**
 
 Both types share the `docs/releases/` directory. Worked, gold-standard examples live in `examples/` next to this skill — these are filled-in templates. Read the one matching your document type and mirror its structure; `examples/README.md` indexes them and links the live canonical docs.
 
@@ -55,7 +55,7 @@ Summarize the delta back to the user grouped into: **breaking changes**, **new/o
 
 ### 3a. Application release notes
 
-Create `docs/releases/vX.Y.md` using `examples/application-release-notes.md` as the template. The structure is: a header block (released date, GitHub release link, previous version), a one-paragraph intro naming the theme, then `## Highlights for Admins and Users`, `## Other changes under the hood`, `## Upgrade notes`, and `## Full commit history`. Rules:
+Create `docs/releases/vX.Y.Z.md` using `examples/application-release-notes.md` as the template. The structure is: a header block (released date, GitHub release link, previous version), a one-paragraph intro naming the theme, then `## Highlights for Admins and Users`, `## Other changes under the hood`, `## Upgrade notes`, and `## Full commit history`. Rules:
 
 - Frame each highlighted change in user-facing terms and explain **why it matters**, not just that it happened.
 - Flag every removal or destructive change loudly, with the action required **before** upgrading (e.g. export data first).
@@ -64,7 +64,7 @@ Create `docs/releases/vX.Y.md` using `examples/application-release-notes.md` as 
 
 ### 3b. Library upgrade guide
 
-Create `docs/releases/upgrade-to-X.Y.md`. This is the high-stakes path. The bar is the **defining requirement**:
+Create `docs/releases/upgrade-to-X.Y.Z.md`. This is the high-stakes path. The bar is the **defining requirement**:
 
 > Given only this file and access to a consumer project's codebase, a competent AI agent must be able to perform the upgrade **correctly, completely, and without touching anything out of scope.**
 
@@ -92,7 +92,8 @@ Before finishing, run this self-check — if any item fails, the guide is incomp
 
 ### 4. Place and link the document
 
-- Put the file in `docs/releases/` with the exact naming (`vX.Y.md` for release notes, `upgrade-to-X.Y.md` for library upgrade guides).
+- Put the file in `docs/releases/` with the exact naming (`vX.Y.Z` for release notes, `upgrade-to-X.Y.Z` for library upgrade guides).
+- **Always use the full three-part semver `X.Y.Z` in the filename and the document title**, even when the patch is `0` (e.g. `upgrade-to-1.1.0.md`, not `upgrade-to-1.1.md`). A missing patch component breaks alphabetical sorting — `upgrade-to-1.1.md` sorts *after* `upgrade-to-1.1.1.md` and `upgrade-to-1.1.2.md`, so the listing no longer reflects version order. Padding every version to three components keeps the directory sorted correctly.
 - If a previous version's document exists, do **not** edit it — these are an immutable record. Only add the new file.
 - If the project keeps an index/listing of releases or upgrade guides, add the new entry.
 
