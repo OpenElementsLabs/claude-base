@@ -46,7 +46,8 @@ project-root/
 ├── docs/                              ← project documentation (uniform structure)
 │   ├── adr/                           ← architecture decision records (/adr-create)
 │   ├── releases/                      ← release notes & upgrade guides (/release-doc)
-│   └── specs/                         ← specifications (/spec-create)
+│   ├── specs/                         ← specifications (/spec-create)
+│   └── TODO.md                        ← lightweight backlog of parked ideas (/todo-capture)
 └── ...
 ```
 

@@ -11,7 +11,7 @@ Every non-trivial change goes through a specification phase:
 
 ## Directory Structure
 
-Specs live in a `docs/specs/` directory, alongside the project's other documentation under `docs/` — such as `docs/adr/` (architecture decision records) and `docs/releases/` (release notes and upgrade guides). Each spec gets its own sub-folder:
+Specs live in a `docs/specs/` directory, alongside the project's other documentation under `docs/` — such as `docs/adr/` (architecture decision records), `docs/releases/` (release notes and upgrade guides), and `docs/TODO.md` (the lightweight backlog of parked ideas; see [TODO Backlog](#todo-backlog)). Each spec gets its own sub-folder:
 
 ```
 docs/specs/
@@ -197,6 +197,30 @@ Each step is:
 - **Independently verifiable** — Can be confirmed after completion
 - **Sequenced by dependency** — Earlier steps are foundations for later ones
 
+## TODO Backlog
+
+Not every idea is ready to become a spec. `docs/TODO.md` is a lightweight backlog for half-formed ideas, deferred sub-tasks, and follow-ups that surface during planning, grilling, reviewing, or general work — things worth keeping but not yet clear enough to design.
+
+Each entry records the idea, the context it surfaced in (and why it was deferred), and any prerequisites:
+
+```markdown
+# TODO
+
+## <Short title>
+
+<One short paragraph: what the idea is and why it matters.>
+
+**Context:** <Where this surfaced and why it was deferred — reference the spec, issue, grill session, or review.>
+
+**Prerequisite:** <Dependent spec(s) that must land first — omit if none.>
+```
+
+The backlog is a **living list of open items**, not an archive:
+
+- The `/todo-capture` skill adds entries without interrupting the work in progress.
+- When an item matures, it graduates into the spec workflow via `/spec-create` (referencing the TODO) or into a GitHub issue.
+- Once promoted or resolved, the entry is removed — or struck through with a pointer to where it went (e.g. `~~Old item~~ — implemented via spec 012`) — so `docs/TODO.md` only ever lists what is still open.
+
 ## Roadmap Integration
 
 Projects may include a `docs/roadmap.md` that defines high-level milestones as a checklist:
@@ -227,6 +251,7 @@ The spec-driven workflow uses three skills:
 | `/spec-review` | Verify implementation completeness against design and behaviors |
 | `/spec-flow` | End-to-end GitHub flow: issue → branch → implement → review → PR |
 | `/roadmap-execute` | Autonomously process all unchecked steps in `docs/roadmap.md` end-to-end using sub-agents |
+| `/todo-capture` | Park a half-formed idea or follow-up in `docs/TODO.md` when it is not yet ready for a spec |
 
 A typical flow:
 1. Start with a GitHub issue (or create one first)

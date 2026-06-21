@@ -50,6 +50,8 @@ Two cross-cutting ideas show up again and again:
 - **Stress-testing before committing.** `/grill-me` is a relentless Socratic interview used as a building block: `/vision`, `/spec-create`, and `/adr-create` all run it first, so assumptions are challenged *before* they get written down.
 - **A clean GitHub flow.** Planning produces issues; implementation happens on a feature branch; review gates the merge; the result is a Pull Request ready for a human. `/spec-flow` automates this whole loop, and `/roadmap-execute` runs it autonomously for every step of a roadmap.
 
+Not every idea is ready to become a spec. `/todo-capture` is the lightweight counterpart to `/spec-create`: when a half-formed idea, a deferred sub-task, or a follow-up surfaces — during planning, grilling, reviewing, or general work — it is parked as an entry in `docs/TODO.md` instead of being lost. When a parked item matures, it graduates back into the arc above via `/spec-create` or a GitHub issue.
+
 Around this core sit the **quality and documentation** workflows: `/project-analyze` keeps the project's context current, `/project-quality-audit` and `/reproducible-builds-check` audit health and build integrity, and `/release-doc` produces version documentation.
 
 ---
@@ -64,6 +66,7 @@ Around this core sit the **quality and documentation** workflows: `/project-anal
 | **`/spec-create`** | Plans one feature or bug fix as a spec through discussion (starting from a GitHub issue or a description). | `docs/specs/<id>/design.md` + `behaviors.md` |
 | **`/adr-create`** | Records one architecturally significant decision with justification and rejected alternatives. Grills the decision first. | `docs/adr/NNNN-*.md` |
 | **`/grill-me`** | Relentless Socratic interview that walks every branch of a decision tree to surface hidden assumptions. Used by the three above, and standalone. | — (clarity; feeds other docs) |
+| **`/todo-capture`** | Quickly parks a half-formed idea, deferred sub-task, or follow-up as a backlog entry — without interrupting the work in progress. The lightweight counterpart to `/spec-create`. | `docs/TODO.md` entry |
 
 ### Implementation & review
 
@@ -101,6 +104,7 @@ project-root/
 └── docs/
     ├── vision.md                     ← /vision
     ├── roadmap.md                    ← hand-written; consumed by /roadmap-execute
+    ├── TODO.md                       ← lightweight backlog of parked ideas (/todo-capture)
     ├── quality-audit.md              ← /project-quality-audit (only if you ask to save it)
     ├── specs/
     │   ├── INDEX.md                  ← central index of all specs (id, status, area, issue)
@@ -121,6 +125,7 @@ A few conventions worth knowing:
 - **Specs are numbered and indexed.** Each spec is a folder `NNN-kebab-title/` and must have an entry in `docs/specs/INDEX.md`. The index is the at-a-glance overview of what exists and what is implemented.
 - **`design.md` / `behaviors.md` freeze when a spec is `done`.** They are a historical record. Later changes that make the code diverge are not edited in place — `/spec-review` appends them to a **Drift Log** at the bottom of the affected file, so the original intent and the later reality are both visible.
 - **All spec documents are written in English**, regardless of the conversation language, so they stay accessible to every contributor.
+- **`docs/TODO.md` is a living backlog**, not an archive. `/todo-capture` adds entries; once an item graduates into a spec or issue it is removed (or struck through with a pointer), so the file only ever lists what is still open.
 - The full structure and file formats are defined in [`_workflow-shared/spec-driven-development.md`](_workflow-shared/spec-driven-development.md), which the spec workflows load on demand.
 
 ---
@@ -146,6 +151,16 @@ A few conventions worth knowing:
 > "I want to build a CRM for small open-source foundations."
 # → docs/vision.md with personas, scope, and a prioritized feature list
 # then run /spec-create for each "Must Have" feature
+```
+
+**Park an idea that is not ready for a spec yet:**
+
+```
+/todo-capture
+> "While building the import, we noticed duplicate companies get created.
+>  Note a follow-up to add a merge feature later."
+# → appends an entry to docs/TODO.md with context and prerequisites,
+#   without derailing the current task
 ```
 
 **Record an architecture decision:**

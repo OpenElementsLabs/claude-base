@@ -58,6 +58,8 @@ Assess whether the task is realistically completable in a few hours of focused w
 
 If the scope is too large, **propose splitting** it into smaller, independently deliverable tasks. Each sub-task should be viable on its own.
 
+For sub-tasks or ideas that come up but are deliberately left out of this spec — and are not yet clear enough to become their own spec or issue — capture them with `/todo-capture` so they land in `docs/TODO.md` and are not lost. The same applies to follow-ups surfaced during the grill or recorded under *Open questions* in the design.
+
 For each proposed sub-task, draft a GitHub issue title and description (in Markdown) that the user can copy into GitHub. Include:
 - A clear title
 - A short description of the sub-task

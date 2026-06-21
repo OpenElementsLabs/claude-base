@@ -141,6 +141,9 @@ Available documents:
   Read this file to discover which specs exist and their current state.
 - [Roadmap](docs/roadmap.md) — optional high-level project roadmap with checkboxes for each milestone. When present, use
   `/roadmap-execute` to autonomously work through all steps end-to-end (spec creation, implementation, review, commit).
+- [TODO](docs/TODO.md) — lightweight backlog of parked ideas, deferred sub-tasks, and follow-ups that are not yet ready
+  for a spec or issue. Use `/todo-capture` to record one without interrupting the current work; promote matured items
+  into a spec or GitHub issue and remove them from the backlog.
 
 ### Build Integrity
 
