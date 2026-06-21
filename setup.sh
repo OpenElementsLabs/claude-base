@@ -37,7 +37,8 @@ SRC="$WORK_DIR/claude-project-base"
 
 # --- Sync conventions and hooks into .claude/ ---
 # Base items are overwritten to stay up to date.
-# Exception: conventions/project-specific/ is never overwritten (project-owned content).
+# Project-specific context lives in the project's CLAUDE.md (Project Context section),
+# which is merged — not overwritten — further below, so project-owned content is preserved.
 echo "==> Syncing conventions and hooks into .claude/..."
 for dir in conventions hooks; do
   src_dir="$SRC/$dir"
@@ -48,17 +49,6 @@ for dir in conventions hooks; do
   for item in "$src_dir"/*; do
     name="$(basename "$item")"
     dest="$dest_dir/$name"
-
-    # Never overwrite project-specific conventions
-    if [ "$dir" = "conventions" ] && [ "$name" = "project-specific" ]; then
-      if [ -e "$dest" ]; then
-        echo "    KEPT: .claude/$dir/$name (project-specific, not overwritten)"
-      else
-        cp -R "$item" "$dest"
-        echo "    Copied $dir/$name"
-      fi
-      continue
-    fi
 
     if [ -e "$dest" ]; then
       rm -rf "$dest"
@@ -166,6 +156,9 @@ Merge them into a single Markdown document. Rules:
 - Do not duplicate rules that appear in both files.
 - Keep all project-specific rules, paths, and configurations from CLAUDE.md.
 - Keep all base rules from _base_claude.md.
+- For the "## Project Context" section: keep the existing CLAUDE.md content for any subsection that is already
+  filled in. Only use the base's placeholder comments for subsections that do not exist yet in CLAUDE.md.
+  Never replace filled-in project context with empty placeholders.
 - If rules conflict, the project-specific version wins.
 - Output ONLY the merged Markdown content, no explanations or code fences.
 PROMPT

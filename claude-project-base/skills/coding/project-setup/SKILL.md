@@ -32,7 +32,7 @@ Before performing any review or setup task, **read all convention documents firs
    - `references/repo-setup.md` — required root files (README, LICENSE, CoC, `.gitignore`, `.editorconfig`)
    - `references/editorconfig.md` — standard `.editorconfig` content for Java/TypeScript projects
    - `../../../conventions/backend.md` — Backend frameworks, REST/OpenAPI, database, observability
-   - `../../../conventions/project-specific/README.md` — Project-specific docs (if any exist)
+   - The **Project Context** section of the project's `CLAUDE.md` — project-specific context (tech stack, features, structure, architecture), if already filled in
 
    For TypeScript / React / Next.js conventions, invoke the `typescript-best-practices` skill when the project includes a frontend.
 

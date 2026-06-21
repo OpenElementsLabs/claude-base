@@ -8,9 +8,8 @@ When using [Claude Code](https://docs.anthropic.com/en/docs/claude-code), projec
 
 This repository solves that by providing a shared base configuration in `claude-project-base/`:
 
-- **`CLAUDE.md`** — Base conventions for code quality, security, testing, and PRs
+- **`CLAUDE.md`** — Base conventions for code quality, security, testing, and PRs, plus a **Project Context** section that holds your project-specific context (tech stack, features, structure, architecture)
 - **`conventions/`** — Detailed convention documents for languages, architecture, and tooling (selectively included per project)
-- **`conventions/project-specific/`** — Place for your own project-specific documentation
 - **`skills/`** — Reusable Claude Code skills, organized by category (`information/`, `tools/`, `workflows/`, `coding/`, `other/`). The setup script flattens these into `.claude/skills/` in the target project so Claude Code's flat skill discovery keeps working.
 
 The base `CLAUDE.md` explains which conventions to include for different project types (Java library, TypeScript frontend, fullstack app, etc.) so that only relevant context is loaded.
@@ -29,7 +28,7 @@ The resulting project structure:
 
 ```
 project-root/
-├── CLAUDE.md                          ← base conventions (adapt to your project)
+├── CLAUDE.md                          ← base conventions + Project Context (your project-specific context)
 ├── .claude/
 │   ├── settings.json                  ← permissions and security (see conventions/security.md)
 │   ├── conventions/                   ← convention documents
@@ -38,7 +37,6 @@ project-root/
 │   │   ├── security.md
 │   │   ├── software-quality.md
 │   │   ├── backend.md
-│   │   ├── project-specific/          ← your project-specific docs
 │   │   └── ...
 │   └── skills/                        ← auto-discovered by Claude Code
 │       ├── _workflow-shared/          ← shared reference docs for the spec workflows (e.g. spec-driven-development.md)
@@ -55,10 +53,9 @@ project-root/
 After copying, customize the configuration for your project:
 
 - Edit `CLAUDE.md` to select only the conventions relevant to your project type
-- Add project-specific documentation in `.claude/conventions/project-specific/`
+- Fill in the **Project Context** section of `CLAUDE.md` with your project's tech stack, features, structure, and architecture (or run `/project-analyze` to generate it automatically)
 - Add project-specific skills in `.claude/skills/`
 - Configure security rules in `.claude/settings.json` (see `conventions/security.md`)
-- Run `/project-analyze` to auto-generate project context documentation
 
 ### Keeping up to date
 
@@ -68,7 +65,7 @@ The shared conventions and skills in this repository evolve over time. To pull u
 /update-claude-base
 ```
 
-This skill fetches the latest version from [github.com/OpenElementsLabs/claude-base](https://github.com/OpenElementsLabs/claude-base) and updates everything except your `conventions/project-specific/` directory.
+This skill fetches the latest version from [github.com/OpenElementsLabs/claude-base](https://github.com/OpenElementsLabs/claude-base) and updates the shared conventions and skills. Your `CLAUDE.md` — including its **Project Context** section — is merged rather than overwritten, so your project-specific customizations are preserved.
 
 ## License
 

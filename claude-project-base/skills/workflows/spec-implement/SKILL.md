@@ -64,16 +64,14 @@ A typical ordering is:
     behaviors are not covered by backend tests — they require their own dedicated tests.
 12. Edge case and error handling tests (both backend and frontend)
 10. **Update project documentation** — This step is mandatory, not optional. After all code and tests are complete,
-    update the following files to reflect the changes made by this spec:
-    - `.claude/conventions/project-specific/project-features.md` — Add or update feature descriptions
-    - `.claude/conventions/project-specific/project-tech.md` — Add any new technologies, libraries, or services
-      introduced
-    - `.claude/conventions/project-specific/project-structure.md` — Update if new directories, modules, or significant
-      files were added
-    - `.claude/conventions/project-specific/project-architecture.md` — Update if components, data flows, or integrations
-      changed
+    update the following to reflect the changes made by this spec:
+    - `CLAUDE.md` → **Project Context** section — keep its subsections current with what this spec changed:
+      - `### Features` — Add or update feature descriptions
+      - `### Tech Stack` — Add any new technologies, libraries, or services introduced
+      - `### Structure` — Update if new directories, modules, or significant files were added
+      - `### Architecture` — Update if components, data flows, or integrations changed
+    - `CLAUDE.md` (elsewhere) — Update if new conventions, paths, or project-specific rules were introduced
     - `README.md` — Update if user-facing behavior, setup instructions, or configuration changed
-    - `CLAUDE.md` — Update if new conventions, paths, or project-specific rules were introduced
 
     If any of these files are still empty templates (only HTML comments), generate meaningful content based on the *
     *full project state** — not just the current spec. Read the codebase to understand the complete picture and fill in

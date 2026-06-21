@@ -3,6 +3,51 @@
 This file provides base rules and conventions for Claude Code in Open Elements projects.
 Projects that use this as a base can override or extend these rules in their own `CLAUDE.md`.
 
+## Project Context
+
+This section is the single source of truth for what *this specific project* is. Keep all project-specific
+context here in `CLAUDE.md` — it is loaded on every interaction, so do not move it into separate files.
+The `/project-analyze` skill generates and updates these subsections, and `/spec-implement` keeps them
+current after each feature. You can also edit them manually. Keep entries concise.
+
+### Tech Stack
+
+<!-- Languages, frameworks, build tools, databases, services, and key libraries. Example:
+- **Languages**: Java 25, TypeScript 5.x
+- **Frameworks**: Spring Boot 3.x (backend), Next.js 15.x (frontend)
+- **Build Tools**: Maven (with wrapper), pnpm
+- **Databases & Services**: PostgreSQL 17, Redis (caching)
+- **Key Libraries**: SLF4J + Logback (logging), JUnit 5 + AssertJ (testing) -->
+
+### Features
+
+<!-- What the product does and its core user-facing capabilities. Example:
+- **Overview**: Brief description of what this project does and who it is for.
+- **Feature A** — What it does and why it matters
+- **Feature B** — What it does and why it matters -->
+
+### Structure
+
+<!-- Repository layout and where to find what. Example:
+project-root/
+├── backend/          — Java Spring Boot application (src/main, src/test, pom.xml)
+├── frontend/         — Next.js TypeScript application (src/, public/, package.json)
+├── docs/             — Project documentation (MkDocs)
+└── docker-compose.yml
+Key directories:
+- `backend/src/main/java/com/example/` — Main application code
+- `frontend/src/components/` — React components
+- `frontend/src/app/` — Next.js pages and routes -->
+
+### Architecture
+
+<!-- Technical architecture, component interactions, and data flow. Example:
+- **Backend API** — REST API serving JSON, business logic and persistence
+- **Frontend** — Server-side rendered React app, communicates with backend via REST
+- **Database** — PostgreSQL for persistent storage
+Communication: Frontend → Backend (HTTP/REST over internal network), Backend → Database (JDBC/JPA).
+An architecture diagram (e.g. a Mermaid `graph`) can be embedded here. -->
+
 ## Core Philosophy
 
 - **Quality over speed.** Getting it right matters more than getting it done fast. Take the time needed for clean APIs,
@@ -113,5 +158,6 @@ Available documents:
 
 ### Project-Specific
 
-- [Project-Specific Docs](.claude/conventions/project-specific/README.md) — project-specific conventions and
-  documentation (add your own here)
+- Project-specific context (tech stack, features, structure, architecture) lives in the **Project Context**
+  section at the top of this `CLAUDE.md`, not in a separate file. It is maintained by `/project-analyze` and
+  `/spec-implement`.
