@@ -134,6 +134,10 @@ fi
 if [ -f "$SRC/PROJECT_GITIGNORE_ADDITITIONS" ]; then
   echo "==> Updating .gitignore..."
   touch .gitignore
+  # Ensure the file ends with a newline so the first addition isn't glued onto the last line.
+  if [ -s .gitignore ] && [ -n "$(tail -c 1 .gitignore)" ]; then
+    echo "" >> .gitignore
+  fi
   while IFS= read -r line || [ -n "$line" ]; do
     if [ -n "$line" ] && ! grep -qxF "$line" .gitignore; then
       echo "$line" >> .gitignore
