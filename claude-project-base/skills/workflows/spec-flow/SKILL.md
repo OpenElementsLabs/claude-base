@@ -11,7 +11,7 @@ description: Implement a completed spec end-to-end using a proper GitHub flow. C
 
 Take a completed specification and turn it into a reviewed, ready-to-merge Pull Request using GitHub flow. This skill orchestrates the full lifecycle: issue tracking, branching, implementation, iterative review, and PR creation.
 
-Before starting, read `../../../conventions/spec-driven-development.md` for the spec folder structure and conventions.
+Before starting, read `../_workflow-shared/spec-driven-development.md` for the spec folder structure and conventions.
 
 ## Prerequisites
 

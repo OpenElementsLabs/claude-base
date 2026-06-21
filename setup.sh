@@ -79,6 +79,10 @@ done
 # Convention paths inside SKILL.md files reference `../../../conventions/`
 # in the source (skill is three levels deep). After flattening they live
 # two levels deep, so we rewrite them to `../../conventions/` on copy.
+# Note: `skills/workflows/_workflow-shared/` holds reference docs shared by the
+# spec workflow skills (it has no SKILL.md, so discovery ignores it). It is
+# copied like any skill dir to `.claude/skills/_workflow-shared/`, which keeps
+# the `../_workflow-shared/` sibling paths valid in both layouts unchanged.
 echo "==> Syncing skills into .claude/skills/ (flattening categories)..."
 src_skills="$SRC/skills"
 dest_skills=".claude/skills"

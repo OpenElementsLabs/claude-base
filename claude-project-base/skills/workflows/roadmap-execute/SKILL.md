@@ -11,7 +11,7 @@ description: Autonomously execute all steps in a docs/roadmap.md file using sub-
 
 Autonomously work through all steps in a `docs/roadmap.md` by delegating each step to a sub-agent. The orchestrator (this skill) manages sequencing and progress tracking — the sub-agents handle the actual work.
 
-Before starting, read `../../../conventions/spec-driven-development.md` for the spec folder structure and conventions.
+Before starting, read `../_workflow-shared/spec-driven-development.md` for the spec folder structure and conventions.
 
 ## Expected docs/roadmap.md Format
 
@@ -91,7 +91,7 @@ Execute these phases strictly in order:
 ### Phase 1 — Create the spec
 
 Read `docs/specs/INDEX.md` to determine the next spec ID (or create the file if it does not exist).
-Read the convention file `.claude/conventions/spec-driven-development.md` for the required format.
+Read the convention file `../_workflow-shared/spec-driven-development.md` for the required format.
 
 Create a spec folder under `docs/specs/` with:
 

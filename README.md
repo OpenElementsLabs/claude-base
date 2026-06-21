@@ -38,10 +38,10 @@ project-root/
 │   │   ├── security.md
 │   │   ├── software-quality.md
 │   │   ├── backend.md
-│   │   ├── spec-driven-development.md
 │   │   ├── project-specific/          ← your project-specific docs
 │   │   └── ...
 │   └── skills/                        ← auto-discovered by Claude Code
+│       ├── _workflow-shared/          ← shared reference docs for the spec workflows (e.g. spec-driven-development.md)
 │       ├── spec-create/
 │       ├── quality-review/
 │       └── ...
