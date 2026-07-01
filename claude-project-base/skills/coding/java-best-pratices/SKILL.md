@@ -101,11 +101,34 @@ Formatting rules (indentation, charset, line endings) are defined in `.editorcon
 
 ## Null Handling
 
-- Prefer `Optional<T>` for return types that may have no value. Do not use `Optional` as a method parameter, constructor parameter, or field type — use `@Nullable` annotations instead.
+Null handling is based on [JSpecify](https://jspecify.dev). This is **mandatory for all Java code**, not optional documentation — every project must be null-marked so that non-null is the default everywhere.
+
+- **IMPORTANT**: Every Maven/Gradle project or module must declare `org.jspecify:jspecify` as a `compile`-scoped dependency. Add it during project setup, alongside the other mandatory build entries.
+- **IMPORTANT**: Every package must be null-marked. Annotate each package with `@NullMarked` in a `package-info.java` (preferred), or annotate the module once in `module-info.java`. Inside null-marked code **every type is non-null by default**.
+- **IMPORTANT**: Do not sprinkle `@NonNull` on members — it is redundant inside null-marked code. Annotate only the exceptions: put `@Nullable` (from `org.jspecify.annotations`) on any parameter, return type, or field that may legitimately be null. Use `@NullUnmarked` only to temporarily opt a scope back out (e.g. legacy code under migration).
+- Prefer `Optional<T>` for return types that may have no value. Do not use `Optional` as a method parameter, constructor parameter, or field type — use a `@Nullable` parameter/field instead.
 - Prefer `Optional.ofNullable(value)` when nullability is uncertain. Use `Optional.of(value)` only when the value is guaranteed non-null.
-- **IMPORTANT**: Annotate parameters and fields with `@Nullable`, `@NonNull`, `@NullMarked`, or `@NullUnmarked` (using `org.jspecify:jspecify` as compile scoped dependency) to make intent explicit.
-- Use `Objects.requireNonNull(param, "paramName must not be null")` for early validation of non-null parameters — always include the parameter name in the message.
+- Use `Objects.requireNonNull(param, "paramName must not be null")` to validate non-null parameters at public API boundaries — always include the parameter name in the message.
 - **IMPORTANT**: Never return `null` from a method that returns a collection — return an empty collection instead.
+
+Set the null-marked baseline once per package with a `package-info.java`:
+
+```java
+@NullMarked
+package com.example.myapp.service;
+
+import org.jspecify.annotations.NullMarked;
+```
+
+Then annotate only the nullable exceptions within that package:
+
+```java
+public User findById(long id) { ... }              // non-null by default
+
+public @Nullable User findByEmail(String email) {  // may return null → annotated
+    ...
+}
+```
 
 ## Collections
 
