@@ -6,6 +6,7 @@ metadata:
   source: https://github.com/anthropics/skills
   author: Anthropic
   modifications: Adapted for Open Elements projects with business communication rules
+  update: subfiles
 ---
 
 # Doc Co-Authoring Workflow

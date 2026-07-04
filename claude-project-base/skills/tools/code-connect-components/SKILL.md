@@ -6,6 +6,8 @@ metadata:
   source: https://github.com/figma/mcp-server-guide
   author: Figma
   modifications: None
+  update: manual
+  upstream_path: figma-power/steering/code-connect-components.md
 ---
 
 # Code Connect Components

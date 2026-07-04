@@ -6,6 +6,7 @@ metadata:
   source: https://github.com/anthropics/skills
   author: Anthropic
   modifications: None
+  update: overwrite
 ---
 
 # DOCX creation, editing, and analysis

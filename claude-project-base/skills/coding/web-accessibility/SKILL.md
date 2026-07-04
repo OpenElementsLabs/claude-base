@@ -6,6 +6,8 @@ metadata:
   source: https://github.com/addyosmani/web-quality-skills
   author: Addy Osmani
   modifications: Adapted for Open Elements projects
+  update: manual
+  upstream_path: skills/accessibility
 ---
 
 # Accessibility (a11y) for web developers

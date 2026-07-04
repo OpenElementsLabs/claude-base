@@ -6,6 +6,8 @@ metadata:
   source: https://github.com/jgraph/drawio-mcp
   author: JGraph
   modifications: Adapted for Open Elements projects
+  update: manual
+  upstream_path: plugins/claude-code/skills/drawio
 ---
 
 # Draw.io Diagram Skill
