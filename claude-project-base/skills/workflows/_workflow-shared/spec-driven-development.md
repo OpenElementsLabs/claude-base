@@ -63,8 +63,8 @@ Rules:
 
 Describes the technical approach for the change. Sections (include only what is relevant):
 
+- **Summary** — Always the **first section** of the file. A self-contained TL;DR of 3–5 lines that answers *what is being built and why* without requiring the reader to load the rest of the document. This lets an agent read only the top of a large `design.md` (e.g. `head -40 design.md`) to decide whether the full content is needed. Because the Summary lives alongside the design, it never drifts from it.
 - **GitHub Issue** — Link to the source issue
-- **Summary** — What is being built and why (1–2 paragraphs)
 - **Goals** — What this change aims to achieve
 - **Non-goals** — What is explicitly out of scope
 - **Technical approach** — High-level implementation strategy
@@ -78,7 +78,7 @@ Describes the technical approach for the change. Sections (include only what is 
 Key design decisions include a brief **rationale** explaining why the approach was chosen over alternatives.
 
 **For bug fixes**, the design focuses on different sections:
-- **Summary** — What is broken and what is the user-visible impact
+- **Summary** — Always the first section: a self-contained 3–5 line TL;DR of what is broken and the user-visible impact, readable without the rest of the document
 - **Reproduction** — Steps to reproduce the bug, preconditions, environment details
 - **Root cause analysis** — Why the bug occurs, which component is responsible
 - **Fix approach** — How the bug will be fixed, which files/components change

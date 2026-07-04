@@ -86,6 +86,8 @@ Not every section is needed for every task — adapt the content to the type of 
 
 **For features**, the full design structure applies: Summary, Goals, Non-goals, Technical approach, API design, Data model, Key flows, etc.
 
+**Always begin `design.md` with the `## Summary` section** — a self-contained 3–5 line TL;DR of what is being built and why. It must be understandable on its own, so an agent can read just the top of the file (`head -40 design.md`) to decide whether to load the full document. Keep it tight; the detail belongs in the sections below.
+
 **For bug fixes**, the design focuses on different priorities:
 - **Summary** — What is broken and what is the user-visible impact
 - **Reproduction** — Steps to reproduce the bug, including preconditions and environment details

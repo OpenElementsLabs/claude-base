@@ -21,7 +21,7 @@ formats.
 Ask the user which spec to use, or detect it from context. If no spec is specified, check `docs/specs/INDEX.md` for specs
 with status `open` or `in progress` — these are candidates for implementation.
 
-Read both `design.md` and `behaviors.md` from the spec folder.
+Read the `## Summary` at the top of `design.md` first to orient yourself, then read both `design.md` and `behaviors.md` from the spec folder in full — generating a complete implementation plan requires every detail.
 
 Also read any relevant existing code that the implementation will modify or extend. Understand the current state of the
 codebase before planning changes.

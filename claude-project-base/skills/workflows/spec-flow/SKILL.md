@@ -25,7 +25,7 @@ Before starting, read `../_workflow-shared/spec-driven-development.md` for the s
 
 Ask the user which spec to implement, or detect it from context. If no spec is specified, check `docs/specs/INDEX.md` for specs with status `open` — these are candidates.
 
-Read both `design.md` and `behaviors.md` from the spec folder to confirm it is complete enough to implement. If either file is missing or clearly incomplete, tell the user and suggest running `/spec-create` first.
+Start with the `## Summary` at the top of `design.md` to orient yourself, then read both `design.md` and `behaviors.md` from the spec folder to confirm it is complete enough to implement. If either file is missing or clearly incomplete, tell the user and suggest running `/spec-create` first.
 
 ### 2. Ensure a GitHub issue exists
 
@@ -37,7 +37,7 @@ Check the spec's entry in `docs/specs/INDEX.md` for a GitHub issue reference.
 
 1. Derive the issue title from the spec name
 2. Write the issue body with:
-   - A summary from `design.md`
+   - The `## Summary` from `design.md`
    - A link to the spec folder
    - Key behavioral scenarios from `behaviors.md` as acceptance criteria
 3. Create the issue: `gh issue create --title "..." --body "..."`
@@ -122,7 +122,7 @@ Create a PR using the `gh` CLI. The PR should reference the GitHub issue so it c
 gh pr create --title "<short title>" --body "$(cat <<'EOF'
 ## Summary
 
-<2-3 sentence summary from design.md>
+<the `## Summary` from design.md, trimmed to 2–3 sentences>
 
 ## Spec
 

@@ -19,7 +19,7 @@ Before starting, read `../_workflow-shared/spec-driven-development.md` for the f
 
 Ask the user which spec to review, or detect it from context. If no spec is specified, check `docs/specs/INDEX.md` for specs with status `done` or `in progress` — these are candidates for review.
 
-Locate the spec folder under `docs/specs/` and read both `design.md` and `behaviors.md` completely.
+Locate the spec folder under `docs/specs/`. Read the `## Summary` at the top of `design.md` first to orient yourself, then read both `design.md` and `behaviors.md` completely — a review must verify every element, so the full content is always required here.
 
 ### 2. Review against `design.md`
 
