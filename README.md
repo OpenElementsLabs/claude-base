@@ -1,72 +1,83 @@
 # claude-base
 
-A central collection of Claude Code configurations, conventions, and skills for Open Elements projects. Designed to be integrated into any project's `.claude/` directory.
+A Claude Code **plugin** that bundles Open Elements' shared conventions, skills, and MCP servers so every project gets the same high-quality baseline.
 
 ## What is this?
 
-When using [Claude Code](https://docs.anthropic.com/en/docs/claude-code), project-level `CLAUDE.md` files define conventions, rules, and context that Claude follows. Writing and maintaining these from scratch for every project is tedious and leads to inconsistencies.
+When using [Claude Code](https://docs.anthropic.com/en/docs/claude-code), teams want a consistent set of conventions, workflows, and tooling across all their projects. Maintaining these by hand per project is tedious and drifts out of sync.
 
-This repository solves that by providing a shared base configuration in `claude-project-base/`:
+`claude-base` solves this by shipping everything as a versioned plugin:
 
-- **`CLAUDE.md`** — Base conventions for code quality, security, testing, and PRs, plus a **Project Context** section that holds your project-specific context (tech stack, features, structure, architecture)
-- **`conventions/`** — Detailed convention documents for languages, architecture, and tooling (selectively included per project)
-- **`skills/`** — Reusable Claude Code skills, organized by category (`information/`, `tools/`, `workflows/`, `coding/`, `other/`). The setup script flattens these into `.claude/skills/` in the target project so Claude Code's flat skill discovery keeps working.
+- **`skills/`** — reusable Claude Code skills: coding conventions (`java-best-practices`, `modern-java`, `java-api-design`, `java-backend`, `typescript-best-practices`, `web-frontend-builder`, …), spec-driven development workflows (`spec-create`, `spec-flow`, `spec-implement`, `spec-review`, `quality-review`, `roadmap-execute`, …), project tooling (`project-setup`, `github-actions-setup`, `mkdocs-setup`, …), and Open Elements/domain knowledge skills.
+- **`conventions/`** — shared convention documents (`security.md`, `software-quality.md`) that the skills reference via `${CLAUDE_PLUGIN_ROOT}/conventions/…`.
+- **`.mcp.json`** — shared MCP servers (GitHub, Maven Central, Docker, drawio, Figma, shadcn, Coolify). Servers you don't configure credentials for simply stay inactive.
 
-The base `CLAUDE.md` explains which conventions to include for different project types (Java library, TypeScript frontend, fullstack app, etc.) so that only relevant context is loaded.
+## Installation
 
-## How to use in your project
-
-Run the setup script from your project root:
-
-```bash
-curl -sSL https://raw.githubusercontent.com/OpenElementsLabs/claude-base/main/setup.sh | bash
-```
-
-This copies conventions, skills, hooks, MCP config, and settings into `.claude/`, merges `CLAUDE.md` using Claude Code, and updates `.gitignore`. Existing project-specific files are not overwritten. The script is safe to run multiple times.
-
-The resulting project structure:
+Install from inside Claude Code:
 
 ```
-project-root/
-├── CLAUDE.md                          ← base conventions + Project Context (your project-specific context)
-├── .claude/
-│   ├── settings.json                  ← permissions and security (see conventions/security.md)
-│   ├── conventions/                   ← convention documents
-│   │   ├── (java conventions moved to skills: java-best-practices, modern-java, java-api-design)
-│   │   ├── (backend conventions moved to skill: java-backend)
-│   │   ├── (typescript conventions moved to skill: typescript-best-practices)
-│   │   ├── security.md
-│   │   ├── software-quality.md
-│   │   └── ...
-│   └── skills/                        ← auto-discovered by Claude Code
-│       ├── _workflow-shared/          ← shared reference docs for the spec workflows (e.g. spec-driven-development.md)
-│       ├── spec-create/
-│       ├── quality-review/
-│       └── ...
-├── docs/                              ← project documentation (uniform structure)
-│   ├── adr/                           ← architecture decision records (/adr-create)
-│   ├── releases/                      ← release notes & upgrade guides (/release-doc)
-│   ├── specs/                         ← specifications (/spec-create)
-│   └── TODO.md                        ← lightweight backlog of parked ideas (/todo-capture)
-└── ...
+/plugin marketplace add OpenElementsLabs/claude-base
+/plugin install claude-base@open-elements
 ```
 
-After copying, customize the configuration for your project:
+Then restart Claude Code (or run `/reload-plugins`).
 
-- Edit `CLAUDE.md` to select only the conventions relevant to your project type
-- Fill in the **Project Context** section of `CLAUDE.md` with your project's tech stack, features, structure, and architecture (or run `/project-analyze` to generate it automatically)
-- Add project-specific skills in `.claude/skills/`
-- Configure security rules in `.claude/settings.json` (see `conventions/security.md`)
+All skills are **namespaced** under the plugin, e.g. `/claude-base:spec-create`, `/claude-base:quality-review`, `/claude-base:project-analyze`.
 
-### Keeping up to date
+### MCP server credentials
 
-The shared conventions and skills in this repository evolve over time. To pull updates into your project without overwriting your project-specific customizations, use the included **update-claude-base** skill:
+Several bundled MCP servers read environment variables (e.g. `GITHUB_PERSONAL_ACCESS_TOKEN`, `FIGMA_API_KEY`, `COOLIFY_API_URL`/`COOLIFY_API_TOKEN`). Set the ones you need in your project's `.claude/settings.local.json` (gitignored — never commit real tokens):
+
+```json
+{
+  "env": {
+    "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_your_token_here",
+    "GH_TOKEN": "ghp_your_token_here"
+  }
+}
+```
+
+Servers without credentials just don't start; they don't block anything.
+
+## Keeping up to date
+
+Because the plugin is versioned, updates are delivered when the `version` in `plugin.json` is bumped. Pull the latest release with:
 
 ```
-/update-claude-base
+/plugin marketplace update open-elements
 ```
 
-This skill fetches the latest version from [github.com/OpenElementsLabs/claude-base](https://github.com/OpenElementsLabs/claude-base) and updates the shared conventions and skills. Your `CLAUDE.md` — including its **Project Context** section — is merged rather than overwritten, so your project-specific customizations are preserved.
+## What is NOT included anymore
+
+Earlier versions of `claude-base` used a `setup.sh` script that copied files into a project and merged a base `CLAUDE.md`. The plugin model replaces that. It intentionally does **not**:
+
+- merge a base `CLAUDE.md` into your project (a plugin-root `CLAUDE.md` is not loaded as context — keep project rules in your own `CLAUDE.md`),
+- modify your project's `.gitignore`,
+- write a `settings.local.json` for you (see [MCP server credentials](#mcp-server-credentials)).
+
+The old `setup.sh` now only prints these installation instructions.
+
+## Repository layout
+
+```
+claude-base/
+├── .claude-plugin/
+│   ├── plugin.json          # plugin manifest
+│   └── marketplace.json     # marketplace catalog (this repo is its own marketplace)
+├── skills/                  # all skills, flat (Claude Code discovers them here)
+├── conventions/             # shared convention documents
+├── .mcp.json                # shared MCP servers
+├── docs/                    # documentation (workflow guide, design docs)
+├── dev/                     # dev-only material, not shipped as skills
+├── update-skills.sh         # maintainer tool: vendor upstream skills into this repo
+└── CHANGELOG.md
+```
+
+## For maintainers
+
+- **Vendoring upstream skills:** some skills originate from external repos and declare their provenance in the `metadata` block of their `SKILL.md`. Run `./update-skills.sh` to pull upstream changes into this repo. This is unrelated to distribution.
+- **Releasing:** bump `version` in **both** `.claude-plugin/plugin.json` and the `claude-base` entry in `.claude-plugin/marketplace.json`, update `CHANGELOG.md`, and tag the release. Validate with `claude plugin validate ./ --strict`.
 
 ## License
 

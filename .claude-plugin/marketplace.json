@@ -1,0 +1,31 @@
+{
+  "name": "open-elements",
+  "owner": {
+    "name": "Open Elements",
+    "email": "hendrik.ebbers@open-elements.com"
+  },
+  "description": "Open Elements marketplace for Claude Code plugins.",
+  "plugins": [
+    {
+      "name": "claude-base",
+      "source": "./",
+      "description": "Reusable Claude Code configuration for Open Elements projects: coding conventions, spec-driven development workflows, Java/TypeScript best practices, project tooling skills, and shared MCP servers.",
+      "version": "0.12.0",
+      "author": {
+        "name": "Open Elements"
+      },
+      "homepage": "https://github.com/OpenElementsLabs/claude-base",
+      "repository": "https://github.com/OpenElementsLabs/claude-base",
+      "license": "Apache-2.0",
+      "category": "productivity",
+      "keywords": [
+        "open-elements",
+        "conventions",
+        "java",
+        "typescript",
+        "spec-driven-development",
+        "workflows"
+      ]
+    }
+  ]
+}

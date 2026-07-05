@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "claude-base",
+  "displayName": "Open Elements Claude Base",
+  "version": "0.12.0",
+  "description": "Reusable Claude Code configuration for Open Elements projects: coding conventions, spec-driven development workflows, Java/TypeScript best practices, project tooling skills, and shared MCP servers.",
+  "author": {
+    "name": "Open Elements",
+    "url": "https://open-elements.com"
+  },
+  "homepage": "https://github.com/OpenElementsLabs/claude-base",
+  "repository": "https://github.com/OpenElementsLabs/claude-base",
+  "license": "Apache-2.0",
+  "keywords": [
+    "open-elements",
+    "conventions",
+    "java",
+    "typescript",
+    "spec-driven-development",
+    "workflows"
+  ]
+}

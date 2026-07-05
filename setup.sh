@@ -1,192 +1,30 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Open Elements Claude Base — Setup Script
-# Copies claude-project-base into the current project's .claude/ directory
-# and merges CLAUDE.md using Claude Code.
+# Open Elements Claude Base — Setup Notice
 #
-# Usage (run from your project root):
-#   curl -sSL https://raw.githubusercontent.com/OpenElementsLabs/claude-base/main/setup.sh | bash
+# claude-base is now distributed as a Claude Code PLUGIN via a marketplace,
+# not by copying files into a project's .claude/ directory. This script no
+# longer copies anything; it only points you to the new installation flow.
+#
+# (Kept so existing `curl ... | bash` bookmarks fail soft and guide users.)
 
-REPO_URL="https://github.com/OpenElementsLabs/claude-base.git"
-TMPDIR_BASE="${TMPDIR:-/tmp}"
-WORK_DIR="$TMPDIR_BASE/claude-base-setup-$$"
+cat <<'EOF'
 
-cleanup() {
-  rm -rf "$WORK_DIR"
-}
-trap cleanup EXIT
+  Open Elements Claude Base is now a Claude Code plugin.
 
-# Resolve the latest semver tag (e.g. v2.1.1) from the remote
-echo "==> Finding latest release tag..."
-LATEST_TAG="$(git ls-remote --tags --sort=-v:refname "$REPO_URL" 'v*' \
-  | head -n 1 \
-  | sed 's|.*refs/tags/||')"
+  Install it from inside Claude Code:
 
-if [ -z "$LATEST_TAG" ]; then
-  echo "    WARNING: No version tags found — falling back to main branch"
-  LATEST_TAG="main"
-else
-  echo "    Using tag: $LATEST_TAG"
-fi
+    /plugin marketplace add OpenElementsLabs/claude-base
+    /plugin install claude-base@open-elements
 
-echo "==> Cloning claude-base ($LATEST_TAG) into temporary directory..."
-git clone --depth 1 --branch "$LATEST_TAG" "$REPO_URL" "$WORK_DIR" 2>/dev/null
+  Then restart Claude Code (or run /reload-plugins). All skills are namespaced,
+  e.g. /claude-base:spec-create, /claude-base:quality-review.
 
-SRC="$WORK_DIR/claude-project-base"
+  Update to a newer release later with:
 
-# --- Sync conventions and hooks into .claude/ ---
-# Base items are overwritten to stay up to date.
-# Project-specific context lives in the project's CLAUDE.md (Project Context section),
-# which is merged — not overwritten — further below, so project-owned content is preserved.
-echo "==> Syncing conventions and hooks into .claude/..."
-for dir in conventions hooks; do
-  src_dir="$SRC/$dir"
-  dest_dir=".claude/$dir"
-  [ -d "$src_dir" ] || continue
-  mkdir -p "$dest_dir"
+    /plugin marketplace update open-elements
 
-  for item in "$src_dir"/*; do
-    name="$(basename "$item")"
-    dest="$dest_dir/$name"
+  Details: https://github.com/OpenElementsLabs/claude-base#readme
 
-    if [ -e "$dest" ]; then
-      rm -rf "$dest"
-      echo "    Updated $dir/$name"
-    else
-      echo "    Copied $dir/$name"
-    fi
-    cp -R "$item" "$dest"
-  done
-done
-
-# --- Sync skills into .claude/skills/ (flatten categories) ---
-# Source layout: claude-project-base/skills/<category>/<skill-name>/SKILL.md
-# Target layout: .claude/skills/<skill-name>/SKILL.md
-# The categories (information/, tools/, workflows/, coding/, other/) are
-# kept in the source repo for navigation but flattened in the target so
-# Claude Code's skill discovery (which expects flat skills) works unchanged.
-# Convention paths inside SKILL.md files reference `../../../conventions/`
-# in the source (skill is three levels deep). After flattening they live
-# two levels deep, so we rewrite them to `../../conventions/` on copy.
-# Note: `skills/workflows/_workflow-shared/` holds reference docs shared by the
-# spec workflow skills (it has no SKILL.md, so discovery ignores it). It is
-# copied like any skill dir to `.claude/skills/_workflow-shared/`, which keeps
-# the `../_workflow-shared/` sibling paths valid in both layouts unchanged.
-echo "==> Syncing skills into .claude/skills/ (flattening categories)..."
-src_skills="$SRC/skills"
-dest_skills=".claude/skills"
-if [ -d "$src_skills" ]; then
-  mkdir -p "$dest_skills"
-
-  for category_dir in "$src_skills"/*/; do
-    [ -d "$category_dir" ] || continue
-    for skill_dir in "$category_dir"*/; do
-      [ -d "$skill_dir" ] || continue
-      skill_name="$(basename "$skill_dir")"
-      dest="$dest_skills/$skill_name"
-
-      if [ -e "$dest" ]; then
-        rm -rf "$dest"
-        echo "    Updated skills/$skill_name"
-      else
-        echo "    Copied skills/$skill_name"
-      fi
-      cp -R "$skill_dir" "$dest"
-
-      # Adjust convention paths: ../../../conventions/ -> ../../conventions/
-      find "$dest" -name 'SKILL.md' -type f -print0 | while IFS= read -r -d '' f; do
-        if grep -q '\.\./\.\./\.\./conventions/' "$f"; then
-          perl -i -pe 's|\.\./\.\./\.\./conventions/|\.\./\.\./conventions/|g' "$f"
-        fi
-      done
-    done
-  done
-fi
-
-# --- Copy settings.local.json into .claude/ ---
-if [ -f "$SRC/settings.local.json" ]; then
-  if [ -f .claude/settings.local.json ]; then
-    echo "    .claude/settings.local.json already exists — skipping (will not overwrite)"
-  else
-    cp "$SRC/settings.local.json" .claude/
-    echo "    Copied settings.local.json into .claude/"
-  fi
-fi
-
-# --- Copy automated-spec-implementation-prompt.md into .claude/ ---
-if [ -f "$SRC/automated-spec-implementation-prompt.md" ]; then
-  cp "$SRC/automated-spec-implementation-prompt.md" .claude/
-  echo "    Copied automated-spec-implementation-prompt.md into .claude/"
-fi
-
-# --- Copy .mcp.json into .claude/ ---
-if [ -f "$SRC/.mcp.json" ]; then
-  if [ -f .claude/.mcp.json ]; then
-    echo "    .claude/.mcp.json already exists — skipping (will not overwrite)"
-  else
-    cp "$SRC/.mcp.json" .claude/.mcp.json
-    echo "    Copied .mcp.json into .claude/"
-  fi
-fi
-
-# --- Append gitignore additions ---
-if [ -f "$SRC/PROJECT_GITIGNORE_ADDITITIONS" ]; then
-  echo "==> Updating .gitignore..."
-  touch .gitignore
-  # Ensure the file ends with a newline so the first addition isn't glued onto the last line.
-  if [ -s .gitignore ] && [ -n "$(tail -c 1 .gitignore)" ]; then
-    echo "" >> .gitignore
-  fi
-  while IFS= read -r line || [ -n "$line" ]; do
-    if [ -n "$line" ] && ! grep -qxF "$line" .gitignore; then
-      echo "$line" >> .gitignore
-      echo "    Added '$line' to .gitignore"
-    fi
-  done < "$SRC/PROJECT_GITIGNORE_ADDITITIONS"
-fi
-
-# --- Merge CLAUDE.md using Claude Code ---
-if [ -f "$SRC/PROJECT_CLAUDE.md" ]; then
-  echo "==> Merging CLAUDE.md..."
-  if [ -f CLAUDE.md ]; then
-    # Project already has a CLAUDE.md — use Claude to merge
-    echo "    Existing CLAUDE.md found — merging with base (this may take a moment)..."
-    cp "$SRC/PROJECT_CLAUDE.md" .claude/_base_claude.md
-    MERGED="$(claude --print --model sonnet -p "$(cat <<'PROMPT'
-Read the files .claude/_base_claude.md and CLAUDE.md.
-Merge them into a single Markdown document. Rules:
-- Base content (.claude/_base_claude.md) comes first, then project-specific content.
-- Do not duplicate rules that appear in both files.
-- Keep all project-specific rules, paths, and configurations from CLAUDE.md.
-- Keep all base rules from _base_claude.md.
-- For the "## Project Context" section: keep the existing CLAUDE.md content for any subsection that is already
-  filled in. Only use the base's placeholder comments for subsections that do not exist yet in CLAUDE.md.
-  Never replace filled-in project context with empty placeholders.
-- If rules conflict, the project-specific version wins.
-- Output ONLY the merged Markdown content, no explanations or code fences.
-PROMPT
-)")"
-    if [ -n "$MERGED" ]; then
-      echo "$MERGED" > CLAUDE.md
-      echo "    Merged CLAUDE.md (base + project-specific)"
-    else
-      echo "    WARNING: Claude returned empty result — keeping existing CLAUDE.md unchanged"
-      echo "    You can merge manually: base is at .claude/_base_claude.md"
-    fi
-    rm -f .claude/_base_claude.md
-  else
-    # No existing CLAUDE.md — just copy the base
-    cp "$SRC/PROJECT_CLAUDE.md" CLAUDE.md
-    echo "    Created CLAUDE.md from base template"
-  fi
-fi
-
-echo ""
-echo "==> Done! Claude base configuration has been applied."
-echo ""
-echo "Next steps:"
-echo "  1. Review CLAUDE.md and remove convention references not needed for your project"
-echo "  2. Fill in API keys in .claude/settings.local.json"
-echo "  3. Review .mcp.json and remove MCP servers you don't need"
-echo "  4. Run 'claude' to start using the configuration"
+EOF
