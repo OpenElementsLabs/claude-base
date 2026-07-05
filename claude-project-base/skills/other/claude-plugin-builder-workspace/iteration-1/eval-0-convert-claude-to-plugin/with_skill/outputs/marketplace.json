@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "your-org",
+  "owner": {
+    "name": "Your Org",
+    "email": "dev@your-org.example"
+  },
+  "plugins": [
+    {
+      "name": "team-toolkit",
+      "source": "./team-toolkit",
+      "description": "Shared slash commands and a code-review subagent for our team."
+    }
+  ]
+}

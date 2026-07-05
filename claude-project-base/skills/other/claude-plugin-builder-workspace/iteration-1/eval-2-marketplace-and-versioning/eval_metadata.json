@@ -1,0 +1,12 @@
+{
+  "eval_id": 2,
+  "eval_name": "marketplace-and-versioning",
+  "prompt": "How do I set up a plugin marketplace so my team automatically gets our plugins when they open the repo, and how do versioning and updates actually work? We push changes often.",
+  "assertions": [
+    "Explains the marketplace catalog file at .claude-plugin/marketplace.json",
+    "Shows extraKnownMarketplaces (and enabledPlugins) in project .claude/settings.json so teammates are auto-prompted when they trust the repo",
+    "States that an explicit version in plugin.json must be bumped on every release or users won't receive updates",
+    "Given frequent pushes, recommends omitting version so the git commit SHA is used and every commit counts as an update",
+    "Mentions /plugin marketplace update (or auto-update) to refresh the marketplace"
+  ]
+}

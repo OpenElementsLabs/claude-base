@@ -1,0 +1,12 @@
+{
+  "eval_id": 1,
+  "eval_name": "build-mcp-skill-plugin",
+  "prompt": "Create a Claude Code plugin called db-tools that bundles an MCP server (a node script at servers/index.js) and a skill for writing database migrations. Give me the full directory layout and the files I need, including plugin.json and the MCP configuration.",
+  "assertions": [
+    "plugin.json is at .claude-plugin/plugin.json with name db-tools",
+    "A skill exists as skills/<name>/SKILL.md with a description in its frontmatter",
+    "An MCP configuration (.mcp.json or mcpServers in plugin.json) is provided that runs servers/index.js",
+    "The MCP server command/args path uses ${CLAUDE_PLUGIN_ROOT} instead of an absolute or hard-coded path",
+    "All component directories are at the plugin root, not inside .claude-plugin/"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "db-tools",
+  "displayName": "Database Tools",
+  "version": "1.0.0",
+  "description": "Database tooling for Claude Code: an MCP server for inspecting and querying databases, plus a skill for writing safe, reversible database migrations.",
+  "author": {
+    "name": "Your Name",
+    "email": "you@example.com"
+  },
+  "license": "Apache-2.0",
+  "keywords": ["database", "migrations", "mcp", "sql"]
+}

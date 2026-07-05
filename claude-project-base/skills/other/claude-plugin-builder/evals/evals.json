@@ -1,0 +1,47 @@
+{
+  "skill_name": "claude-plugin-builder",
+  "evals": [
+    {
+      "id": 0,
+      "name": "convert-claude-to-plugin",
+      "prompt": "I've got a few slash commands and a code-review agent in my project's .claude/ folder that I want to share with my team. Turn them into a Claude Code plugin I can host on our GitHub org. Show me the exact directory layout, the plugin.json, and how my teammates would install it.",
+      "expected_output": "A correct plugin structure with .claude-plugin/plugin.json (name required), commands/ and agents/ at the plugin ROOT, a marketplace.json for GitHub hosting, and namespaced install instructions.",
+      "files": [],
+      "expectations": [
+        "plugin.json is placed at .claude-plugin/plugin.json",
+        "plugin.json includes a name field (required)",
+        "commands/ and agents/ directories are at the plugin root, NOT inside .claude-plugin/",
+        "A marketplace.json (or a github plugin source) is provided so the plugin can be hosted on GitHub",
+        "Install instructions use /plugin marketplace add <owner/repo> and /plugin install <name>@<marketplace>, and note that plugin skills/commands are namespaced"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "build-mcp-skill-plugin",
+      "prompt": "Create a Claude Code plugin called db-tools that bundles an MCP server (a node script at servers/index.js) and a skill for writing database migrations. Give me the full directory layout and the files I need, including plugin.json and the MCP configuration.",
+      "expected_output": "Plugin root with .claude-plugin/plugin.json, skills/<name>/SKILL.md, and .mcp.json referencing servers/index.js via ${CLAUDE_PLUGIN_ROOT}. Components at plugin root.",
+      "files": [],
+      "expectations": [
+        "plugin.json is at .claude-plugin/plugin.json with name db-tools",
+        "A skill exists as skills/<name>/SKILL.md with a description in its frontmatter",
+        "An MCP configuration (.mcp.json or mcpServers in plugin.json) is provided that runs servers/index.js",
+        "The MCP server command/args path uses ${CLAUDE_PLUGIN_ROOT} instead of an absolute or hard-coded path",
+        "All component directories are at the plugin root, not inside .claude-plugin/"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "marketplace-and-versioning",
+      "prompt": "How do I set up a plugin marketplace so my team automatically gets our plugins when they open the repo, and how do versioning and updates actually work? We push changes often.",
+      "expected_output": "Explains .claude-plugin/marketplace.json, extraKnownMarketplaces + enabledPlugins for auto-prompting, version resolution (bump explicit version vs omit for commit-SHA), and /plugin marketplace update.",
+      "files": [],
+      "expectations": [
+        "Explains the marketplace catalog file at .claude-plugin/marketplace.json",
+        "Shows extraKnownMarketplaces (and enabledPlugins) in project .claude/settings.json so teammates are auto-prompted when they trust the repo",
+        "States that an explicit version in plugin.json must be bumped on every release or users won't receive updates",
+        "Given frequent pushes, recommends omitting version so the git commit SHA is used and every commit counts as an update",
+        "Mentions /plugin marketplace update (or auto-update) to refresh the marketplace"
+      ]
+    }
+  ]
+}

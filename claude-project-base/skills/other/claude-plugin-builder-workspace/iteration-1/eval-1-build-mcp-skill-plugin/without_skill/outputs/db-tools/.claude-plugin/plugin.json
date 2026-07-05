@@ -1,0 +1,18 @@
+{
+  "name": "db-tools",
+  "version": "0.1.0",
+  "description": "Database tooling for Claude Code: an MCP server exposing database operations plus a skill for writing safe, reversible database migrations.",
+  "author": {
+    "name": "Open Elements",
+    "email": "info@open-elements.com"
+  },
+  "homepage": "https://github.com/OpenElementsLabs/db-tools",
+  "license": "Apache-2.0",
+  "keywords": [
+    "database",
+    "migrations",
+    "mcp",
+    "sql"
+  ],
+  "mcpServers": "./.mcp.json"
+}

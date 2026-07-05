@@ -1,0 +1,14 @@
+{
+  "name": "my-plugin",
+  "version": "1.0.0",
+  "description": "Shared slash commands and a code-review agent for our team.",
+  "author": {
+    "name": "Your Team",
+    "email": "team@your-org.example",
+    "url": "https://github.com/your-org"
+  },
+  "homepage": "https://github.com/your-org/my-plugin",
+  "repository": "https://github.com/your-org/my-plugin",
+  "license": "MIT",
+  "keywords": ["code-review", "commands", "team"]
+}

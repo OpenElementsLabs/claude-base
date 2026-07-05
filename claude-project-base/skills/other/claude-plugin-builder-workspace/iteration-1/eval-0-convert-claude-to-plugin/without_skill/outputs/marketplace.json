@@ -1,0 +1,14 @@
+{
+  "name": "your-org",
+  "owner": {
+    "name": "Your Org",
+    "url": "https://github.com/your-org"
+  },
+  "plugins": [
+    {
+      "name": "my-plugin",
+      "source": "./my-plugin",
+      "description": "Shared slash commands and a code-review agent for our team."
+    }
+  ]
+}

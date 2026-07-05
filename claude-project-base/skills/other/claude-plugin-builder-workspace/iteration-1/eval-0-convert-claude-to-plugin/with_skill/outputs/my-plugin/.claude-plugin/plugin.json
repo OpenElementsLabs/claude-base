@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "team-toolkit",
+  "displayName": "Team Toolkit",
+  "description": "Shared slash commands and a code-review subagent for our team.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Your Team",
+    "email": "dev@your-org.example"
+  },
+  "homepage": "https://github.com/your-org/claude-plugins",
+  "repository": "https://github.com/your-org/claude-plugins",
+  "license": "MIT",
+  "keywords": ["code-review", "commands", "team", "workflow"]
+}

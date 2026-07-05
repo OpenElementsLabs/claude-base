@@ -1,0 +1,12 @@
+{
+  "eval_id": 0,
+  "eval_name": "convert-claude-to-plugin",
+  "prompt": "I've got a few slash commands and a code-review agent in my project's .claude/ folder that I want to share with my team. Turn them into a Claude Code plugin I can host on our GitHub org. Show me the exact directory layout, the plugin.json, and how my teammates would install it.",
+  "assertions": [
+    "plugin.json is placed at .claude-plugin/plugin.json",
+    "plugin.json includes a name field (required)",
+    "commands/ and agents/ directories are at the plugin root, NOT inside .claude-plugin/",
+    "A marketplace.json (or a github plugin source) is provided so the plugin can be hosted on GitHub",
+    "Install instructions use /plugin marketplace add <owner/repo> and /plugin install <name>@<marketplace>, and note that plugin skills/commands are namespaced"
+  ]
+}
