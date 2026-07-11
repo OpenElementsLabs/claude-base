@@ -4,7 +4,7 @@ license: Apache-2.0
 metadata:
   source: https://github.com/open-elements/claude-base
   author: Open Elements
-description: Best practices for writing TypeScript code at Open Elements — covers the React/Next.js/Tailwind/shadcn stack, code style, package management, testing, i18n, logging, error handling, and the Next.js-specific pitfalls that bite during `next build` (Suspense boundaries, `dynamic = 'force-dynamic'`, `output: 'standalone'`). Should be automatically loaded whenever TypeScript or React code is planned, generated, or reviewed — including any work touching `.ts`/`.tsx`/`tsconfig.json`/`next.config.ts`/`tailwind.config.*`/`package.json`, components, hooks (`useSearchParams`, `usePathname`, `useRouter`), shadcn/ui setup, pnpm workflows, ESLint/Prettier, or i18n strings.
+description: Best practices for writing TypeScript code at Open Elements — covers the React/Next.js/Tailwind/shadcn stack, code style, documentation, package management, testing, i18n, logging, error handling, and the Next.js-specific pitfalls that bite during `next build` (Suspense boundaries, `dynamic = 'force-dynamic'`, `output: 'standalone'`). Should be automatically loaded whenever TypeScript or React code is planned, generated, or reviewed — including any work touching `.ts`/`.tsx`/`tsconfig.json`/`next.config.ts`/`tailwind.config.*`/`package.json`, components, hooks (`useSearchParams`, `usePathname`, `useRouter`), shadcn/ui setup, pnpm workflows, ESLint/Prettier, or i18n strings.
 ---
 
 # TypeScript Best Practices
@@ -99,6 +99,16 @@ Formatting rules (indentation, charset, line endings) are defined in `.editorcon
 - Use `const` by default. Use `let` only when reassignment is needed. **IMPORTANT**: Never use `var`.
 - Prefer `readonly` for properties that should not be reassigned after initialization.
 - Follow standard naming: `PascalCase` for types/interfaces/classes, `camelCase` for variables/functions, `UPPER_SNAKE_CASE` for constants.
+
+## Documentation
+
+- **IMPORTANT**: All source code must be documented. Never generate or leave undocumented code.
+- **IMPORTANT**: Every exported member (function, class, interface, type, enum, constant, React component, and hook) must have a [TSDoc](https://tsdoc.org/) / JSDoc comment (`/** … */`) describing its purpose.
+- Document *why* the code exists and what it does at the level of intent — do not merely restate the signature. A comment like `// increments i` on `i++` adds nothing; explain the non-obvious.
+- For functions, document the behavior and any non-obvious parameters, return values, and thrown errors using `@param`, `@returns`, and `@throws` where they add clarity. Do not duplicate type information already expressed by TypeScript types.
+- For React components, document what the component renders and describe its props (typically via TSDoc on the props `interface`).
+- Add explanatory inline comments for complex or non-obvious logic (algorithms, workarounds, business rules), including a short rationale for the workaround and a link to the relevant issue where applicable.
+- Keep documentation accurate and in sync with the code — update comments whenever you change the behavior they describe. Outdated documentation is worse than none.
 
 ## Tool & Runtime Versions
 

@@ -4,7 +4,7 @@ license: Apache-2.0
 metadata:
   source: https://github.com/open-elements/claude-base
   author: Hendrik Ebbers
-description: Several best practices for writing Java code, including API design, generics, design patterns, modularization, defensive coding, and stability. Should be automatically loaded whenever Java code is planned, generated or reviewed.
+description: Several best practices for writing Java code, including API design, documentation, generics, design patterns, modularization, defensive coding, and stability. Should be automatically loaded whenever Java code is planned, generated or reviewed.
 ---
 
 # Java Best Practices
@@ -47,7 +47,15 @@ Formatting rules (indentation, charset, line endings) are defined in `.editorcon
 - Always override `equals`, `hashCode`, and `toString` together for non-record classes. Use `Objects.equals()` and
   `Objects.hash()` as helpers.
 - Format `toString` as `ClassName[field1=value1, field2=value2]`. **IMPORTANT**: Never expose sensitive data (passwords, tokens) in `toString`.
-- **IMPORTANT**: All public API (public classes, interfaces, methods, constructors, and fields) must have Javadoc comments.
+
+## Documentation
+
+- **IMPORTANT**: All source code must be documented. Never generate or leave undocumented code.
+- **IMPORTANT**: All public API (public classes, interfaces, methods, constructors, and fields) must have [Javadoc](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html) comments describing its purpose.
+- Document *why* the code exists and what it does at the level of intent — do not merely restate the signature. A comment like `// increment i` on `i++` adds nothing; explain the non-obvious.
+- Use `@param`, `@return`, and `@throws` to document parameters, return values, and checked/unchecked exceptions where they add clarity. Do not duplicate information already expressed by the type signature.
+- Add explanatory inline comments for complex or non-obvious logic (algorithms, workarounds, business rules), including a short rationale for the workaround and a link to the relevant issue where applicable.
+- Keep documentation accurate and in sync with the code — update comments whenever you change the behavior they describe. Outdated documentation is worse than none.
 
 ## Build Tools
 
